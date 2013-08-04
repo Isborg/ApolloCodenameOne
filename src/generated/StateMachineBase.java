@@ -32,8 +32,8 @@ public abstract class StateMachineBase extends UIBuilder {
 
     public Container startApp(Resources res, String resPath, boolean loadTheme) {
         initVars();
+        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
-        UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -51,9 +51,9 @@ public abstract class StateMachineBase extends UIBuilder {
             setResourceFilePath(resPath);
             setResourceFile(res);
             initVars(res);
-            return showForm("Main", null);
+            return showForm(getFirstFormName(), null);
         } else {
-            Form f = (Form)createContainer(resPath, "Main");
+            Form f = (Form)createContainer(resPath, getFirstFormName());
             initVars(fetchResourceFile());
             beforeShow(f);
             f.show();
@@ -62,10 +62,14 @@ public abstract class StateMachineBase extends UIBuilder {
         }
     }
 
+    protected String getFirstFormName() {
+        return "GUI 1";
+    }
+
     public Container createWidget(Resources res, String resPath, boolean loadTheme) {
         initVars();
+        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
-        UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -74,7 +78,7 @@ public abstract class StateMachineBase extends UIBuilder {
             }
             initTheme(res);
         }
-        return createContainer(resPath, "Main");
+        return createContainer(resPath, "GUI 1");
     }
 
     protected void initTheme(Resources res) {
@@ -103,21 +107,54 @@ public abstract class StateMachineBase extends UIBuilder {
         this(res, null, loadTheme);
     }
 
-    public com.codename1.ui.Label findLabel(Component root) {
-        return (com.codename1.ui.Label)findByName("Label", root);
+    public com.codename1.ui.Button findButton(Component root) {
+        return (com.codename1.ui.Button)findByName("Button", root);
     }
 
-    public com.codename1.ui.Label findLabel() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label", Display.getInstance().getCurrent());
+    public com.codename1.ui.Button findButton() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Button", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("Label", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Button)findByName("Button", aboutToShowThisContainer);
         }
         return cmp;
     }
 
+    public static final int COMMAND_GUI1Bbbbb = 3;
+    public static final int COMMAND_GUI1ASas = 2;
+
+    protected boolean onGUI1Bbbbb() {
+        return false;
+    }
+
+    protected boolean onGUI1ASas() {
+        return false;
+    }
+
+    protected void processCommand(ActionEvent ev, Command cmd) {
+        switch(cmd.getId()) {
+            case COMMAND_GUI1Bbbbb:
+                if(onGUI1Bbbbb()) {
+                    ev.consume();
+                    return;
+                }
+                break;
+
+            case COMMAND_GUI1ASas:
+                if(onGUI1ASas()) {
+                    ev.consume();
+                    return;
+                }
+                break;
+
+        }
+        if(ev.getComponent() != null) {
+            handleComponentAction(ev.getComponent(), ev);
+        }
+    }
+
     protected void exitForm(Form f) {
-        if("Main".equals(f.getName())) {
-            exitMain(f);
+        if("GUI 1".equals(f.getName())) {
+            exitGUI1(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -125,13 +162,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void exitMain(Form f) {
+    protected void exitGUI1(Form f) {
     }
 
     protected void beforeShow(Form f) {
     aboutToShowThisContainer = f;
-        if("Main".equals(f.getName())) {
-            beforeMain(f);
+        if("GUI 1".equals(f.getName())) {
+            beforeGUI1(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -139,13 +176,13 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeMain(Form f) {
+    protected void beforeGUI1(Form f) {
     }
 
     protected void beforeShowContainer(Container c) {
     aboutToShowThisContainer = c;
-        if("Main".equals(c.getName())) {
-            beforeContainerMain(c);
+        if("GUI 1".equals(c.getName())) {
+            beforeContainerGUI1(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -153,12 +190,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeContainerMain(Container c) {
+    protected void beforeContainerGUI1(Container c) {
     }
 
     protected void postShow(Form f) {
-        if("Main".equals(f.getName())) {
-            postMain(f);
+        if("GUI 1".equals(f.getName())) {
+            postGUI1(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -166,12 +203,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postMain(Form f) {
+    protected void postGUI1(Form f) {
     }
 
     protected void postShowContainer(Container c) {
-        if("Main".equals(c.getName())) {
-            postContainerMain(c);
+        if("GUI 1".equals(c.getName())) {
+            postContainerGUI1(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -179,12 +216,12 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postContainerMain(Container c) {
+    protected void postContainerGUI1(Container c) {
     }
 
     protected void onCreateRoot(String rootName) {
-        if("Main".equals(rootName)) {
-            onCreateMain();
+        if("GUI 1".equals(rootName)) {
+            onCreateGUI1();
             aboutToShowThisContainer = null;
             return;
         }
@@ -192,7 +229,27 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void onCreateMain() {
+    protected void onCreateGUI1() {
     }
+
+    protected void handleComponentAction(Component c, ActionEvent event) {
+        Container rootContainerAncestor = getRootAncestor(c);
+        if(rootContainerAncestor == null) return;
+        String rootContainerName = rootContainerAncestor.getName();
+        Container leadParentContainer = c.getParent().getLeadParent();
+        if(leadParentContainer != null && leadParentContainer.getClass() != Container.class) {
+            c = c.getParent().getLeadParent();
+        }
+        if(rootContainerName == null) return;
+        if(rootContainerName.equals("GUI 1")) {
+            if("Button".equals(c.getName())) {
+                onGUI1_ButtonAction(c, event);
+                return;
+            }
+        }
+    }
+
+      protected void onGUI1_ButtonAction(Component c, ActionEvent event) {
+      }
 
 }
