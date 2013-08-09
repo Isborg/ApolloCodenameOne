@@ -15,6 +15,8 @@ import com.imaginario.apollo.entidades.Nota;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.entidades.Recordatorio;
+import com.imaginario.apollo.utilidades.Deposito;
+import com.imaginario.apollo.utilidades.MenuHamburguesa;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -27,11 +29,11 @@ public class ApolloMain {
     public void init(Object context) {
     }
 
-    public void start() {
+    public void start() {/*
         if(current != null){
             current.show();
             return;
-        }
+        }*/
         new StateMachine("/theme");
         
         if(Storage.getInstance().readObject("depositoProfesores") == null){
@@ -47,6 +49,16 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoProfesores", new Hashtable());
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
+        
+        current = new Form();
+        
+        Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
+        Deposito.guardarProfesor(profesor);
+        Periodo periodo1 = new Periodo(1,(short)2013,"Cuatrimestral",(byte)2,"Universidad Latina",1);
+        Deposito.guardarPeriodo(periodo1);
+        
+        MenuHamburguesa.agregar(current, profesor);
+        current.show();
     }
 
     public void stop() {

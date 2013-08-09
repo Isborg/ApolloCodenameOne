@@ -4,6 +4,8 @@
  */
 package com.imaginario.apollo.entidades;
 
+import java.util.Hashtable;
+
 /**
  *
  * @author Ismael
@@ -24,6 +26,27 @@ public class Nota extends Entidad {
 
     public Nota(){
         setColumnas(new String[]{"id","valor","asignacion","estudiante"});
+    }
+    
+    public Nota(Hashtable table){
+        Nota entidad = new Nota();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setValor((Byte)table.get(getColumnas()[1]));
+        entidad.setAsignacion((Integer)table.get(getColumnas()[2]));
+        entidad.setEstudiante((Integer)table.get(getColumnas()[3]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getValor(),getAsignacion(),getEstudiante()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override

@@ -5,6 +5,7 @@
 package com.imaginario.apollo.entidades;
 
 import java.util.Date;
+import java.util.Hashtable;
 
 /**
  *
@@ -26,6 +27,27 @@ public class Recordatorio extends Entidad {
 
     public Recordatorio(){
         setColumnas(new String[]{"id","fecha","texto","instanciacurso"});
+    }
+    
+    public Recordatorio(Hashtable table){
+        Recordatorio entidad = new Recordatorio();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setFecha((Date)table.get(getColumnas()[1]));
+        entidad.setTexto((String)table.get(getColumnas()[2]));
+        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[3]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getFecha(),getTexto(),getInstanciaCurso()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override

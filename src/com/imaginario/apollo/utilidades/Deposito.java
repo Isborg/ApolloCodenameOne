@@ -28,123 +28,123 @@ public class Deposito {
     
     public static void guardarAsignacion(Asignacion entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoAsignaciones");
-        entidades.put(entidad.getId(), HashtableControls.AsignacionToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoAsignaciones", entidades);
     }
     
     public static void guardarAsistencia(Asistencia entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoAsistencias");
-        entidades.put(entidad.getId(), HashtableControls.AsistenciaToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoAsistencias", entidades);
     }
     
     public static void guardarCurso(Curso entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoCursos");
-        entidades.put(entidad.getId(), HashtableControls.CursoToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoCursos", entidades);
     }
     
     public static void guardarEstudiante(Estudiante entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoEstudiantes");
-        entidades.put(entidad.getId(), HashtableControls.EstudianteToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoEstudiantes", entidades);
     }
     
     public static void guardarHorario(Horario entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoHorarios");
-        entidades.put(entidad.getId(), HashtableControls.HorarioToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoHorarios", entidades);
     }
     
     public static void guardarInstancia(InstanciaCurso entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoInstancias");
-        entidades.put(entidad.getId(), HashtableControls.InstanciaToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoInstancias", entidades);
     }
     
     public static void guardarMateria(Materia entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoMaterias");
-        entidades.put(entidad.getId(), HashtableControls.MateriaToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoMaterias", entidades);
     }
     
     public static void guardarNota(Nota entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoNotas");
-        entidades.put(entidad.getId(), HashtableControls.NotaToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoNotas", entidades);
     }
     
     public static void guardarPeriodo(Periodo entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoPeriodos");
-        entidades.put(entidad.getId(), HashtableControls.PeriodoToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoPeriodos", entidades);
     }
     
     public static void guardarProfesor(Profesor entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoProfesores");
-        entidades.put(entidad.getId(), HashtableControls.ProfesorToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoProfesores", entidades);
     }
     
     public static void guardarRecordatorio(Recordatorio entidad){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject("depositoRecordatorios");
-        entidades.put(entidad.getId(), HashtableControls.RecordatorioToHashtable(entidad));
+        entidades.put(entidad.getId(), entidad.toHashtable());
         Storage.getInstance().writeObject("depositoRecordatorios", entidades);
     }
     
     public static Asignacion getAsignacionById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoAsignaciones")).get(id);
-        return HashtableControls.HashtableToAsignacion(table);
+        return new Asignacion(table);
     }
     
     public static Asistencia getAsistenciaById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoAsistencias")).get(id);
-        return HashtableControls.HashtableToAsistencia(table);
+        return new Asistencia(table);
     }
     
     public static Curso getCursoById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoCursos")).get(id);
-        return HashtableControls.HashtableToCurso(table);
+        return new Curso(table);
     }
     
     public static Estudiante getEstudianteById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoEstudiantes")).get(id);
-        return HashtableControls.HashtableToEstudiante(table);
+        return new Estudiante(table);
     }
     
     public static Horario getHorarioById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoHorarios")).get(id);
-        return HashtableControls.HashtableToHorario(table);
+        return new Horario(table);
     }
     
     public static InstanciaCurso getInstanciaById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoInstancias")).get(id);
-        return HashtableControls.HashtableToInstancia(table);
+        return new InstanciaCurso(table);
     }
     
     public static Materia getMateriaById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoMaterias")).get(id);
-        return HashtableControls.HashtableToMateria(table);
+        return new Materia(table);
     }
     
     public static Nota getNotaById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoNotas")).get(id);
-        return HashtableControls.HashtableToNota(table);
+        return new Nota(table);
     }
     
     public static Periodo getPeriodoById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoPeriodos")).get(id);
-        return HashtableControls.HashtableToPeriodo(table);
+        return new Periodo(table);
     }
     
     public static Profesor getProfesorById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoProfesores")).get(id);
-        return HashtableControls.HashtableToProfesor(table);
+        return new Profesor(table);
     }
     
     public static Recordatorio getRecordatorioById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoRecordatorios")).get(id);
-        return HashtableControls.HashtableToRecordatorio(table);
+        return new Recordatorio(table);
     }
     
     public static ArrayList<Asignacion> getAsignacionesByCurso(int idCurso){

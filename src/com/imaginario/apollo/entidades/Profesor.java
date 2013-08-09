@@ -5,6 +5,8 @@
 package com.imaginario.apollo.entidades;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  *
@@ -16,7 +18,7 @@ public class Profesor extends Entidad {
     private String correo;
     private String usuario;
     private String contrasenia;
-    private ArrayList<Integer> periodos;
+    private Vector<Integer> periodos;
 
     public Profesor(int _id, String _nombre, String _correo, String _usuario, String _contrasenia){
         setId(_id);
@@ -24,12 +26,35 @@ public class Profesor extends Entidad {
         setCorreo(_correo);
         setUsuario(_usuario);
         setContrasenia(_contrasenia);
-        setPeriodos(new ArrayList<Integer>());
-        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia"});
+        setPeriodos(new Vector<Integer>());
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
     }
 
     public Profesor(){
-        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia"});
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
+    }
+    
+    public Profesor(Hashtable table){
+        Profesor entidad = new Profesor();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setNombre((String)table.get(getColumnas()[1]));
+        entidad.setCorreo((String)table.get(getColumnas()[2]));
+        entidad.setUsuario((String)table.get(getColumnas()[3]));
+        entidad.setContrasenia((String)table.get(getColumnas()[4]));
+        entidad.setPeriodos((Vector<Integer>)table.get(getColumnas()[5]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getNombre(),getCorreo(),getUsuario(),getContrasenia(),getPeriodos()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override
@@ -75,11 +100,11 @@ public class Profesor extends Entidad {
         this.contrasenia = contrasenia;
     }
 
-    public ArrayList<Integer> getPeriodos() {
+    public Vector<Integer> getPeriodos() {
         return periodos;
     }
 
-    public void setPeriodos(ArrayList<Integer> periodos) {
+    public void setPeriodos(Vector<Integer> periodos) {
         this.periodos = periodos;
     }
     

@@ -4,6 +4,8 @@
  */
 package com.imaginario.apollo.entidades;
 
+import java.util.Hashtable;
+
 
 /**
  *
@@ -13,9 +15,26 @@ public class Entidad {
     
     private int id;
     private String[] columnas;
+    private Object[] valores;
 
     public Entidad(){}
 
+    public Hashtable toHashtable(){
+        Hashtable table = new Hashtable();
+        for(int i = 0; i < getColumnas().length; i++){
+            table.put(getColumnas()[i], getValores()[i]);
+        }
+        return table;
+    }
+
+    public Object[] getValores() {
+        return valores;
+    }
+
+    public void setValores(Object[] valores) {
+        this.valores = valores;
+    }
+    
     public int getId() {
         return id;
     }

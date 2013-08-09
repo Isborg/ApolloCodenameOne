@@ -4,6 +4,10 @@
  */
 package com.imaginario.apollo.entidades;
 
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Vector;
+
 /**
  *
  * @author Ismael
@@ -24,6 +28,27 @@ public class Materia extends Entidad {
 
     public Materia(){
         setColumnas(new String[]{"id","numerosemana","descripcion","curso"});
+    }
+    
+    public Materia(Hashtable table){
+        Materia entidad = new Materia();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setNumeroSemana((Byte)table.get(getColumnas()[1]));
+        entidad.setDescripcion((String)table.get(getColumnas()[2]));
+        entidad.setCurso((Integer)table.get(getColumnas()[3]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getNumeroSemana(),getDescripcion(),getCurso()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override

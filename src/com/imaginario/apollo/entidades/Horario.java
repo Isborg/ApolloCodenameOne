@@ -4,6 +4,9 @@
  */
 package com.imaginario.apollo.entidades;
 
+import java.util.Hashtable;
+import java.util.Vector;
+
 /**
  *
  * @author Ismael
@@ -30,6 +33,30 @@ public class Horario extends Entidad {
 
     public Horario(){
         setColumnas(new String[]{"id","dia","entradahora","entradaminuto","salidahora","salidaminuto","instanciacurso"});
+    }
+    
+    public Horario(Hashtable table){
+        Horario entidad = new Horario();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setDia((String)table.get(getColumnas()[1]));
+        entidad.setEntradaHora((Byte)table.get(getColumnas()[2]));
+        entidad.setEntradaMinuto((Byte)table.get(getColumnas()[3]));
+        entidad.setSalidaHora((Byte)table.get(getColumnas()[4]));
+        entidad.setSalidaMinuto((Byte)table.get(getColumnas()[5]));
+        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[6]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getDia(),getEntradaHora(),getEntradaMinuto(),getSalidaHora(),getSalidaMinuto(),getInstanciaCurso()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override

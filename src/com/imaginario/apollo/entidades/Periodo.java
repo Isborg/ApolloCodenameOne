@@ -5,6 +5,9 @@
 package com.imaginario.apollo.entidades;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  *
@@ -16,7 +19,7 @@ public class Periodo extends Entidad {
     private String tipo;
     private byte numero;
     private String institucion;
-    private ArrayList<Integer> cursos;
+    private Vector<Integer> cursos;
     private int profesor;
 
     public Periodo(int _id, short _anio, String _tipo, byte _numero, String _institucion, int _profesor){
@@ -25,13 +28,37 @@ public class Periodo extends Entidad {
         setTipo(_tipo);
         setNumero(_numero);
         setInstitucion(_institucion);
-        setCursos(new ArrayList<Integer>());
+        setCursos(new Vector<Integer>());
         setProfesor(_profesor);
-        setColumnas(new String[]{"id","anio","tipo","numero","institucion","profesor"});
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
     }
 
     public Periodo(){
-        setColumnas(new String[]{"id","anio","tipo","numero","institucion","profesor"});
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
+    }
+    
+    public Periodo(Hashtable table){
+        Periodo entidad = new Periodo();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setAnio((Short)table.get(getColumnas()[1]));
+        entidad.setTipo((String)table.get(getColumnas()[2]));
+        entidad.setNumero((Byte)table.get(getColumnas()[3]));
+        entidad.setInstitucion((String)table.get(getColumnas()[4]));
+        entidad.setCursos((Vector<Integer>)table.get(getColumnas()[5]));
+        entidad.setProfesor((Integer)table.get(getColumnas()[6]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getAnio(),getTipo(),getNumero(),getInstitucion(),getCursos(),getProfesor()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override
@@ -77,11 +104,11 @@ public class Periodo extends Entidad {
         this.institucion = institucion;
     }
 
-    public ArrayList<Integer> getCursos() {
+    public Vector<Integer> getCursos() {
         return cursos;
     }
 
-    public void setCursos(ArrayList<Integer> cursos) {
+    public void setCursos(Vector<Integer> cursos) {
         this.cursos = cursos;
     }
 

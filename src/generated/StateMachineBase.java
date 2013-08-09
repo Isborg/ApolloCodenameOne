@@ -51,19 +51,15 @@ public abstract class StateMachineBase extends UIBuilder {
             setResourceFilePath(resPath);
             setResourceFile(res);
             initVars(res);
-            return showForm(getFirstFormName(), null);
+            return showForm("GUI 1", null);
         } else {
-            Form f = (Form)createContainer(resPath, getFirstFormName());
+            Form f = (Form)createContainer(resPath, "GUI 1");
             initVars(fetchResourceFile());
             beforeShow(f);
             f.show();
             postShow(f);
             return f;
         }
-    }
-
-    protected String getFirstFormName() {
-        return "GUI 1";
     }
 
     public Container createWidget(Resources res, String resPath, boolean loadTheme) {
@@ -236,8 +232,7 @@ public abstract class StateMachineBase extends UIBuilder {
         Container rootContainerAncestor = getRootAncestor(c);
         if(rootContainerAncestor == null) return;
         String rootContainerName = rootContainerAncestor.getName();
-        Container leadParentContainer = c.getParent().getLeadParent();
-        if(leadParentContainer != null && leadParentContainer.getClass() != Container.class) {
+        if(c.getParent().getLeadParent() != null) {
             c = c.getParent().getLeadParent();
         }
         if(rootContainerName == null) return;

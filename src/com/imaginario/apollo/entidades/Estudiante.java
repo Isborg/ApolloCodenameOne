@@ -5,6 +5,8 @@
 package com.imaginario.apollo.entidades;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  *
@@ -15,8 +17,8 @@ public class Estudiante extends Entidad {
     private String nombre;
     private String carne;
     private String correo;
-    private ArrayList<Integer> notas;
-    private ArrayList<Integer> asistencias;
+    private Vector<Integer> notas;
+    private Vector<Integer> asistencias;
     private int instanciaCurso;
 
     public Estudiante(int _id, String _nombre, String _carne, String _correo, int _instanciaCurso){
@@ -24,14 +26,38 @@ public class Estudiante extends Entidad {
         setNombre(_nombre);
         setCarne(_carne);
         setCorreo(_correo);
-        setNotas(new ArrayList<Integer>());
-        setAsistencias(new ArrayList<Integer>());
+        setNotas(new Vector<Integer>());
+        setAsistencias(new Vector<Integer>());
         setInstanciaCurso(_instanciaCurso);
-        setColumnas(new String[]{"id","nombre","carne","correo","instanciacurso"});
+        setColumnas(new String[]{"id","nombre","carne","correo","notas","asistencias","instanciacurso"});
     }
 
     public Estudiante(){
-        setColumnas(new String[]{"id","nombre","carne","correo","instanciacurso"});
+        setColumnas(new String[]{"id","nombre","carne","correo","notas","asistencias","instanciacurso"});
+    }
+    
+    public Estudiante(Hashtable table){
+        Estudiante entidad = new Estudiante();
+        entidad.setId((Integer)table.get(getColumnas()[0]));
+        entidad.setNombre((String)table.get(getColumnas()[1]));
+        entidad.setCarne((String)table.get(getColumnas()[2]));
+        entidad.setCorreo((String)table.get(getColumnas()[3]));
+        entidad.setNotas((Vector<Integer>)table.get(getColumnas()[4]));
+        entidad.setAsistencias((Vector<Integer>)table.get(getColumnas()[5]));
+        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[6]));
+    }
+
+    public void setValores(){
+        Object[] vs = new Object[]{
+            getId(),getNombre(),getCarne(),getCorreo(),getNotas(),getAsistencias(),getInstanciaCurso()
+        };
+        setValores(vs);
+    }
+    
+    @Override
+    public Hashtable toHashtable(){
+        setValores();
+        return super.toHashtable();
     }
 
     @Override
@@ -68,19 +94,19 @@ public class Estudiante extends Entidad {
         this.correo = correo;
     }
 
-    public ArrayList<Integer> getNotas() {
+    public Vector<Integer> getNotas() {
         return notas;
     }
 
-    public void setNotas(ArrayList<Integer> notas) {
+    public void setNotas(Vector<Integer> notas) {
         this.notas = notas;
     }
 
-    public ArrayList<Integer> getAsistencias() {
+    public Vector<Integer> getAsistencias() {
         return asistencias;
     }
 
-    public void setAsistencias(ArrayList<Integer> asistencias) {
+    public void setAsistencias(Vector<Integer> asistencias) {
         this.asistencias = asistencias;
     }
 
