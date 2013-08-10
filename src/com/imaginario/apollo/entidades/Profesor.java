@@ -27,21 +27,24 @@ public class Profesor extends Entidad {
         setUsuario(_usuario);
         setContrasenia(_contrasenia);
         setPeriodos(new Vector<Integer>());
+        setNombreDeposito("depositoProfesores");
         setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
     }
 
     public Profesor(){
+        setNombreDeposito("depositoProfesores");
         setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
     }
     
     public Profesor(Hashtable table){
-        Profesor entidad = new Profesor();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setNombre((String)table.get(getColumnas()[1]));
-        entidad.setCorreo((String)table.get(getColumnas()[2]));
-        entidad.setUsuario((String)table.get(getColumnas()[3]));
-        entidad.setContrasenia((String)table.get(getColumnas()[4]));
-        entidad.setPeriodos((Vector<Integer>)table.get(getColumnas()[5]));
+        setNombreDeposito("depositoProfesores");
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setNombre((String)table.get(getColumnas()[1]));
+        setCorreo((String)table.get(getColumnas()[2]));
+        setUsuario((String)table.get(getColumnas()[3]));
+        setContrasenia((String)table.get(getColumnas()[4]));
+        setPeriodos((Vector<Integer>)table.get(getColumnas()[5]));
     }
 
     public void setValores(){

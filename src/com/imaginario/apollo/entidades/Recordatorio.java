@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Date;
 import java.util.Hashtable;
 
@@ -22,19 +23,22 @@ public class Recordatorio extends Entidad {
         setFecha(_fecha);
         setTexto(_texto);
         setInstanciaCurso(_instanciaCurso);
+        setNombreDeposito("depositoRecordatorios");
         setColumnas(new String[]{"id","fecha","texto","instanciacurso"});
     }
 
     public Recordatorio(){
+        setNombreDeposito("depositoRecordatorios");
         setColumnas(new String[]{"id","fecha","texto","instanciacurso"});
     }
     
     public Recordatorio(Hashtable table){
-        Recordatorio entidad = new Recordatorio();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setFecha((Date)table.get(getColumnas()[1]));
-        entidad.setTexto((String)table.get(getColumnas()[2]));
-        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[3]));
+        setNombreDeposito("depositoRecordatorios");
+        setColumnas(new String[]{"id","fecha","texto","instanciacurso"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setFecha((Date)table.get(getColumnas()[1]));
+        setTexto((String)table.get(getColumnas()[2]));
+        setInstanciaCurso((Integer)table.get(getColumnas()[3]));
     }
 
     public void setValores(){
@@ -42,6 +46,16 @@ public class Recordatorio extends Entidad {
             getId(),getFecha(),getTexto(),getInstanciaCurso()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
+        if(!entidad.getRecordatorios().contains(getId())){
+            entidad.getRecordatorios().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
@@ -30,22 +31,25 @@ public class Periodo extends Entidad {
         setInstitucion(_institucion);
         setCursos(new Vector<Integer>());
         setProfesor(_profesor);
+        setNombreDeposito("depositoPeriodos");
         setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
     }
 
     public Periodo(){
+        setNombreDeposito("depositoPeriodos");
         setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
     }
     
     public Periodo(Hashtable table){
-        Periodo entidad = new Periodo();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setAnio((Short)table.get(getColumnas()[1]));
-        entidad.setTipo((String)table.get(getColumnas()[2]));
-        entidad.setNumero((Byte)table.get(getColumnas()[3]));
-        entidad.setInstitucion((String)table.get(getColumnas()[4]));
-        entidad.setCursos((Vector<Integer>)table.get(getColumnas()[5]));
-        entidad.setProfesor((Integer)table.get(getColumnas()[6]));
+        setNombreDeposito("depositoPeriodos");
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setAnio((Short)table.get(getColumnas()[1]));
+        setTipo((String)table.get(getColumnas()[2]));
+        setNumero((Byte)table.get(getColumnas()[3]));
+        setInstitucion((String)table.get(getColumnas()[4]));
+        setCursos((Vector<Integer>)table.get(getColumnas()[5]));
+        setProfesor((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
@@ -56,6 +60,16 @@ public class Periodo extends Entidad {
     }
     
     @Override
+    public void guardarEnStorage(){
+        Profesor entidad = Deposito.getProfesorById(getProfesor());
+        if(!entidad.getPeriodos().contains(getId())){
+            entidad.getPeriodos().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
+    }
+    
+    @Override
     public Hashtable toHashtable(){
         setValores();
         return super.toHashtable();
@@ -63,13 +77,7 @@ public class Periodo extends Entidad {
 
     @Override
     public String toString() {
-        return "Periodo{" +
-                "id=" + getId() +
-                ", anio=" + anio +
-                ", tipo='" + tipo + '\'' +
-                ", numero=" + numero +
-                ", institucion='" + institucion + '\'' +
-                '}';
+        return getInstitucion() + " " + getAnio() + "-" + getNumero();
     }
 
     public short getAnio() {

@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Hashtable;
 
 /**
@@ -21,19 +22,22 @@ public class Nota extends Entidad {
         setValor(_valor);
         setAsignacion(_asignacion);
         setEstudiante(_estudiante);
+        setNombreDeposito("depositoNotas");
         setColumnas(new String[]{"id","valor","asignacion","estudiante"});
     }
 
     public Nota(){
+        setNombreDeposito("depositoNotas");
         setColumnas(new String[]{"id","valor","asignacion","estudiante"});
     }
     
     public Nota(Hashtable table){
-        Nota entidad = new Nota();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setValor((Byte)table.get(getColumnas()[1]));
-        entidad.setAsignacion((Integer)table.get(getColumnas()[2]));
-        entidad.setEstudiante((Integer)table.get(getColumnas()[3]));
+        setNombreDeposito("depositoNotas");
+        setColumnas(new String[]{"id","valor","asignacion","estudiante"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setValor((Byte)table.get(getColumnas()[1]));
+        setAsignacion((Integer)table.get(getColumnas()[2]));
+        setEstudiante((Integer)table.get(getColumnas()[3]));
     }
 
     public void setValores(){
@@ -41,6 +45,21 @@ public class Nota extends Entidad {
             getId(),getValor(),getAsignacion(),getEstudiante()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        Asignacion entidad = Deposito.getAsignacionById(getAsignacion());
+        if(!entidad.getNotas().contains(getId())){
+            entidad.getNotas().add(getId());
+        }
+        entidad.guardarEnStorage();
+        Estudiante entidad2 = Deposito.getEstudianteById(getEstudiante());
+        if(!entidad2.getNotas().contains(getId())){
+            entidad2.getNotas().add(getId());
+        }
+        entidad2.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

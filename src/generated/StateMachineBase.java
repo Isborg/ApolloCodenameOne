@@ -32,8 +32,6 @@ public abstract class StateMachineBase extends UIBuilder {
 
     public Container startApp(Resources res, String resPath, boolean loadTheme) {
         initVars();
-        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
-        UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -64,8 +62,6 @@ public abstract class StateMachineBase extends UIBuilder {
 
     public Container createWidget(Resources res, String resPath, boolean loadTheme) {
         initVars();
-        UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
-        UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
         if(loadTheme) {
             if(res == null) {
                 try {
@@ -103,148 +99,24 @@ public abstract class StateMachineBase extends UIBuilder {
         this(res, null, loadTheme);
     }
 
-    public com.codename1.ui.Button findButton(Component root) {
-        return (com.codename1.ui.Button)findByName("Button", root);
-    }
-
-    public com.codename1.ui.Button findButton() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Button", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("Button", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public static final int COMMAND_GUI1Bbbbb = 3;
-    public static final int COMMAND_GUI1ASas = 2;
-
-    protected boolean onGUI1Bbbbb() {
-        return false;
-    }
-
-    protected boolean onGUI1ASas() {
-        return false;
-    }
-
-    protected void processCommand(ActionEvent ev, Command cmd) {
-        switch(cmd.getId()) {
-            case COMMAND_GUI1Bbbbb:
-                if(onGUI1Bbbbb()) {
-                    ev.consume();
-                    return;
-                }
-                break;
-
-            case COMMAND_GUI1ASas:
-                if(onGUI1ASas()) {
-                    ev.consume();
-                    return;
-                }
-                break;
-
-        }
-        if(ev.getComponent() != null) {
-            handleComponentAction(ev.getComponent(), ev);
-        }
-    }
-
     protected void exitForm(Form f) {
-        if("GUI 1".equals(f.getName())) {
-            exitGUI1(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-    }
-
-
-    protected void exitGUI1(Form f) {
     }
 
     protected void beforeShow(Form f) {
     aboutToShowThisContainer = f;
-        if("GUI 1".equals(f.getName())) {
-            beforeGUI1(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-    }
-
-
-    protected void beforeGUI1(Form f) {
     }
 
     protected void beforeShowContainer(Container c) {
     aboutToShowThisContainer = c;
-        if("GUI 1".equals(c.getName())) {
-            beforeContainerGUI1(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-    }
-
-
-    protected void beforeContainerGUI1(Container c) {
     }
 
     protected void postShow(Form f) {
-        if("GUI 1".equals(f.getName())) {
-            postGUI1(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-    }
-
-
-    protected void postGUI1(Form f) {
     }
 
     protected void postShowContainer(Container c) {
-        if("GUI 1".equals(c.getName())) {
-            postContainerGUI1(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-    }
-
-
-    protected void postContainerGUI1(Container c) {
     }
 
     protected void onCreateRoot(String rootName) {
-        if("GUI 1".equals(rootName)) {
-            onCreateGUI1();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
     }
-
-
-    protected void onCreateGUI1() {
-    }
-
-    protected void handleComponentAction(Component c, ActionEvent event) {
-        Container rootContainerAncestor = getRootAncestor(c);
-        if(rootContainerAncestor == null) return;
-        String rootContainerName = rootContainerAncestor.getName();
-        if(c.getParent().getLeadParent() != null) {
-            c = c.getParent().getLeadParent();
-        }
-        if(rootContainerName == null) return;
-        if(rootContainerName.equals("GUI 1")) {
-            if("Button".equals(c.getName())) {
-                onGUI1_ButtonAction(c, event);
-                return;
-            }
-        }
-    }
-
-      protected void onGUI1_ButtonAction(Component c, ActionEvent event) {
-      }
 
 }

@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -28,22 +29,25 @@ public class Horario extends Entidad {
         setSalidaHora(_salidaHora);
         setSalidaMinuto(_salidaMinuto);
         setInstanciaCurso(_instanciaCurso);
+        setNombreDeposito("depositoHorarios");
         setColumnas(new String[]{"id","dia","entradahora","entradaminuto","salidahora","salidaminuto","instanciacurso"});
     }
 
     public Horario(){
+        setNombreDeposito("depositoHorarios");
         setColumnas(new String[]{"id","dia","entradahora","entradaminuto","salidahora","salidaminuto","instanciacurso"});
     }
     
     public Horario(Hashtable table){
-        Horario entidad = new Horario();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setDia((String)table.get(getColumnas()[1]));
-        entidad.setEntradaHora((Byte)table.get(getColumnas()[2]));
-        entidad.setEntradaMinuto((Byte)table.get(getColumnas()[3]));
-        entidad.setSalidaHora((Byte)table.get(getColumnas()[4]));
-        entidad.setSalidaMinuto((Byte)table.get(getColumnas()[5]));
-        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[6]));
+        setNombreDeposito("depositoHorarios");
+        setColumnas(new String[]{"id","dia","entradahora","entradaminuto","salidahora","salidaminuto","instanciacurso"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setDia((String)table.get(getColumnas()[1]));
+        setEntradaHora((Byte)table.get(getColumnas()[2]));
+        setEntradaMinuto((Byte)table.get(getColumnas()[3]));
+        setSalidaHora((Byte)table.get(getColumnas()[4]));
+        setSalidaMinuto((Byte)table.get(getColumnas()[5]));
+        setInstanciaCurso((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
@@ -51,6 +55,16 @@ public class Horario extends Entidad {
             getId(),getDia(),getEntradaHora(),getEntradaMinuto(),getSalidaHora(),getSalidaMinuto(),getInstanciaCurso()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
+        if(!entidad.getHorarios().contains(getId())){
+            entidad.getHorarios().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

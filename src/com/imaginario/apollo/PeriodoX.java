@@ -18,6 +18,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.utilidades.MenuHamburguesa;
+import java.io.IOException;
 import java.util.Calendar;
 
 
@@ -25,33 +26,15 @@ import java.util.Calendar;
  *
  * @author Ismael
  */
-public class PeriodoX {
+public class PeriodoX extends BaseForm {
     
-    private Form parent;
-    private Form current;
-    
-    public PeriodoX(Form _parent, final Profesor profesor, Periodo periodo){
-        parent = _parent;
-        current = new Form();
-        current.setLayout(new BorderLayout());
-        
-        Container contTitle = new Container(new BorderLayout());
-        Button btnMenu = new Button("Menú");
-        btnMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                MenuHamburguesa.mostrar(current, profesor);
-            }
-        });
-        contTitle.addComponent(BorderLayout.WEST, btnMenu);
-        Label lblTitle = new Label();
+    public PeriodoX(Form _parent, Profesor profesor, Periodo periodo) {
         if(periodo == null){
-            lblTitle.setText("Nuevo periodo");
+            iniciarForm("Nuevo periodo", _parent, profesor);
         }
         else{
-            lblTitle.setText("Editar periodo");
+            iniciarForm("Editar periodo", _parent, profesor);
         }
-        contTitle.addComponent(BorderLayout.CENTER, lblTitle);
-        current.addComponent(BorderLayout.NORTH, contTitle);
         
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final ComboBox cbTipo = new ComboBox(new String[]{"Semestral","Cuatrimestral","Trimestral","Bimestral","Mensual"});
@@ -109,9 +92,9 @@ public class PeriodoX {
         Button btnEliminar = new Button("Eliminar");
         contBotones.addComponent(btnEliminar);
         contenido.addComponent(contBotones);
-        current.addComponent(BorderLayout.CENTER, contenido);
+        getCurrent().addComponent(BorderLayout.CENTER, contenido);
         
-        current.show();
+        getCurrent().show();
     }
     
 }

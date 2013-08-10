@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -23,19 +24,22 @@ public class Materia extends Entidad {
         setNumeroSemana(_numeroSemana);
         setDescripcion(_descripcion);
         setCurso(_curso);
+        setNombreDeposito("depositoMaterias");
         setColumnas(new String[]{"id","numerosemana","descripcion","curso"});
     }
 
     public Materia(){
+        setNombreDeposito("depositoMaterias");
         setColumnas(new String[]{"id","numerosemana","descripcion","curso"});
     }
     
     public Materia(Hashtable table){
-        Materia entidad = new Materia();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setNumeroSemana((Byte)table.get(getColumnas()[1]));
-        entidad.setDescripcion((String)table.get(getColumnas()[2]));
-        entidad.setCurso((Integer)table.get(getColumnas()[3]));
+        setNombreDeposito("depositoMaterias");
+        setColumnas(new String[]{"id","numerosemana","descripcion","curso"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setNumeroSemana((Byte)table.get(getColumnas()[1]));
+        setDescripcion((String)table.get(getColumnas()[2]));
+        setCurso((Integer)table.get(getColumnas()[3]));
     }
 
     public void setValores(){
@@ -43,6 +47,16 @@ public class Materia extends Entidad {
             getId(),getNumeroSemana(),getDescripcion(),getCurso()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        Curso entidad = Deposito.getCursoById(getCurso());
+        if(!entidad.getMaterias().contains(getId())){
+            entidad.getMaterias().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

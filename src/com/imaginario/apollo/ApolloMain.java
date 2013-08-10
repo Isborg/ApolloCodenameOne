@@ -2,8 +2,17 @@ package com.imaginario.apollo;
 
 
 import com.codename1.io.Storage;
+import com.codename1.ui.Button;
+import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.imaginario.apollo.entidades.Asignacion;
 import com.imaginario.apollo.entidades.Asistencia;
 import com.imaginario.apollo.entidades.Curso;
@@ -17,7 +26,10 @@ import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.entidades.Recordatorio;
 import com.imaginario.apollo.utilidades.Deposito;
 import com.imaginario.apollo.utilidades.MenuHamburguesa;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
 import userclasses.StateMachine;
@@ -25,16 +37,16 @@ import userclasses.StateMachine;
 public class ApolloMain {
    
     private Form current;
+    private boolean hamburguesaOpen;
 
     public void init(Object context) {
     }
 
-    public void start() {/*
-        if(current != null){
-            current.show();
-            return;
-        }*/
-        new StateMachine("/theme");
+    public void start() {
+        // Set theme
+        try{
+            UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
+        }catch(IOException e){}
         
         if(Storage.getInstance().readObject("depositoProfesores") == null){
             Storage.getInstance().writeObject("depositoAsignaciones", new Hashtable());
@@ -50,15 +62,34 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
         
-        current = new Form();
-        
-        Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
-        Deposito.guardarProfesor(profesor);
+        final Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
+        profesor.guardarEnStorage();
         Periodo periodo1 = new Periodo(1,(short)2013,"Cuatrimestral",(byte)2,"Universidad Latina",1);
-        Deposito.guardarPeriodo(periodo1);
+        periodo1.guardarEnStorage();
+        Periodo periodo2 = new Periodo(2,(short)2014,"Bimestral",(byte)3,"TEC",1);
+        periodo2.guardarEnStorage();
+        Curso curso1 = new Curso(1,"Proyecto IV","Desarrollo de aplicaciones móviles.",1);
+        curso1.guardarEnStorage();
+        Curso curso2 = new Curso(2,"Cálculo I","Límites, optimización, derivadas, integrales.",1);
+        curso2.guardarEnStorage();
+        Curso curso3 = new Curso(3,"Seminario","...",2);
+        curso3.guardarEnStorage();
+        Curso curso4 = new Curso(4,"Física I","Movimiento parabólico.",2);
+        curso4.guardarEnStorage();
+        Curso curso5 = new Curso(5,"Programación II","Introducción a objetos.",2);
+        curso5.guardarEnStorage();
+        InstanciaCurso instancia1 = new InstanciaCurso(1, new Date(), (byte)12, 1);
+        instancia1.guardarEnStorage();
+        InstanciaCurso instancia2 = new InstanciaCurso(2, new Date(), (byte)13, 2);
+        instancia2.guardarEnStorage();
+        InstanciaCurso instancia3 = new InstanciaCurso(3, new Date(), (byte)14, 3);
+        instancia3.guardarEnStorage();
+        InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4);
+        instancia4.guardarEnStorage();
+        InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5);
+        instancia5.guardarEnStorage();
         
-        MenuHamburguesa.agregar(current, profesor);
-        current.show();
+        new Inicio(profesor);
     }
 
     public void stop() {

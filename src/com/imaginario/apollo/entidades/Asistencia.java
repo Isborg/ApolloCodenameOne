@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -23,19 +24,22 @@ public class Asistencia extends Entidad {
         setFecha(_fecha);
         setEstado(_estado);
         setEstudiante(_estudiante);
+        setNombreDeposito("depositoAsistencias");
         setColumnas(new String[]{"id","fecha","estado","estudiante"});
     }
 
     public Asistencia(){
+        setNombreDeposito("depositoAsistencias");
         setColumnas(new String[]{"id","fecha","estado","estudiante"});
     }
     
     public Asistencia(Hashtable table){
-        Asistencia entidad = new Asistencia();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setFecha((Date)table.get(getColumnas()[1]));
-        entidad.setEstado((String)table.get(getColumnas()[2]));
-        entidad.setEstudiante((Integer)table.get(getColumnas()[3]));
+        setNombreDeposito("depositoAsistencias");
+        setColumnas(new String[]{"id","fecha","estado","estudiante"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setFecha((Date)table.get(getColumnas()[1]));
+        setEstado((String)table.get(getColumnas()[2]));
+        setEstudiante((Integer)table.get(getColumnas()[3]));
     }
 
     public void setValores(){
@@ -43,6 +47,16 @@ public class Asistencia extends Entidad {
             getId(),getFecha(),getEstado(),getEstudiante()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        Estudiante entidad = Deposito.getEstudianteById(getEstudiante());
+        if(!entidad.getAsistencias().contains(getId())){
+            entidad.getAsistencias().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

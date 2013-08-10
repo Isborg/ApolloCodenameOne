@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.codename1.io.Storage;
 import java.util.Hashtable;
 
 
@@ -16,6 +17,7 @@ public class Entidad {
     private int id;
     private String[] columnas;
     private Object[] valores;
+    private String nombreDeposito;
 
     public Entidad(){}
 
@@ -25,6 +27,32 @@ public class Entidad {
             table.put(getColumnas()[i], getValores()[i]);
         }
         return table;
+    }
+    
+    public void guardarEnStorage(){
+        Hashtable entidades = (Hashtable)Storage.getInstance().readObject(getNombreDeposito());
+        int id;
+        if(!entidades.containsKey(getId())){
+            if(entidades.isEmpty()){
+                id = 0;
+            }
+            else{
+                id = (Integer)entidades.keySet().toArray()[entidades.size() - 1] + 1;
+            }
+        }
+        else{
+            id = getId();
+        }
+        entidades.put(getId(), toHashtable());
+        Storage.getInstance().writeObject(getNombreDeposito(), entidades);
+    }
+
+    public String getNombreDeposito() {
+        return nombreDeposito;
+    }
+
+    public void setNombreDeposito(String nombreDeposito) {
+        this.nombreDeposito = nombreDeposito;
     }
 
     public Object[] getValores() {

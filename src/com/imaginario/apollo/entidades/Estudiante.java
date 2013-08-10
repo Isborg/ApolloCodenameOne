@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -29,22 +30,25 @@ public class Estudiante extends Entidad {
         setNotas(new Vector<Integer>());
         setAsistencias(new Vector<Integer>());
         setInstanciaCurso(_instanciaCurso);
+        setNombreDeposito("depositoEstudiantes");
         setColumnas(new String[]{"id","nombre","carne","correo","notas","asistencias","instanciacurso"});
     }
 
     public Estudiante(){
+        setNombreDeposito("depositoEstudiantes");
         setColumnas(new String[]{"id","nombre","carne","correo","notas","asistencias","instanciacurso"});
     }
     
     public Estudiante(Hashtable table){
-        Estudiante entidad = new Estudiante();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setNombre((String)table.get(getColumnas()[1]));
-        entidad.setCarne((String)table.get(getColumnas()[2]));
-        entidad.setCorreo((String)table.get(getColumnas()[3]));
-        entidad.setNotas((Vector<Integer>)table.get(getColumnas()[4]));
-        entidad.setAsistencias((Vector<Integer>)table.get(getColumnas()[5]));
-        entidad.setInstanciaCurso((Integer)table.get(getColumnas()[6]));
+        setNombreDeposito("depositoEstudiantes");
+        setColumnas(new String[]{"id","nombre","carne","correo","notas","asistencias","instanciacurso"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setNombre((String)table.get(getColumnas()[1]));
+        setCarne((String)table.get(getColumnas()[2]));
+        setCorreo((String)table.get(getColumnas()[3]));
+        setNotas((Vector<Integer>)table.get(getColumnas()[4]));
+        setAsistencias((Vector<Integer>)table.get(getColumnas()[5]));
+        setInstanciaCurso((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
@@ -52,6 +56,16 @@ public class Estudiante extends Entidad {
             getId(),getNombre(),getCarne(),getCorreo(),getNotas(),getAsistencias(),getInstanciaCurso()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
+        if(!entidad.getEstudiantes().contains(getId())){
+            entidad.getEstudiantes().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

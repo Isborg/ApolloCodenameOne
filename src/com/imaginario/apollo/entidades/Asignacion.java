@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
@@ -30,22 +31,25 @@ public class Asignacion extends Entidad {
         setFechaEntrega(_fechaEntrega);
         setNotas(new Vector<Integer>());
         setCurso(_curso);
+        setNombreDeposito("depositoAsignaciones");
         setColumnas(new String[]{"id","nombre","descripcion","porcentaje","fechaentrega","notas","curso"});
     }
 
     public Asignacion(){
+        setNombreDeposito("depositoAsignaciones");
         setColumnas(new String[]{"id","nombre","descripcion","porcentaje","fechaentrega","notas","curso"});
     }
     
     public Asignacion(Hashtable table){
-        Asignacion entidad = new Asignacion();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setNombre((String)table.get(getColumnas()[1]));
-        entidad.setDescripcion((String)table.get(getColumnas()[2]));
-        entidad.setPorcentaje((Byte)table.get(getColumnas()[3]));
-        entidad.setFechaEntrega((Date)table.get(getColumnas()[4]));
-        entidad.setNotas((Vector<Integer>)table.get(getColumnas()[5]));
-        entidad.setCurso((Integer)table.get(getColumnas()[6]));
+        setNombreDeposito("depositoAsignaciones");
+        setColumnas(new String[]{"id","nombre","descripcion","porcentaje","fechaentrega","notas","curso"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setNombre((String)table.get(getColumnas()[1]));
+        setDescripcion((String)table.get(getColumnas()[2]));
+        setPorcentaje((Byte)table.get(getColumnas()[3]));
+        setFechaEntrega((Date)table.get(getColumnas()[4]));
+        setNotas((Vector<Integer>)table.get(getColumnas()[5]));
+        setCurso((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
@@ -53,6 +57,16 @@ public class Asignacion extends Entidad {
             getId(),getNombre(),getDescripcion(),getPorcentaje(),getFechaEntrega(),getNotas(),getCurso()
         };
         setValores(vs);
+    }
+    
+    @Override
+    public void guardarEnStorage(){
+        Curso entidad = Deposito.getCursoById(getCurso());
+        if(!entidad.getAsignaciones().contains(getId())){
+            entidad.getAsignaciones().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
     }
     
     @Override

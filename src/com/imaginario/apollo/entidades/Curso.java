@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
@@ -30,22 +31,25 @@ public class Curso extends Entidad {
         setMaterias(new Vector<Integer>());
         setInstancias(new Vector<Integer>());
         setPeriodo(_periodo);
+        setNombreDeposito("depositoCursos");
         setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
     }
 
     public Curso(){
+        setNombreDeposito("depositoCursos");
         setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
     }
     
     public Curso(Hashtable table){
-        Curso entidad = new Curso();
-        entidad.setId((Integer)table.get(getColumnas()[0]));
-        entidad.setNombre((String)table.get(getColumnas()[1]));
-        entidad.setDescripcion((String)table.get(getColumnas()[2]));
-        entidad.setAsignaciones((Vector<Integer>)table.get(getColumnas()[3]));
-        entidad.setMaterias((Vector<Integer>)table.get(getColumnas()[4]));
-        entidad.setInstancias((Vector<Integer>)table.get(getColumnas()[5]));
-        entidad.setPeriodo((Integer)table.get(getColumnas()[6]));
+        setNombreDeposito("depositoCursos");
+        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
+        setId((Integer)table.get(getColumnas()[0]));
+        setNombre((String)table.get(getColumnas()[1]));
+        setDescripcion((String)table.get(getColumnas()[2]));
+        setAsignaciones((Vector<Integer>)table.get(getColumnas()[3]));
+        setMaterias((Vector<Integer>)table.get(getColumnas()[4]));
+        setInstancias((Vector<Integer>)table.get(getColumnas()[5]));
+        setPeriodo((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
@@ -56,6 +60,16 @@ public class Curso extends Entidad {
     }
     
     @Override
+    public void guardarEnStorage(){
+        Periodo entidad = Deposito.getPeriodoById(getPeriodo());
+        if(!entidad.getCursos().contains(getId())){
+            entidad.getCursos().add(getId());
+        }
+        entidad.guardarEnStorage();
+        super.guardarEnStorage();
+    }
+    
+    @Override
     public Hashtable toHashtable(){
         setValores();
         return super.toHashtable();
@@ -63,11 +77,7 @@ public class Curso extends Entidad {
 
     @Override
     public String toString() {
-        return "Curso{" +
-                "id=" + getId() +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
+        return getNombre();
     }
 
     public String getNombre() {
