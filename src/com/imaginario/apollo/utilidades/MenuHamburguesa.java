@@ -47,7 +47,7 @@ public class MenuHamburguesa {
         contenido.addComponent(lblPeriodos);
         
         Container contPeriodos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        loadPeriodos(contPeriodos, profesor);
+        loadPeriodos(contPeriodos, profesor, form);
         contenido.addComponent(contPeriodos);
         
         Button btnAgregarPeriodo = new Button("+");
@@ -89,9 +89,10 @@ public class MenuHamburguesa {
         dlg.show();
     }
     
-    private static void loadPeriodos(final Container contPeriodos, Profesor profesor){
+    private static void loadPeriodos(final Container contPeriodos, final Profesor profesor, final Form form){
         contPeriodos.removeAll();
         for (int idPeriodo : profesor.getPeriodos()) {
+            Container row = new Container(new BorderLayout());
             final Periodo periodo = Deposito.getPeriodoById(idPeriodo);
             final Button btnPeriodo = new Button(periodo.toString());
             btnPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
@@ -104,7 +105,16 @@ public class MenuHamburguesa {
                     btnPeriodo.setUIID("ButtonHamburguesaPeriodoSelected");
                 }
             });
-            contPeriodos.addComponent(btnPeriodo);
+            row.addComponent(BorderLayout.CENTER, btnPeriodo);
+            Button btnEditar = new Button("e");
+            btnEditar.setUIID("ButtonHamburguesaPeriodoUnselected");
+            btnEditar.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    new PeriodoX(form, profesor, periodo);
+                }
+            });
+            row.addComponent(BorderLayout.EAST, btnEditar);
+            contPeriodos.addComponent(row);
         }
     }
     

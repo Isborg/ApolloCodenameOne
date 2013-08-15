@@ -51,12 +51,12 @@ public class Materia extends Entidad {
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Curso entidad = Deposito.getCursoById(getCurso());
         if(!entidad.getMaterias().contains(getId())){
             entidad.getMaterias().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

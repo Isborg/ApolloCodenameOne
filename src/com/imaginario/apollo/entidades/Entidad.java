@@ -32,17 +32,18 @@ public class Entidad {
     public void guardarEnStorage(){
         Hashtable entidades = (Hashtable)Storage.getInstance().readObject(getNombreDeposito());
         int id;
-        if(!entidades.containsKey(getId())){
+        if(getId() == -1){
             if(entidades.isEmpty()){
                 id = 0;
             }
             else{
-                id = (Integer)entidades.keySet().toArray()[entidades.size() - 1] + 1;
+                id = (Integer)entidades.keySet().toArray()[0] + 1;
             }
         }
         else{
             id = getId();
         }
+        setId(id);
         entidades.put(getId(), toHashtable());
         Storage.getInstance().writeObject(getNombreDeposito(), entidades);
     }

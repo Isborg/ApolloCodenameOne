@@ -50,12 +50,12 @@ public class Recordatorio extends Entidad {
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
         if(!entidad.getRecordatorios().contains(getId())){
             entidad.getRecordatorios().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

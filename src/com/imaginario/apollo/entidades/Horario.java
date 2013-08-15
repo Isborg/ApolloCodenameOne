@@ -59,12 +59,12 @@ public class Horario extends Entidad {
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
         if(!entidad.getHorarios().contains(getId())){
             entidad.getHorarios().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

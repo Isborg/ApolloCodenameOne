@@ -56,17 +56,20 @@ public class Asignacion extends Entidad {
         Object[] vs = new Object[]{
             getId(),getNombre(),getDescripcion(),getPorcentaje(),getFechaEntrega(),getNotas(),getCurso()
         };
+        if(getNotas() == null){
+            vs[5] = new Vector<Integer>();
+        }
         setValores(vs);
     }
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Curso entidad = Deposito.getCursoById(getCurso());
         if(!entidad.getAsignaciones().contains(getId())){
             entidad.getAsignaciones().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

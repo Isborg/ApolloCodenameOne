@@ -55,17 +55,23 @@ public class Estudiante extends Entidad {
         Object[] vs = new Object[]{
             getId(),getNombre(),getCarne(),getCorreo(),getNotas(),getAsistencias(),getInstanciaCurso()
         };
+        if(getNotas() == null){
+            vs[4] = new Vector<Integer>();
+        }
+        if(getAsistencias() == null){
+            vs[5] = new Vector<Integer>();
+        }
         setValores(vs);
     }
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         InstanciaCurso entidad = Deposito.getInstanciaById(getInstanciaCurso());
         if(!entidad.getEstudiantes().contains(getId())){
             entidad.getEstudiantes().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

@@ -56,17 +56,26 @@ public class Curso extends Entidad {
         Object[] vs = new Object[]{
             getId(),getNombre(),getDescripcion(),getAsignaciones(),getMaterias(),getInstancias(),getPeriodo()
         };
+        if(getAsignaciones() == null){
+            vs[3] = new Vector<Integer>();
+        }
+        if(getMaterias() == null){
+            vs[4] = new Vector<Integer>();
+        }
+        if(getInstancias() == null){
+            vs[5] = new Vector<Integer>();
+        }
         setValores(vs);
     }
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Periodo entidad = Deposito.getPeriodoById(getPeriodo());
         if(!entidad.getCursos().contains(getId())){
             entidad.getCursos().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

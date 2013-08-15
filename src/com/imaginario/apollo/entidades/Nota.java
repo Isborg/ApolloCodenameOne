@@ -49,6 +49,7 @@ public class Nota extends Entidad {
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Asignacion entidad = Deposito.getAsignacionById(getAsignacion());
         if(!entidad.getNotas().contains(getId())){
             entidad.getNotas().add(getId());
@@ -59,7 +60,6 @@ public class Nota extends Entidad {
             entidad2.getNotas().add(getId());
         }
         entidad2.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

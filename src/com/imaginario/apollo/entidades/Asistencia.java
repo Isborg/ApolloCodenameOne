@@ -51,12 +51,12 @@ public class Asistencia extends Entidad {
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Estudiante entidad = Deposito.getEstudianteById(getEstudiante());
         if(!entidad.getAsistencias().contains(getId())){
             entidad.getAsistencias().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override

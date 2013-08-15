@@ -51,6 +51,9 @@ public class Profesor extends Entidad {
         Object[] vs = new Object[]{
             getId(),getNombre(),getCorreo(),getUsuario(),getContrasenia(),getPeriodos()
         };
+        if(getPeriodos() == null){
+            vs[5] = new Vector<Integer>();
+        }
         setValores(vs);
     }
     

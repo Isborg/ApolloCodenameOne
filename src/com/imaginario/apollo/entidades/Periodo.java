@@ -56,17 +56,20 @@ public class Periodo extends Entidad {
         Object[] vs = new Object[]{
             getId(),getAnio(),getTipo(),getNumero(),getInstitucion(),getCursos(),getProfesor()
         };
+        if(getCursos() == null){
+            vs[5] = new Vector<Integer>();
+        }
         setValores(vs);
     }
     
     @Override
     public void guardarEnStorage(){
+        super.guardarEnStorage();
         Profesor entidad = Deposito.getProfesorById(getProfesor());
         if(!entidad.getPeriodos().contains(getId())){
             entidad.getPeriodos().add(getId());
         }
         entidad.guardarEnStorage();
-        super.guardarEnStorage();
     }
     
     @Override
