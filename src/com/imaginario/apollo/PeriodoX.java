@@ -7,6 +7,7 @@ package com.imaginario.apollo;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -28,7 +29,7 @@ import java.util.Calendar;
  */
 public class PeriodoX extends BaseForm {
     
-    public PeriodoX(Form _parent, Profesor profesor, Periodo periodo) {
+    public PeriodoX(Form _parent, final Profesor profesor, final Periodo periodo) {
         if(periodo == null){
             iniciarForm("Nuevo periodo", _parent, profesor);
         }
@@ -80,20 +81,57 @@ public class PeriodoX extends BaseForm {
         contenido.addComponent(cbNumero);
         Label lblInstitucion = new Label("Institución");
         contenido.addComponent(lblInstitucion);
-        TextField txtInstitucion = new TextField();
+        final TextField txtInstitucion = new TextField();
         contenido.addComponent(txtInstitucion);
         Label lblAnio = new Label("Año");
         contenido.addComponent(lblAnio);
-        TextField txtAnio = new TextField(Calendar.getInstance().get(Calendar.YEAR) + "");
+        final TextField txtAnio = new TextField(Calendar.getInstance().get(Calendar.YEAR) + "");
         contenido.addComponent(txtAnio);
         Container contBotones = new Container(new GridLayout(1, 2));
         Button btnGuardar = new Button("Guardar");
+        btnGuardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                Periodo periodoGuardar = new Periodo();
+                if(periodo == null){
+                    periodoGuardar.setId(-1);
+                }
+                else{
+                    periodoGuardar.setId(periodo.getId());
+                    periodoGuardar.setCursos(periodo.getCursos());
+                }
+                periodoGuardar.setAnio(Short.parseShort(txtAnio.getText()));
+                periodoGuardar.setNumero(Byte.parseByte(cbNumero.getSelectedItem().toString()));
+                periodoGuardar.setInstitucion(txtInstitucion.getText());
+                periodoGuardar.setTipo(cbTipo.getSelectedItem().toString());
+                periodoGuardar.setProfesor(profesor.getId());
+                periodoGuardar.guardarEnStorage();
+                Dialog dlg = new Dialog();
+                dlg.addComponent(new Label("Periodo agregado exitosamente."));
+                dlg.setTimeout(2000);
+                dlg.setDisposeWhenPointerOutOfBounds(true);
+                dlg.show();
+                MenuHamburguesa.mostrar(getCurrent(), profesor);
+            }
+        });
         contBotones.addComponent(btnGuardar);
         Button btnEliminar = new Button("Eliminar");
         contBotones.addComponent(btnEliminar);
         contenido.addComponent(contBotones);
         getCurrent().addComponent(BorderLayout.CENTER, contenido);
-        
+        /*
+        if(periodo != null){
+            cbTipo.setSelectedIndex(0);
+            cbNumero.setSelectedIndex(0);
+            while(periodo.getTipo() != cbTipo.getSelectedItem().toString()){
+                cbTipo.setSelectedIndex(cbTipo.getSelectedIndex() + 1);
+            }
+            while(periodo.getNumero() != cbNumero.getSelectedIndex() + 1){
+                cbNumero.setSelectedIndex(cbNumero.getSelectedIndex() + 1);
+            }
+            txtAnio.setText(periodo.getAnio() + "");
+            txtInstitucion.setText(periodo.getInstitucion());
+        }
+        */
         getCurrent().show();
     }
     
