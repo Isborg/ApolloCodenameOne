@@ -1,0 +1,259 @@
+﻿<?Infragistics.Models format="xaml" version="17"?>
+<Page xmlns="http://prototypes.infragistics.com/"
+                                                          Id="54d896f7-c212-4c67-898c-77ea799796f7">
+    <Page.Content>
+        <Content Width="480" Height="720" Background="White" Id="97ea2003-1f67-4bf5-b8fd-93ec338b168a">
+            <Content.Layers>
+                <Layer Layout="Stretch" Id="dcf207c8-5555-4cf2-b375-6993405562f3" Panel.Layout="Stretch" />
+            </Content.Layers>
+        </Content>
+    </Page.Content>
+    <Page.Scenes>
+        <Scene Title="Start" Created="08/04/2013 01:01:08" Id="10856355-59a0-4e52-b86b-076941901179">
+            <Scene.KeyFrames>
+                <KeyFrame Id="4c811fc3-59f5-4879-91d1-cb8fc57052a8">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="20c0e31b-a5ce-44f7-ae27-1aa74c85f104" Panel.Bounds="5,40,466{1,2147483647},3{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point Id="8a1ae971-8bb2-4b7a-8be9-a96f563bfdf9" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="2c43661c-d8d4-4e51-a7ab-67ba21125de8">
+                                            <Segment.EndPoint>
+                                                <Point X="466" Id="7ce969ee-91e4-4a29-b448-0f5897e25642" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Icon Path="F1M0,19.9995994567871L26,19.9995994567871 26,21.9995994567871 0,21.9995994567871 0,19.9995994567871z M13,15.0260000228882L26,15.0260000228882 26,17.0259990692139 13,17.0259990692139 13,15.0260000228882z M13,10.0261001586914L26,10.0261001586914 26,12.0260000228882 13,12.0260000228882 13,10.0261001586914z M4,6.02600049972534L5.98060178756714,7.67976999282837 10.9999904632568,11.026195526123 6.09783458709717,14.294135093689 4.02370023727417,16.0259990692139 4.01665210723877,13.0521001815796 0,13.0521001815796 0,13.0260000228882 0,9.05210018157959 0,9.02600002288818 4.00710964202881,9.02600002288818 4,6.02600049972534z M13,5.02600049972534L26,5.02600049972534 26,7.02590036392212 13,7.02590036392212 13,5.02600049972534z M0,-1.34110450744629E-07L26,-1.34110450744629E-07 26,2.00000047683716 0,2.00000047683716 0,-1.34110450744629E-07z" CatalogId="Indent" Id="194e7b2d-a851-428e-9e5d-9d69867af3c6" Panel.Bounds="11,3,32{5,2147483647},32{5,2147483647}">
+                                    <Icon.Click>
+                                        <CommandNavigate Screen="/Main.screen" State="a8ebee87-e901-486a-98e7-797fc0c46561" Created="08/04/2013 01:02:56" />
+                                    </Icon.Click>
+                                </Icon>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Title Text="Estudiantes" Foreground="#FF282828" FontSize="34" FontStyle="Normal" Id="d76524af-433a-495c-805d-dc2b6aae5c65" Panel.Bounds="163,-7,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" Background="#FF666666" Id="ed6b9138-a7b2-4a0c-8123-7d2516e80af5" Panel.Bounds="385,9,95{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point X="25" Id="09e1f94f-87d5-4a70-9e8c-6f0f5cd0a8fb" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="1e5b0295-a7a1-42bd-b172-8bd7f5e3373a">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="fa7262ea-7418-4eb1-850d-ebd4efec4114" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="cbe906a5-d8c4-4cd5-825f-56e9bb3a8452">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="10" Id="69f29cfc-0b7f-4d8f-b7b2-416039d6e05f" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="02703b39-83eb-4297-85ee-e4f3b948874b">
+                                            <Segment.EndPoint>
+                                                <Point X="120" Id="ca74bd6e-06e9-4d4f-a48d-e0456acd63a5" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="616f38d3-61ce-40c2-a0cd-81f24872188d">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="-10" Id="09ac8ffc-a3a7-4cab-bacf-732cdacf51e0" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="fdaaa150-b323-491e-adf2-ad0c1c2b614d">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="a7c0b412-0a0f-42d3-bca5-d314f79f3a83" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="37c70882-3ba8-43a5-9087-a4cfd5457541">
+                                            <Segment.EndPoint>
+                                                <Point X="25" Id="dbb6e088-9241-437f-b201-b0d8628c7a33" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" RotationAngle="180" Background="#FF666666" Id="4ed711fd-b3b2-43d5-b446-fe2ff4c6855a" Panel.Bounds="51,6,72{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point Id="4b12be9f-c933-4965-bb0a-640daa7ecfd1" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="e2318082-70fc-434a-8508-ca417e5d5d60">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="27ddf534-fd59-4322-851c-27fdd3123b88" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="8e425cdf-345e-4499-84cb-e43a072cb54c">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="-10" Id="eb9651f2-a5d9-4ae7-8337-1b8893049ece" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="a5ba89ec-fd89-4769-a679-cdba5b5ada5c">
+                                            <Segment.EndPoint>
+                                                <Point X="-72" Id="de20ff26-6d7a-4b37-8574-7665c716c448" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="a6cf6a6e-3989-4f02-8732-2302e370db9e">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="10" Id="f260cb8d-33ba-497f-b27a-023ad04b158b" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="73843bd9-509d-4540-8479-549760d8f952">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="e74743d4-1c88-4a82-9f8a-16226186ac81" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="a4c6cab5-7bd9-46de-b9bd-1070795c3de4">
+                                            <Segment.EndPoint>
+                                                <Point Id="29adcc94-5af3-48f6-9322-3d9e74cd7fea" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Title Text="Curso X" Foreground="#FF282828" FontSize="22" FontStyle="Normal" Id="cddc4bcb-1831-42ac-8990-e2dfc52aa86d" Panel.Bounds="200,43,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="ca6fdb36-23a6-4e4f-a4ac-1752cffe3d53" Panel.Bounds="12,75,451{1,2147483647},81{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point X="-67" Id="1519689a-3e73-450a-86bf-f010969a0280" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="00ffdc1e-b73e-4026-8330-39355b10c76d">
+                                            <Segment.EndPoint>
+                                                <Point X="384" Id="bdf4edbf-0c2c-460f-b574-814365c4b2bd" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Title Text="Asistencia" Foreground="#FF282828" FontSize="24" FontStyle="Normal" Id="8799fb3c-0369-483b-8feb-1c80a617aec6" Panel.Bounds="190,86,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" Background="#FF666666" Id="53987386-c2e8-4504-a985-41dae4e6f4ae" Panel.Bounds="358,92,95{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point X="25" Id="8ca695c4-9139-4852-af5f-e5c0107f156c" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="58b57196-4f83-49c8-b2f1-f040e531c1de">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="47344c6b-44b2-47d0-9aa2-e3078a1e9869" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="47e2eace-6a51-4702-baaa-56fd6792f250">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="10" Id="60bcdbe7-e9a3-42cb-9d54-fe46cd6a2241" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="90cafd20-503b-40f2-ad72-2289355219da">
+                                            <Segment.EndPoint>
+                                                <Point X="120" Id="c6d866ef-805d-4cb2-aeff-952d28db76c2" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="83b6856c-13ef-4aba-a373-e6ab609ddd84">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="-10" Id="73a6c002-7252-4c66-a9f7-50aa21447113" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="007fefaa-af4c-4b99-870d-5503f7d6fd93">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="e3b36435-a9d9-414d-8458-7c3ce74714c9" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="918c3ee4-cd17-4c3c-9724-b092e30b8de4">
+                                            <Segment.EndPoint>
+                                                <Point X="25" Id="bddb05b6-6b7d-4590-844c-7d8bd9fed601" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" RotationAngle="180" Background="#FF666666" Id="016a7df7-db19-4a9c-b75d-eaa11b08982b" Panel.Bounds="51,92,72{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point Id="5cd7610d-8a3a-4a55-87f4-4c07032ce3ed" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="d2f336a0-caf4-49f8-9af3-086fada27c3e">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="cc00279b-ac64-46ca-8751-c977167c32b7" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="77a3085f-9e44-403a-bd29-125ec7970ef6">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="-10" Id="bf116575-b16e-4fd9-840c-8b2729703470" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="154de7f0-4952-4d68-b82e-230b643a0300">
+                                            <Segment.EndPoint>
+                                                <Point X="-72" Id="ebf45b7a-fb86-4a6d-932d-2a0d09274392" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="03734914-886e-4890-b806-681bf838dbe7">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="10" Id="b57522bb-f114-4ca8-97eb-94d3244a7b72" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="7aa00cdb-5bc1-431d-9f55-273e8f502732">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="cda74c98-e203-4fb5-bc6c-081b5a1dfd98" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="900c4594-3eff-4642-ae07-29f68db3ae0d">
+                                            <Segment.EndPoint>
+                                                <Point Id="c739d991-7934-4ed9-957a-6260007c81b8" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="dcf207c8-5555-4cf2-b375-6993405562f3">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="e1bc159a-0777-4b7c-a7d5-2daeb916a9d6" Panel.Bounds="12,127,451{1,2147483647},81{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point X="-67" Id="c34fd5a5-33de-474b-b9ff-38b6821aba25" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="36b6f3e0-c164-495d-aad9-4b5481146a93">
+                                            <Segment.EndPoint>
+                                                <Point X="384" Id="3d373bfb-f052-45d1-a1d3-f3455e2978d5" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Set Property="Content.Width" Value="480" Target="97ea2003-1f67-4bf5-b8fd-93ec338b168a" />
+                        <Set Property="Content.Height" Value="720" Target="97ea2003-1f67-4bf5-b8fd-93ec338b168a" />
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+    </Page.Scenes>
+</Page>

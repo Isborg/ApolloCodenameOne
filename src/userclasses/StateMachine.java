@@ -27,4 +27,5 @@ public class StateMachine extends StateMachineBase {
     protected void initVars(Resources res) {
     }
 
+
 }

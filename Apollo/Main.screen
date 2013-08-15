@@ -1,0 +1,134 @@
+﻿<?Infragistics.Models format="xaml" version="17"?>
+<Page xmlns="http://prototypes.infragistics.com/"
+                                                          Id="58428e6e-286c-4244-917f-7d88d26f6f06">
+    <Page.Content>
+        <Content Width="480" Height="720" Background="White" Id="ae3d9db1-7dde-44fa-a8e3-441d03423f6b">
+            <Content.Layers>
+                <Layer Layout="Stretch" Id="a11d7f0f-313d-46d1-8586-655179305b9a" Panel.Layout="Stretch" />
+            </Content.Layers>
+        </Content>
+    </Page.Content>
+    <Page.Scenes>
+        <Scene Title="Start" Created="08/04/2013 00:03:39" Id="a8ebee87-e901-486a-98e7-797fc0c46561">
+            <Scene.KeyFrames>
+                <KeyFrame Id="679b249f-bbb0-4ae2-9720-7d86e101b2ff">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="a11d7f0f-313d-46d1-8586-655179305b9a">
+                            <Add.Item>
+                                <ContainerBox Background="#FFE3DDEA" Id="75886031-e324-4844-8973-5ac799078529" Panel.Bounds="0,0,238{5,2147483647},720{5,2147483647}">
+                                    <ContainerBox.Content>
+                                        <Container Layout="Stretch" ClipToContainer="True" Id="73eac110-1bb3-4197-b0c5-0404d70c989c">
+                                            <Container.Children>
+                                                <Button Text="Inicio" Background="#FFF8A25B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="ed34d389-904f-4378-8bec-b3d690a97006" Name="Home" Panel.Bounds="3,13,229{5,2147483647},35{5,2147483647}" />
+                                                <Button Text="U Latina 2013-II" Background="#FF81ABE0" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="c23c31d5-0d88-4530-aa13-c28f05af2c08" Name="Home" Panel.Bounds="3,86,229{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/PeriodoX.screen" State="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:32:20" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Label Text="Periodos" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="fff4f793-36ff-499a-92d6-b8cafce5fd50" Panel.Bounds="93,66,0*{5,2147483647},0*{5,2147483647}" />
+                                                <Line Type="Line" Thickness="1" Background="Transparent" Id="18dde1e5-9a5c-4e87-a9b8-31fb5560a24c" Panel.Bounds="8,62,220{1,2147483647},9{1,2147483647}">
+                                                    <Line.StartPoint>
+                                                        <Point Id="fece92cc-9859-4e94-9321-bfd584c6c5ea" />
+                                                    </Line.StartPoint>
+                                                    <Line.Segments>
+                                                        <Segment Id="17a95142-2239-4016-b2de-804e52733632">
+                                                            <Segment.EndPoint>
+                                                                <Point X="220" Id="7476c390-da87-45d3-b4fb-406cb1d44976" />
+                                                            </Segment.EndPoint>
+                                                        </Segment>
+                                                    </Line.Segments>
+                                                </Line>
+                                                <Button Text="TEC 2013-I" Background="#FF5FB5CC" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="8f25af99-c081-4cf1-96fa-171f2d19dd63" Name="Home" Panel.Bounds="3,126,229{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/PeriodoX.screen" State="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:32:26" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Label Text="Cursos" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="ca778f1d-d3b6-43ab-b051-2c2193e1aa3d" Panel.Bounds="92,210,0*,0*" />
+                                                <Line Type="Line" Thickness="1" Background="Transparent" Id="4cbe40b2-5a2d-48d9-be92-ee26bf8ba995" Panel.Bounds="7,207,220{1,2147483647},9{1,2147483647}">
+                                                    <Line.StartPoint>
+                                                        <Point Id="21e1e9de-7f2f-4f0c-9806-1bdd83218561" />
+                                                    </Line.StartPoint>
+                                                    <Line.Segments>
+                                                        <Segment Id="e3edde25-77ec-402b-a68b-4185db50ec37">
+                                                            <Segment.EndPoint>
+                                                                <Point X="220" Id="529cf3b7-4f42-4409-b576-f5f23eb8c2ae" />
+                                                            </Segment.EndPoint>
+                                                        </Segment>
+                                                    </Line.Segments>
+                                                </Line>
+                                                <Button Text="Historial" Background="#FFFFFF55" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="0c740a5b-8ce9-4a43-9b8a-d98fe6a9d3f2" Name="Home" Panel.Bounds="5,450,225{5,2147483647},35{5,2147483647}" />
+                                                <Button Text="Proyecto de Ing. de Software IV" Background="#FFA6C36B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="2c7fec3c-2786-4f9f-9f2f-fcd88708472e" Name="Home" Panel.Bounds="5,232,227{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/Recordatorios.screen" State="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 01:00:24" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Text="Estructuras de Datos" Background="#FFA6C36B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="4512125a-197f-48f8-a652-cfbd45065117" Name="Home" Panel.Bounds="6,275,226{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/Recordatorios.screen" State="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 01:00:32" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Text="Bases de Datos" Background="#FFA6C36B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="3fcb7c28-11bc-416a-98ba-ef275e893157" Name="Home" Panel.Bounds="5,319,226{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/Recordatorios.screen" State="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 01:00:38" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Text="Programación II" Background="#FFA6C36B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="f7577517-d8a8-4054-b366-a7326519589d" Name="Home" Panel.Bounds="5,359,226{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/Recordatorios.screen" State="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 01:00:43" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Line Type="Line" Thickness="1" Background="Transparent" Id="2e2be442-b119-4320-a0bb-c46aee9a03e8" Panel.Bounds="9,439,220{1,2147483647},9{1,2147483647}">
+                                                    <Line.StartPoint>
+                                                        <Point Id="05ce8f6a-10d3-4e76-aa5f-9969b674426d" />
+                                                    </Line.StartPoint>
+                                                    <Line.Segments>
+                                                        <Segment Id="bf088f55-4db5-4436-9962-0667da13dc08">
+                                                            <Segment.EndPoint>
+                                                                <Point X="220" Id="bb0443e8-231d-4481-bfb1-0aaa41f2deb5" />
+                                                            </Segment.EndPoint>
+                                                        </Segment>
+                                                    </Line.Segments>
+                                                </Line>
+                                                <Button Text="Configuración" Background="#FFFF7373" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="83dcceba-e0fe-40b0-b35b-5585ca232f6d" Name="Home" Panel.Bounds="5,490,225{5,2147483647},35{5,2147483647}" />
+                                                <Button Text="Reportar fallas" Background="#FFFF7373" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="c18ae87d-9c00-46ee-b93d-4cd17dad1394" Name="Home" Panel.Bounds="6,531,225{5,2147483647},35{5,2147483647}" />
+                                                <Icon Path="F1M13.0009841918945,0.156305104494095C16.1748046875,0.156303405761719 18.90625,2.30860137939453 18.9062480926514,6.41599035263062 18.90625,9.08689880371094 17.6552734375,11.8007965087891 16.0185470581055,13.4863061904907L16.0273513793945,13.4863061904907C15.3994140625,15.3954925537109 16.404296875,15.8486022949219 16.5634803771973,15.9003973007202 20.05078125,17.0547027587891 23.9697265625,19.2285003662109 23.9697265625,21.4570045471191 23.9697265625,22.0410003662109 23.9697265625,21.6875 23.9697265625,22.2675933837891 23.9697265625,25.2147979736328 18.328125,25.8847961425781 13.0322227478027,25.8847885131836 7.744140625,25.8847961425781 2.0302734375,25.2147979736328 2.03027129173279,22.2675933837891 2.0302734375,21.6875 2.0302734375,22.0410003662109 2.03027129173279,21.4570045471191 2.0302734375,19.2938995361328 5.9296875,17.1024932861328 9.25390720367432,15.9003973007202 9.494140625,15.8125 10.6416015625,15.1875 10.0000057220459,13.5038957595825 8.353515625,11.8222961425781 7.109375,9.09770202636719 7.1093692779541,6.41599035263062 7.109375,2.30860137939453 9.8251953125,0.156303405761719 13.0009841918945,0.156305104494095z" CatalogId="Person" Id="a45bb88f-a9db-4a3d-b49f-9ea062577a9c" Panel.Bounds="13,659,46{5,2147483647},46{5,2147483647}" />
+                                                <Button Text="Ver perfil" Background="#FF81ABE0" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="803df619-cde4-480f-a240-1735be7a5b2d" Name="Home" Panel.Bounds="76,655,147{5,2147483647},22{5,2147483647}" />
+                                                <Button Text="Cerrar sesión" Background="#FFF8A25B" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="11c1cd31-5311-427a-aac2-e29ccc7babe9" Name="Home" Panel.Bounds="76,686,147{5,2147483647},22{5,2147483647}" />
+                                                <Line Type="Line" Thickness="1" Background="Transparent" Id="7523ed5e-5f2f-4ef1-8b76-9ae1086eab64" Panel.Bounds="7,635,220{1,2147483647},9{1,2147483647}">
+                                                    <Line.StartPoint>
+                                                        <Point Id="d3b8fea1-3a73-4e68-aae4-77af2645a927" />
+                                                    </Line.StartPoint>
+                                                    <Line.Segments>
+                                                        <Segment Id="b182e8b1-61bf-4ce4-bae0-c8125c075f33">
+                                                            <Segment.EndPoint>
+                                                                <Point X="220" Id="3acbbcfa-ccbd-4ada-8ff8-9abeecced398" />
+                                                            </Segment.EndPoint>
+                                                        </Segment>
+                                                    </Line.Segments>
+                                                </Line>
+                                                <Button Background="#FFD1F0D5" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="95c0d123-c76f-491b-8543-d3518aa8d8e1" Panel.Bounds="3,166,229{5,2147483647},35{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandNavigate Screen="/PeriodoX.screen" State="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:39:22" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Background="#FFD1F0D5" Foreground="#FF282828" FontSize="13" FontStyle="Normal" Id="e694250b-1c4a-4b00-9fc4-b2b7e2411170" Panel.Bounds="5,399,226{5,2147483647},35{5,2147483647}" />
+                                                <Icon Path="M7.6923142,5.3290709E-15 L13.846141,5.3290709E-15 13.846141,7.6923152 21.538458,7.6923152 21.538458,13.846143 13.846141,13.846143 13.846141,21.538458 7.6923142,21.538458 7.6923142,13.846143 -5.32907E-15,13.846143 -5.32907E-15,7.6923152 7.6923142,7.6923152 7.6923142,5.3290709E-15 z" CatalogId="Plus" Id="852a5b78-6f88-48e0-81d3-1c97116c476e" Panel.Bounds="102,170,27{5,2147483647},27{5,2147483647}">
+                                                    <Icon.Click>
+                                                        <CommandNavigate Screen="/PeriodoX.screen" State="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:39:27" />
+                                                    </Icon.Click>
+                                                </Icon>
+                                                <Icon Path="M7.6923142,5.3290709E-15 L13.846141,5.3290709E-15 13.846141,7.6923152 21.538458,7.6923152 21.538458,13.846143 13.846141,13.846143 13.846141,21.538458 7.6923142,21.538458 7.6923142,13.846143 -5.32907E-15,13.846143 -5.32907E-15,7.6923152 7.6923142,7.6923152 7.6923142,5.3290709E-15 z" CatalogId="Plus" Id="514826e6-e64a-4e40-8878-015580cfe70c" Panel.Bounds="102,399,27{5,2147483647},27{5,2147483647}" />
+                                            </Container.Children>
+                                        </Container>
+                                    </ContainerBox.Content>
+                                </ContainerBox>
+                            </Add.Item>
+                        </Add>
+                        <Set Property="Content.Width" Value="480" Target="ae3d9db1-7dde-44fa-a8e3-441d03423f6b" />
+                        <Set Property="Content.Height" Value="720" Target="ae3d9db1-7dde-44fa-a8e3-441d03423f6b" />
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+    </Page.Scenes>
+</Page>

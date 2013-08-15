@@ -1,0 +1,151 @@
+﻿<?Infragistics.Models format="xaml" version="17"?>
+<Page xmlns="http://prototypes.infragistics.com/"
+                                                          Id="a13b2b9f-918b-4efb-a7e9-4b05f7bfd125">
+    <Page.Content>
+        <Content Width="480" Height="720" Background="White" Id="ff151beb-d164-4a9a-88f6-d63cff2f4a11">
+            <Content.Layers>
+                <Layer Layout="Stretch" Id="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7" Panel.Layout="Stretch" />
+            </Content.Layers>
+        </Content>
+    </Page.Content>
+    <Page.Scenes>
+        <Scene Title="Start" Created="08/04/2013 00:18:19" Id="d725d103-3b06-44ad-80cb-0194d7aff66d">
+            <Scene.KeyFrames>
+                <KeyFrame Id="255ad87b-28c3-49db-835d-f85551cc2188">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Title Text="Nuevo periodo / editar periodo" Foreground="#FF282828" FontSize="28" FontStyle="Normal" Id="ac1fc6bf-e6a0-402c-879c-0d958d4a8fd4" Panel.Bounds="47,0,0*{5,2147483647},0*{5,2147483647}" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="c1b83972-5ead-40cc-91df-dd61c2d02002" Panel.Bounds="5,40,466{1,2147483647},3{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point Id="f69ab72d-1f89-449c-bb9b-a1d183037c71" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="448b2f0a-1643-451d-81ae-531d472916d5">
+                                            <Segment.EndPoint>
+                                                <Point X="466" Id="33449fd1-8707-4faa-987e-bd91fdc478ff" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Label Text="Año" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="7fd3936e-c881-454f-a98b-6910ec0ea2f6" Panel.Bounds="11,65,5*{5,2147483647},5*{5,2147483647}" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Label Text="Tipo" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="57a25ad5-f1bd-4185-84eb-908bfa26f98f" Panel.Bounds="14,216,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Label Text="Número" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="8e315259-7d0a-4ff0-81b6-411eb4ada9c1" Panel.Bounds="11,139,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Label Text="Institución" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="62a50599-08e1-4b63-9a2c-f255ba4b4167" Panel.Bounds="14,301,0*,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <TextBox Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="7e3c9210-7d70-4a49-ba8b-692add56f569" Panel.Bounds="11,99,423{5,2147483647},5*{5,2147483647}" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <TextBox Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="42da3bda-4e4f-436d-81c4-e0b1c01209c2" Panel.Bounds="14,173,423,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <TextBox Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="01bc14a9-4c63-418a-91a2-005c9a5cf42b" Panel.Bounds="14,338,423,0*" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <ComboBox FontStyle="" Id="0adb02dc-6a9f-4e34-9424-bfa74a786f68" Panel.Bounds="14,253,423{5,2147483647},39{5,2147483647}">
+                                    <ComboBox.Items>
+                                        <Item Text="Mensual" Id="d4ed250a-2619-4b88-af1a-e0f469b0a574" />
+                                        <Item Text="Bimestral" Id="42aeda43-ff0d-41e8-a3e8-9c4f8775b053" />
+                                        <Item Text="Trimestral" Id="82e92087-9b82-4f51-81ef-05121809b237" />
+                                        <Item Text="Cuatrimestral" Id="16e6f55f-1bd0-4d4d-bf84-714b812eb2ec" />
+                                        <Item Text="Semestral" Id="94ccb630-e4c6-4fee-aca8-22a00a32a7d5" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Button Text="Guardar" Background="#FFAFDAE6" Foreground="#FF282828" FontSize="28" FontStyle="Normal" Id="bc97288b-9e2f-4d7c-add5-e7682d9f2e0b" Panel.Bounds="18,439,170{5,2147483647},57{5,2147483647}">
+                                    <Button.Click>
+                                        <CommandNavigate Screen="/Main.screen" State="a8ebee87-e901-486a-98e7-797fc0c46561" Created="08/04/2013 00:35:55" />
+                                    </Button.Click>
+                                </Button>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Button Text="Eliminar" Background="#FFE3B1B0" Foreground="#FF282828" FontSize="28" FontStyle="Normal" Id="58b2c459-f5b8-4948-ab3b-39913c4d6959" Panel.Bounds="240,439,170{5,2147483647},57{5,2147483647}">
+                                    <Button.Click>
+                                        <CommandNext SceneId="ed688ca7-af1f-454b-8206-8b0f345fb8a2" Created="08/04/2013 00:27:36" />
+                                    </Button.Click>
+                                </Button>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <Icon Path="F1M0,19.9995994567871L26,19.9995994567871 26,21.9995994567871 0,21.9995994567871 0,19.9995994567871z M13,15.0260000228882L26,15.0260000228882 26,17.0259990692139 13,17.0259990692139 13,15.0260000228882z M13,10.0261001586914L26,10.0261001586914 26,12.0260000228882 13,12.0260000228882 13,10.0261001586914z M4,6.02600049972534L5.98060178756714,7.67976999282837 10.9999904632568,11.026195526123 6.09783458709717,14.294135093689 4.02370023727417,16.0259990692139 4.01665210723877,13.0521001815796 0,13.0521001815796 0,13.0260000228882 0,9.05210018157959 0,9.02600002288818 4.00710964202881,9.02600002288818 4,6.02600049972534z M13,5.02600049972534L26,5.02600049972534 26,7.02590036392212 13,7.02590036392212 13,5.02600049972534z M0,-1.34110450744629E-07L26,-1.34110450744629E-07 26,2.00000047683716 0,2.00000047683716 0,-1.34110450744629E-07z" CatalogId="Indent" Id="894c7e00-7cb0-4db3-9571-c0f239a3b420" Panel.Bounds="11,3,32{5,2147483647},32{5,2147483647}">
+                                    <Icon.Click>
+                                        <CommandNavigate Screen="/Main.screen" State="a8ebee87-e901-486a-98e7-797fc0c46561" Created="08/04/2013 00:35:26" />
+                                    </Icon.Click>
+                                </Icon>
+                            </Add.Item>
+                        </Add>
+                        <Set Property="Content.Width" Value="480" Target="ff151beb-d164-4a9a-88f6-d63cff2f4a11" />
+                        <Set Property="Content.Height" Value="720" Target="ff151beb-d164-4a9a-88f6-d63cff2f4a11" />
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+        <Scene Title="Tapped/Clicked Eliminar" StateGroup="d725d103-3b06-44ad-80cb-0194d7aff66d" ParentScene="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:27:36" Id="ed688ca7-af1f-454b-8206-8b0f345fb8a2">
+            <Scene.KeyFrames>
+                <KeyFrame Id="5a995e65-1d18-4c17-b321-9aca5c8659e3">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="5b1b21e7-af9c-4fbc-b0c8-de71f4ea8fa7">
+                            <Add.Item>
+                                <ContainerBox Background="#FFBCD290" Id="6f804c11-5b09-449f-b910-5e87a516d4c1" Panel.Bounds="43,192,367{5,2147483647},260{5,2147483647}">
+                                    <ContainerBox.Content>
+                                        <Container Layout="Stretch" ClipToContainer="True" Id="b6bbc6f3-faac-4524-a954-e87102bce950">
+                                            <Container.Children>
+                                                <Title Text="¿Seguro que desea eliminar&#xD;             este periodo?" Foreground="#FF282828" FontSize="24" FontStyle="Normal" Id="306d1515-95dc-407c-9f52-e6da996235ca" Panel.Bounds="26,7,0*{5,2147483647},0*{5,2147483647}" />
+                                                <Button Text="Eliminar" Foreground="#FF282828" FontSize="28" FontStyle="Normal" Id="e660383b-4e04-4363-806b-b9d6501b0fda" Panel.Bounds="26,154,125{5,2147483647},54{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandSwitchTo SceneId="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:29:03" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Text="Cancelar" Foreground="#FF282828" FontSize="28" FontStyle="Normal" Id="2bdc905e-a6ef-41f6-bb43-5cbc6dee4d3f" Panel.Bounds="191,154,125{5,2147483647},54{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandSwitchTo SceneId="d725d103-3b06-44ad-80cb-0194d7aff66d" Created="08/04/2013 00:29:10" />
+                                                    </Button.Click>
+                                                </Button>
+                                            </Container.Children>
+                                        </Container>
+                                    </ContainerBox.Content>
+                                </ContainerBox>
+                            </Add.Item>
+                        </Add>
+                        <Move To="49,-4" Target="ac1fc6bf-e6a0-402c-879c-0d958d4a8fd4" />
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+    </Page.Scenes>
+</Page>

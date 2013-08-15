@@ -1,0 +1,225 @@
+﻿<?Infragistics.Models format="xaml" version="17"?>
+<Page xmlns="http://prototypes.infragistics.com/"
+                                                          Id="5d1f109f-a670-4ffe-aea2-1efdf5f677c0">
+    <Page.Content>
+        <Content Width="480" Height="720" Background="White" Id="7663a612-7427-48e9-8636-a1b3ae4716fc">
+            <Content.Layers>
+                <Layer Layout="Stretch" Id="2de62b9a-3634-4627-9d48-385389fd1979" Panel.Layout="Stretch" />
+            </Content.Layers>
+        </Content>
+    </Page.Content>
+    <Page.Scenes>
+        <Scene Title="Start" Created="08/04/2013 00:43:09" Id="3ba5f680-cc66-4922-8263-787a56dabe2d">
+            <Scene.KeyFrames>
+                <KeyFrame Id="d7da1cd6-83f6-4397-9826-1a1c3b30091e">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="5699c8a7-a72d-4d3e-9509-c445532e92f8" Panel.Bounds="5,40,466{1,2147483647},3{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point Id="1e1e8f02-44f0-4278-8935-90a24e46e5f9" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="e7efb610-5cb7-43ac-bfd5-f3d7de1f0a4f">
+                                            <Segment.EndPoint>
+                                                <Point X="466" Id="d4baf995-fe37-481a-b031-eafaccc9418b" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Icon Path="F1M0,19.9995994567871L26,19.9995994567871 26,21.9995994567871 0,21.9995994567871 0,19.9995994567871z M13,15.0260000228882L26,15.0260000228882 26,17.0259990692139 13,17.0259990692139 13,15.0260000228882z M13,10.0261001586914L26,10.0261001586914 26,12.0260000228882 13,12.0260000228882 13,10.0261001586914z M4,6.02600049972534L5.98060178756714,7.67976999282837 10.9999904632568,11.026195526123 6.09783458709717,14.294135093689 4.02370023727417,16.0259990692139 4.01665210723877,13.0521001815796 0,13.0521001815796 0,13.0260000228882 0,9.05210018157959 0,9.02600002288818 4.00710964202881,9.02600002288818 4,6.02600049972534z M13,5.02600049972534L26,5.02600049972534 26,7.02590036392212 13,7.02590036392212 13,5.02600049972534z M0,-1.34110450744629E-07L26,-1.34110450744629E-07 26,2.00000047683716 0,2.00000047683716 0,-1.34110450744629E-07z" CatalogId="Indent" Id="8ba7994e-f02a-48c8-8de0-cab390081d1b" Panel.Bounds="11,3,32{5,2147483647},32{5,2147483647}">
+                                    <Icon.Click>
+                                        <CommandNavigate Screen="/Main.screen" State="a8ebee87-e901-486a-98e7-797fc0c46561" Created="08/04/2013 00:44:21" />
+                                    </Icon.Click>
+                                </Icon>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Title Text="Recordatorios" Foreground="#FF282828" FontSize="34" FontStyle="Normal" Id="430cc891-1caa-4e01-99e2-3ebd75108a82" Panel.Bounds="142,-7,0*{5,2147483647},0*{5,2147483647}" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" Background="#FF666666" Id="7a3c36cc-5e9d-46fb-85bc-2ef534a9623d" Panel.Bounds="385,9,95{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point X="25" Id="013f65e9-38ed-4ec8-9621-18a419d6a1e2" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="914836f2-1a60-404e-aa1e-3d73009e43d9">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="593c0769-b954-4916-9587-826eb5fe0b3c" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="bee98aad-ab1f-452f-b13a-8170857439c1">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="10" Id="d762eb88-ef5e-4b0f-9cbc-7131bd8d2706" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="c83ce138-fbe5-4d73-a589-4bbeffacfa18">
+                                            <Segment.EndPoint>
+                                                <Point X="120" Id="12fafddc-cfea-463f-9b3b-2eeb13ab04b3" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="88994be5-0cee-4bbf-8f8f-fb79d304047b">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Y="-10" Id="b3fa8c79-a526-4cd6-a77c-aff41bf5fbee" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="8a3de467-81cb-43b9-999d-357e6ee60e88">
+                                            <Segment.EndPoint>
+                                                <Point X="100" Id="89b12244-a644-42b6-92bc-404bd963fb76" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="5c8e9f82-1d9c-40f8-ba3e-b9e61cfa798e">
+                                            <Segment.EndPoint>
+                                                <Point X="25" Id="2b218b71-129d-422c-a8e2-c261b488ffce" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Arrow Type="Arrow" Thickness="3" IsClosed="True" RotationAngle="180" Background="#FF666666" Id="c00dc231-bac8-499e-b429-f8de812057c3" Panel.Bounds="51,6,72{1,2147483647},20{1,2147483647}">
+                                    <Arrow.StartPoint>
+                                        <Point Id="01216db5-0a54-41c9-855a-56e84c4d3989" />
+                                    </Arrow.StartPoint>
+                                    <Arrow.Segments>
+                                        <Segment Id="8ddbf639-ba83-4cbb-9ba4-dd2fea95c3b0">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="6396950c-658a-49aa-9710-c2c55f203e37" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="c1f2ef24-aa33-4e51-ba9f-381d141e24a7">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="-10" Id="b9281b12-984d-47f0-a76f-71735ee26ec1" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="342d4278-6479-4fec-be84-7217332fa806">
+                                            <Segment.EndPoint>
+                                                <Point X="-72" Id="b081ce99-bf89-4e9f-a7c9-06610af971bb" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="687cee33-7706-41cf-9e58-43d6e5098995">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Y="10" Id="03277d4d-9808-4edc-875e-04926eadb061" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="ac4b244b-96f5-40fa-9309-5f016fb67b14">
+                                            <Segment.EndPoint>
+                                                <Point X="-52" Id="b1fbed61-2778-4201-ae2a-1d599aa5a3a8" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                        <Segment Id="36666af7-ca92-471a-b983-6859eacb2d4a">
+                                            <Segment.EndPoint>
+                                                <Point Id="868a4233-29c8-4d08-b4bb-6205efdf1a00" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Arrow.Segments>
+                                </Arrow>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Title Text="Curso X" Foreground="#FF282828" FontSize="22" FontStyle="Normal" Id="d243353b-8f3c-4736-9de5-d72e67c738e8" Panel.Bounds="184,43,0*{5,2147483647},0*{5,2147483647}" />
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <Line Type="Line" Thickness="1" Background="Transparent" Id="7b404a65-6ad9-44f1-b567-302b84ba3751" Panel.Bounds="12,75,451{1,2147483647},81{1,2147483647}">
+                                    <Line.StartPoint>
+                                        <Point X="-67" Id="5ef424de-94c5-4f22-8827-6091a4360cb1" />
+                                    </Line.StartPoint>
+                                    <Line.Segments>
+                                        <Segment Id="9b3027e1-5d9d-4d1a-a900-238fba8a7291">
+                                            <Segment.EndPoint>
+                                                <Point X="384" Id="886bfd05-29e0-4dfb-8c6a-592222084db7" />
+                                            </Segment.EndPoint>
+                                        </Segment>
+                                    </Line.Segments>
+                                </Line>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <TextArea Text="5 de agosto de 2013 - 11:52 a.m.&#xD;Preparar el examen de Ingeniería de Requerimientos." Background="#FFD7EDF2" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="2d132e30-defe-4074-90aa-08a1284a4e38" Panel.Bounds="12,85,451{5,2147483647},90{5,2147483647}">
+                                    <TextArea.Click>
+                                        <CommandNext SceneId="d0994a26-e8d0-4a9a-96f6-4c700a91a487" Created="08/04/2013 00:54:46" />
+                                    </TextArea.Click>
+                                </TextArea>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <TextArea Text="otro" Background="#FFD7EDF2" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="3af84361-ed88-4a65-8d24-3b23ca99493e" Panel.Bounds="12,184,451{5,2147483647},90{5,2147483647}">
+                                    <TextArea.Click>
+                                        <CommandNext SceneId="d0994a26-e8d0-4a9a-96f6-4c700a91a487" Created="08/04/2013 00:58:06" />
+                                    </TextArea.Click>
+                                </TextArea>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <TextArea Text="otro" Background="#FFD7EDF2" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="d0506363-dfef-4e9a-9ecf-70529be20caf" Panel.Bounds="11,283,451{5,2147483647},90{5,2147483647}">
+                                    <TextArea.Click>
+                                        <CommandNext SceneId="d0994a26-e8d0-4a9a-96f6-4c700a91a487" Created="08/04/2013 00:58:16" />
+                                    </TextArea.Click>
+                                </TextArea>
+                            </Add.Item>
+                        </Add>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <TextArea Text="otro" Background="#FFD7EDF2" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="1ae98120-a90c-4ab9-9304-54080fa1b870" Panel.Bounds="11,386,451{5,2147483647},90{5,2147483647}">
+                                    <TextArea.Click>
+                                        <CommandNext SceneId="d0994a26-e8d0-4a9a-96f6-4c700a91a487" Created="08/04/2013 00:58:23" />
+                                    </TextArea.Click>
+                                </TextArea>
+                            </Add.Item>
+                        </Add>
+                        <Set Property="Content.Width" Value="480" Target="7663a612-7427-48e9-8636-a1b3ae4716fc" />
+                        <Set Property="Content.Height" Value="720" Target="7663a612-7427-48e9-8636-a1b3ae4716fc" />
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+        <Scene Title="Tapped/Clicked Text Area" StateGroup="3ba5f680-cc66-4922-8263-787a56dabe2d" ParentScene="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 00:54:17" Id="d0994a26-e8d0-4a9a-96f6-4c700a91a487">
+            <Scene.KeyFrames>
+                <KeyFrame Id="582fa398-03e9-413a-b8b6-2c7eda3a0152">
+                    <KeyFrame.Operations>
+                        <Add Property="Panel.Children" Target="2de62b9a-3634-4627-9d48-385389fd1979">
+                            <Add.Item>
+                                <ContainerBox Background="#FFBCD290" Id="70c55629-a8cc-4c07-aaeb-642e84ed86c1" Panel.Bounds="28,118,418{5,2147483647},510{5,2147483647}">
+                                    <ContainerBox.Content>
+                                        <Container Layout="Stretch" ClipToContainer="True" Id="ff04320a-8ead-4102-aba8-7a22ab49999e" Panel.Bounds="0,0,416*,508*">
+                                            <Container.Children>
+                                                <TextArea Text="kljdsfkljfdkl&#xD;sdfakljsdf&#xD;sdfjklsdfjklsdjfkljsdklf&#xD;sdfjklasdfjklsdfjklsdjklf" Foreground="#FF282828" FontSize="20" FontStyle="Normal" Id="bf8bc313-b11a-4be3-bf3a-afbecc8eec0c" Panel.Bounds="22,23,375{5,2147483647},181{5,2147483647}" />
+                                                <Title Text="(time picker)" Foreground="#FF282828" FontSize="34" FontStyle="Normal" Id="e82c5cf2-748c-498c-ac8e-4b713ff11ccc" Panel.Bounds="30,332,0*,0*" />
+                                                <Title Text="(date picker)" Foreground="#FF282828" FontSize="34" FontStyle="Normal" Id="4fa9b304-5b58-46e3-8614-a51d8896b84b" Panel.Bounds="30,252,0*,0*" />
+                                                <Button Text="Aceptar" Foreground="#FF282828" FontSize="24" FontStyle="Normal" Id="3f060882-670a-4dbb-acc2-4eb9c5b524d5" Panel.Bounds="30,412,133{5,2147483647},57{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandSwitchTo SceneId="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 00:58:59" />
+                                                    </Button.Click>
+                                                </Button>
+                                                <Button Text="Cancelar" Foreground="#FF282828" FontSize="24" FontStyle="Normal" Id="c1c9d0d0-0955-474a-a8af-dd3def18298a" Panel.Bounds="226,412,153{5,2147483647},57{5,2147483647}">
+                                                    <Button.Click>
+                                                        <CommandSwitchTo SceneId="3ba5f680-cc66-4922-8263-787a56dabe2d" Created="08/04/2013 00:59:05" />
+                                                    </Button.Click>
+                                                </Button>
+                                            </Container.Children>
+                                        </Container>
+                                    </ContainerBox.Content>
+                                </ContainerBox>
+                            </Add.Item>
+                        </Add>
+                    </KeyFrame.Operations>
+                </KeyFrame>
+            </Scene.KeyFrames>
+        </Scene>
+    </Page.Scenes>
+</Page>

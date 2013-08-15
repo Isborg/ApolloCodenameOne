@@ -18,6 +18,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
+import com.imaginario.apollo.utilidades.Deposito;
 import com.imaginario.apollo.utilidades.MenuHamburguesa;
 import java.io.IOException;
 import java.util.Calendar;
@@ -101,28 +102,48 @@ public class PeriodoX extends BaseForm {
                 }
                 periodoGuardar.setAnio(Short.parseShort(txtAnio.getText()));
                 periodoGuardar.setNumero(Byte.parseByte(cbNumero.getSelectedItem().toString()));
-                periodoGuardar.setInstitucion(txtInstitucion.getText());
+                if (!"".equals(txtInstitucion.getText()) && !"".equals(txtAnio.getText())) {
+                     periodoGuardar.setInstitucion(txtInstitucion.getText());
                 periodoGuardar.setTipo(cbTipo.getSelectedItem().toString());
                 periodoGuardar.setProfesor(profesor.getId());
                 periodoGuardar.guardarEnStorage();
                 Dialog dlg = new Dialog();
                 dlg.addComponent(new Label("Periodo agregado exitosamente."));
+                dlg.setWidth(getCurrent().getWidth()/3);
+                dlg.setHeight(getCurrent().getHeight()/4);
                 dlg.setTimeout(2000);
+                
                 dlg.setDisposeWhenPointerOutOfBounds(true);
                 dlg.show();
-                MenuHamburguesa.mostrar(getCurrent(), profesor);
+                MenuHamburguesa.mostrar(getCurrent(), profesor);                    
+                } else {
+                Dialog nullField= new Dialog();
+                    nullField.addComponent(
+                                    new Label("Debe llenar todos los campos"));
+                    nullField.setTimeout(2000);                    
+                    nullField.setDisposeWhenPointerOutOfBounds(true);
+                    nullField.show();
+                }
+               
             }
         });
         contBotones.addComponent(btnGuardar);
         Button btnEliminar = new Button("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                Deposito.eliminarPeriodo(periodo.getId());
+                }
+        });
         contBotones.addComponent(btnEliminar);
         contenido.addComponent(contBotones);
         getCurrent().addComponent(BorderLayout.CENTER, contenido);
-        /*
+       
         if(periodo != null){
             cbTipo.setSelectedIndex(0);
             cbNumero.setSelectedIndex(0);
-            while(periodo.getTipo() != cbTipo.getSelectedItem().toString()){
+            while(periodo.getTipo() == null ? cbTipo.getSelectedItem().toString() != null :
+                    !periodo.getTipo().equals(cbTipo.getSelectedItem().toString())){
                 cbTipo.setSelectedIndex(cbTipo.getSelectedIndex() + 1);
             }
             while(periodo.getNumero() != cbNumero.getSelectedIndex() + 1){
@@ -131,7 +152,7 @@ public class PeriodoX extends BaseForm {
             txtAnio.setText(periodo.getAnio() + "");
             txtInstitucion.setText(periodo.getInstitucion());
         }
-        */
+        
         getCurrent().show();
     }
     
