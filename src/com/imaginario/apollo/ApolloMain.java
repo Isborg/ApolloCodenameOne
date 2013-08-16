@@ -61,7 +61,7 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoProfesores", new Hashtable());
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
-      /*
+        /*
         final Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
         profesor.guardarEnStorage();
         
@@ -88,11 +88,12 @@ public class ApolloMain {
         InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4);
         instancia4.guardarEnStorage();
         InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5);
-        instancia5.guardarEnStorage();*/
-        
+        instancia5.guardarEnStorage();
+        */
         
         Profesor profesor = Deposito.getProfesorById(1);
-        new Inicio(profesor);
+        //new Inicio(profesor);
+        new DetalleCurso(current, profesor, Deposito.getInstanciaById(1));
     }
 
     public void stop() {
