@@ -180,7 +180,7 @@ public class Deposito {
         Curso curso = getCursoById(asignacion.getCurso());
         curso.getAsignaciones().remove(id);
         Hashtable cursos = (Hashtable)Storage.getInstance().readObject("depositoCursos");
-        cursos.put(curso.getId(), curso);
+        cursos.put(curso.getId(), curso.toHashtable());
         Storage.getInstance().writeObject("depositoCursos", cursos);
     }
     
@@ -192,7 +192,7 @@ public class Deposito {
         Estudiante estudiante = getEstudianteById(asistencia.getEstudiante());
         estudiante.getAsistencias().remove(id);
         Hashtable estudiantes = (Hashtable)Storage.getInstance().readObject("depositoEstudiantes");
-        estudiantes.put(estudiante.getId(), estudiante);
+        estudiantes.put(estudiante.getId(), estudiante.toHashtable());
         Storage.getInstance().writeObject("depositoEstudiantes", estudiantes);
     }
     
@@ -213,7 +213,7 @@ public class Deposito {
         Periodo periodo = getPeriodoById(curso.getPeriodo());
         periodo.getCursos().remove(id);
         Hashtable periodos = (Hashtable)Storage.getInstance().readObject("depositoPeriodos");
-        periodos.put(periodo.getId(), periodo);
+        periodos.put(periodo.getId(), periodo.toHashtable());
         Storage.getInstance().writeObject("depositoPeriodos", periodos);
     }
     
@@ -231,7 +231,7 @@ public class Deposito {
         InstanciaCurso instancia = getInstanciaById(estudiante.getInstanciaCurso());
         instancia.getEstudiantes().remove(id);
         Hashtable instancias = (Hashtable)Storage.getInstance().readObject("depositoInstancias");
-        instancias.put(instancia.getId(), instancia);
+        instancias.put(instancia.getId(), instancia.toHashtable());
         Storage.getInstance().writeObject("depositoInstancias", instancias);
     }
     
@@ -243,7 +243,7 @@ public class Deposito {
         InstanciaCurso instancia = getInstanciaById(horario.getInstanciaCurso());
         instancia.getHorarios().remove(id);
         Hashtable instancias = (Hashtable)Storage.getInstance().readObject("depositoInstancias");
-        instancias.put(instancia.getId(), instancia);
+        instancias.put(instancia.getId(), instancia.toHashtable());
         Storage.getInstance().writeObject("depositoInstancias", instancias);
     }
     
@@ -264,7 +264,7 @@ public class Deposito {
         Curso curso = getCursoById(instancia.getCurso());
         curso.getInstancias().remove(id);
         Hashtable cursos = (Hashtable)Storage.getInstance().readObject("depositoCursos");
-        cursos.put(curso.getId(), curso);
+        cursos.put(curso.getId(), curso.toHashtable());
         Storage.getInstance().writeObject("depositoCursos", cursos);
     }
     
@@ -276,7 +276,7 @@ public class Deposito {
         Curso curso = getCursoById(materia.getCurso());
         curso.getMaterias().remove(id);
         Hashtable cursos = (Hashtable)Storage.getInstance().readObject("depositoCursos");
-        cursos.put(curso.getId(), curso);
+        cursos.put(curso.getId(), curso.toHashtable());
         Storage.getInstance().writeObject("depositoCursos", cursos);
     }
     
@@ -288,12 +288,12 @@ public class Deposito {
         Asignacion asignacion = getAsignacionById(nota.getAsignacion());
         asignacion.getNotas().remove(id);
         Hashtable asignaciones = (Hashtable)Storage.getInstance().readObject("depositoAsignaciones");
-        asignaciones.put(asignacion.getId(), asignacion);
+        asignaciones.put(asignacion.getId(), asignacion.toHashtable());
         Storage.getInstance().writeObject("depositoAsignaciones", asignaciones);
         Estudiante estudiante = getEstudianteById(nota.getEstudiante());
         estudiante.getNotas().remove(id);
         Hashtable estudiantes = (Hashtable)Storage.getInstance().readObject("depositoEstudiantes");
-        estudiantes.put(estudiante.getId(), estudiante);
+        estudiantes.put(estudiante.getId(), estudiante.toHashtable());
         Storage.getInstance().writeObject("depositoEstudiantes", estudiantes);
     }
     
@@ -330,7 +330,7 @@ public class Deposito {
         InstanciaCurso instancia = getInstanciaById(recordatorio.getInstanciaCurso());
         instancia.getRecordatorios().remove(id);
         Hashtable instancias = (Hashtable)Storage.getInstance().readObject("depositoInstancias");
-        instancias.put(instancia.getId(), instancia);
+        instancias.put(instancia.getId(), instancia.toHashtable());
         Storage.getInstance().writeObject("depositoInstancias", instancias);
     }
     
