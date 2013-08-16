@@ -47,7 +47,8 @@ public class ApolloMain {
         try{
             UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
         }catch(IOException e){}
-        
+        Storage.getInstance().clearStorage();
+               
         if(Storage.getInstance().readObject("depositoProfesores") == null){
             Storage.getInstance().writeObject("depositoAsignaciones", new Hashtable());
             Storage.getInstance().writeObject("depositoAsistencias", new Hashtable());
@@ -61,10 +62,9 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoProfesores", new Hashtable());
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
-      /*
+      
         final Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
-        profesor.guardarEnStorage();
-        
+        profesor.guardarEnStorage();        
         Periodo periodo1 = new Periodo(1,(short)2013,"Cuatrimestral",(byte)2,"Universidad Latina",1);
         periodo1.guardarEnStorage();
         Periodo periodo2 = new Periodo(2,(short)2014,"Bimestral",(byte)3,"TEC",1);
@@ -88,10 +88,10 @@ public class ApolloMain {
         InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4);
         instancia4.guardarEnStorage();
         InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5);
-        instancia5.guardarEnStorage();*/
+        instancia5.guardarEnStorage();
         
         
-        Profesor profesor = Deposito.getProfesorById(1);
+        //Profesor profesor = Deposito.getProfesorById(1);
         new Inicio(profesor);
     }
 
