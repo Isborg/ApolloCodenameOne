@@ -308,7 +308,7 @@ public class Deposito {
         Profesor profesor = getProfesorById(periodo.getProfesor());
         profesor.getPeriodos().remove(id);
         Hashtable profesores = (Hashtable)Storage.getInstance().readObject("depositoProfesores");
-        profesores.put(profesor.getId(), profesor);
+        profesores.put(profesor.getId(), profesor.toHashtable());
         Storage.getInstance().writeObject("depositoProfesores", profesores);
     }
     

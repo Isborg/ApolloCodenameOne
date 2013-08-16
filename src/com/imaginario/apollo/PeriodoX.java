@@ -102,7 +102,7 @@ public class PeriodoX extends BaseForm {
                 }
                 periodoGuardar.setAnio(Short.parseShort(txtAnio.getText()));
                 periodoGuardar.setNumero(Byte.parseByte(cbNumero.getSelectedItem().toString()));
-                if (!"".equals(txtInstitucion.getText()) && !"".equals(txtAnio.getText())) {
+                if (!"".equals(txtInstitucion.getText()) || !"".equals(txtAnio.getText())) {
                      periodoGuardar.setInstitucion(txtInstitucion.getText());
                 periodoGuardar.setTipo(cbTipo.getSelectedItem().toString());
                 periodoGuardar.setProfesor(profesor.getId());
@@ -133,6 +133,7 @@ public class PeriodoX extends BaseForm {
 
             public void actionPerformed(ActionEvent evt) {
                 Deposito.eliminarPeriodo(periodo.getId());
+                getParent().show();
                 }
         });
         contBotones.addComponent(btnEliminar);

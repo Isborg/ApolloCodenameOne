@@ -5,25 +5,19 @@
 package com.imaginario.apollo.utilidades;
 
 import com.codename1.ui.Button;
-import com.codename1.ui.Command;
-import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
 import com.imaginario.apollo.PeriodoX;
 import com.imaginario.apollo.entidades.Curso;
 import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  *
@@ -71,6 +65,12 @@ public class MenuHamburguesa {
         
         Button btnAgregarCurso = new Button("+");
         btnAgregarCurso.setUIID("ButtonHamburguesaNuevoCurso");
+        btnAgregarCurso.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+               
+            }
+        });
         contenido.addComponent(btnAgregarCurso);
         
         Button btnHistorial = new Button("Historial");
