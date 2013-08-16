@@ -142,10 +142,10 @@ public class PeriodoX extends BaseForm {
         if(periodo != null){
             cbTipo.setSelectedIndex(0);
             cbNumero.setSelectedIndex(0);
-            while(periodo.getTipo() == null ? cbTipo.getSelectedItem().toString() != null :
-                    !periodo.getTipo().equals(cbTipo.getSelectedItem().toString())){
+            while(!periodo.getTipo().equals(cbTipo.getSelectedItem().toString())){
                 cbTipo.setSelectedIndex(cbTipo.getSelectedIndex() + 1);
             }
+            ((ActionListener)cbTipo.getActionListeners().get(0)).actionPerformed(null);
             while(periodo.getNumero() != cbNumero.getSelectedIndex() + 1){
                 cbNumero.setSelectedIndex(cbNumero.getSelectedIndex() + 1);
             }
