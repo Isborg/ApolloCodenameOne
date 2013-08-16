@@ -108,11 +108,8 @@ public class PeriodoX extends BaseForm {
                 periodoGuardar.setProfesor(profesor.getId());
                 periodoGuardar.guardarEnStorage();
                 Dialog dlg = new Dialog();
-                dlg.addComponent(new Label("Periodo agregado exitosamente."));
-                dlg.setWidth(getCurrent().getWidth()/3);
-                dlg.setHeight(getCurrent().getHeight()/4);
-                dlg.setTimeout(2000);
-                
+                dlg.addComponent(new Label("Periodo guardado exitosamente."));
+                dlg.setTimeout(2000);                
                 dlg.setDisposeWhenPointerOutOfBounds(true);
                 dlg.show();
                 MenuHamburguesa.mostrar(getCurrent(), profesor);                    
@@ -133,8 +130,13 @@ public class PeriodoX extends BaseForm {
 
             public void actionPerformed(ActionEvent evt) {
                 Deposito.eliminarPeriodo(periodo.getId());
+                Dialog dlg = new Dialog();
+                dlg.addComponent(new Label("Periodo eliminado exitosamente."));
+                dlg.setTimeout(2000);                
+                dlg.setDisposeWhenPointerOutOfBounds(true);
+                dlg.show();
                 getParent().show();
-                }
+            }
         });
         contBotones.addComponent(btnEliminar);
         contenido.addComponent(contBotones);
