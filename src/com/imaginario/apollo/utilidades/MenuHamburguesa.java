@@ -13,6 +13,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.imaginario.apollo.CursoNuevo;
 import com.imaginario.apollo.PeriodoX;
 import com.imaginario.apollo.entidades.Curso;
 import com.imaginario.apollo.entidades.InstanciaCurso;
@@ -35,6 +36,9 @@ public class MenuHamburguesa {
         
         Button btnInicio = new Button("Inicio");
         btnInicio.setUIID("ButtonHamburguesaInicio");
+        btnInicio.setPreferredH(45);
+        System.out.println(""+btnInicio.getPreferredH());
+        System.out.println(""+btnInicio.getPreferredW());
         contenido.addComponent(btnInicio);
         
         Label lblPeriodos = new Label("Periodos");
@@ -45,44 +49,47 @@ public class MenuHamburguesa {
         contenido.addComponent(contPeriodos);
         
         Button btnAgregarPeriodo = new Button("+");
+        btnAgregarPeriodo.setPreferredH(45);
         btnAgregarPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
         btnAgregarPeriodo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                new PeriodoX(form, profesor, null);
+                PeriodoX periodoX = new PeriodoX(form, profesor, null);
             }
         });
-        contenido.addComponent(btnAgregarPeriodo);
-        
+        contenido.addComponent(btnAgregarPeriodo);        
         Label lblCursos = new Label("Cursos");
-        contenido.addComponent(lblCursos);
-        
+        contenido.addComponent(lblCursos);        
         Container contCursos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         try{
             Periodo primerPeriodo = Deposito.getPeriodoById(profesor.getPeriodos().get(0));
             loadCursos(contCursos, primerPeriodo);
         } catch(Exception e){}
-        contenido.addComponent(contCursos);
-        
+        contenido.addComponent(contCursos);        
         Button btnAgregarCurso = new Button("+");
+        btnAgregarCurso.setPreferredH(45);
         btnAgregarCurso.setUIID("ButtonHamburguesaNuevoCurso");
+        btnAgregarCurso.setPreferredH(45);
         btnAgregarCurso.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-               
+                   new CursoNuevo(null, profesor, form);
             }
         });
         contenido.addComponent(btnAgregarCurso);
         
         Button btnHistorial = new Button("Historial");
         btnHistorial.setUIID("ButtonHamburguesaInicio");
+        btnHistorial.setPreferredH(45);
         contenido.addComponent(btnHistorial);
         
         Button btnConfiguracion = new Button("Configuración");
         btnConfiguracion.setUIID("ButtonHamburguesaConfiguracion");
+        btnConfiguracion.setPreferredH(45);
         contenido.addComponent(btnConfiguracion);
         
         Button btnReportar = new Button("Reportar fallas");
         btnReportar.setUIID("ButtonHamburguesaConfiguracion");
+        btnReportar.setPreferredH(45);
         contenido.addComponent(btnReportar);
         
         dlg.addComponent(contenido);
@@ -96,6 +103,7 @@ public class MenuHamburguesa {
             final Periodo periodo = Deposito.getPeriodoById(idPeriodo);
             final Button btnPeriodo = new Button(periodo.toString());
             btnPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
+            btnPeriodo.setPreferredH(45);
             btnPeriodo.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     loadCursos((Container)contPeriodos.getParent().getComponentAt(5), periodo);
@@ -127,6 +135,7 @@ public class MenuHamburguesa {
                     InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
                     Button btnInstancia = new Button(instancia.toString());
                     btnInstancia.setUIID("ButtonHamburguesaCurso");
+                    btnInstancia.setPreferredH(45);
                     contCursos.addComponent(btnInstancia);
                 }
             }

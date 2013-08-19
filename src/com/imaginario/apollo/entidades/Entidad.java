@@ -7,40 +7,38 @@ package com.imaginario.apollo.entidades;
 import com.codename1.io.Storage;
 import java.util.Hashtable;
 
-
 /**
  *
  * @author Ismael
  */
 public class Entidad {
-    
+
     private int id;
     private String[] columnas;
     private Object[] valores;
     private String nombreDeposito;
 
-    public Entidad(){}
+    public Entidad() {
+    }
 
-    public Hashtable toHashtable(){
+    public Hashtable toHashtable() {
         Hashtable table = new Hashtable();
-        for(int i = 0; i < getColumnas().length; i++){
+        for (int i = 0; i < getColumnas().length; i++) {
             table.put(getColumnas()[i], getValores()[i]);
         }
         return table;
     }
-    
-    public void guardarEnStorage(){
-        Hashtable entidades = (Hashtable)Storage.getInstance().readObject(getNombreDeposito());
+
+    public void guardarEnStorage() {
+        Hashtable entidades = (Hashtable) Storage.getInstance().readObject(getNombreDeposito());
         int id;
-        if(getId() == -1){
-            if(entidades.isEmpty()){
+        if (getId() == -1) {
+            if (entidades.isEmpty()) {
                 id = 0;
+            } else {
+                id = (Integer) entidades.keySet().toArray()[0] + 1;
             }
-            else{
-                id = (Integer)entidades.keySet().toArray()[0] + 1;
-            }
-        }
-        else{
+        } else {
             id = getId();
         }
         setId(id);
@@ -63,7 +61,7 @@ public class Entidad {
     public void setValores(Object[] valores) {
         this.valores = valores;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -79,5 +77,4 @@ public class Entidad {
     public void setColumnas(String[] columnas) {
         this.columnas = columnas;
     }
-    
 }
