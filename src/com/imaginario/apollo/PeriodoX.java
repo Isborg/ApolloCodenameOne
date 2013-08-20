@@ -98,7 +98,7 @@ public class PeriodoX extends BaseForm {
                 }
                 else{
                     periodoGuardar.setId(periodo.getId());
-                    periodoGuardar.setCursos(periodo.getCursos());
+                    periodoGuardar.setInstancias(periodo.getInstancias());
                 }
                 periodoGuardar.setAnio(Short.parseShort(txtAnio.getText()));
                 periodoGuardar.setNumero(Byte.parseByte(cbNumero.getSelectedItem().toString()));

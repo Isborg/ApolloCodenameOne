@@ -20,7 +20,7 @@ public class Periodo extends Entidad {
     private String tipo;
     private byte numero;
     private String institucion;
-    private Vector<Integer> cursos;
+    private Vector<Integer> instancias;
     private int profesor;
 
     public Periodo(int _id, short _anio, String _tipo, byte _numero, String _institucion, int _profesor){
@@ -29,34 +29,34 @@ public class Periodo extends Entidad {
         setTipo(_tipo);
         setNumero(_numero);
         setInstitucion(_institucion);
-        setCursos(new Vector<Integer>());
+        setInstancias(new Vector<Integer>());
         setProfesor(_profesor);
         setNombreDeposito("depositoPeriodos");
-        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","instancias","profesor"});
     }
 
     public Periodo(){
         setNombreDeposito("depositoPeriodos");
-        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","instancias","profesor"});
     }
     
     public Periodo(Hashtable table){
         setNombreDeposito("depositoPeriodos");
-        setColumnas(new String[]{"id","anio","tipo","numero","institucion","cursos","profesor"});
+        setColumnas(new String[]{"id","anio","tipo","numero","institucion","instancias","profesor"});
         setId((Integer)table.get(getColumnas()[0]));
         setAnio((Short)table.get(getColumnas()[1]));
         setTipo((String)table.get(getColumnas()[2]));
         setNumero((Byte)table.get(getColumnas()[3]));
         setInstitucion((String)table.get(getColumnas()[4]));
-        setCursos((Vector<Integer>)table.get(getColumnas()[5]));
+        setInstancias((Vector<Integer>)table.get(getColumnas()[5]));
         setProfesor((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
         Object[] vs = new Object[]{
-            getId(),getAnio(),getTipo(),getNumero(),getInstitucion(),getCursos(),getProfesor()
+            getId(),getAnio(),getTipo(),getNumero(),getInstitucion(),getInstancias(),getProfesor()
         };
-        if(getCursos() == null){
+        if(getInstancias() == null){
             vs[5] = new Vector<Integer>();
         }
         setValores(vs);
@@ -115,12 +115,12 @@ public class Periodo extends Entidad {
         this.institucion = institucion;
     }
 
-    public Vector<Integer> getCursos() {
-        return cursos;
+    public Vector<Integer> getInstancias() {
+        return instancias;
     }
 
-    public void setCursos(Vector<Integer> cursos) {
-        this.cursos = cursos;
+    public void setInstancias(Vector<Integer> instancias) {
+        this.instancias = instancias;
     }
 
     public int getProfesor() {

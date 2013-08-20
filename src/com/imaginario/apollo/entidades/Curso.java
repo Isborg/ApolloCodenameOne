@@ -21,40 +21,40 @@ public class Curso extends Entidad {
     private Vector<Integer> asignaciones;
     private Vector<Integer> materias;
     private Vector<Integer> instancias;
-    private int periodo;
+    private int profesor;
 
-    public Curso(int _id, String _nombre, String _descrpcion, int _periodo){
+    public Curso(int _id, String _nombre, String _descrpcion, int _profesor){
         setId(_id);
         setNombre(_nombre);
         setDescripcion(_descrpcion);
         setAsignaciones(new Vector<Integer>());
         setMaterias(new Vector<Integer>());
         setInstancias(new Vector<Integer>());
-        setPeriodo(_periodo);
+        setProfesor(_profesor);
         setNombreDeposito("depositoCursos");
-        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
+        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","profesor"});
     }
 
     public Curso(){
         setNombreDeposito("depositoCursos");
-        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
+        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","profesor"});
     }
     
     public Curso(Hashtable table){
         setNombreDeposito("depositoCursos");
-        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","periodo"});
+        setColumnas(new String[]{"id","nombre","descripcion","asignaciones","materias","instancias","profesor"});
         setId((Integer)table.get(getColumnas()[0]));
         setNombre((String)table.get(getColumnas()[1]));
         setDescripcion((String)table.get(getColumnas()[2]));
         setAsignaciones((Vector<Integer>)table.get(getColumnas()[3]));
         setMaterias((Vector<Integer>)table.get(getColumnas()[4]));
         setInstancias((Vector<Integer>)table.get(getColumnas()[5]));
-        setPeriodo((Integer)table.get(getColumnas()[6]));
+        setProfesor((Integer)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
         Object[] vs = new Object[]{
-            getId(),getNombre(),getDescripcion(),getAsignaciones(),getMaterias(),getInstancias(),getPeriodo()
+            getId(),getNombre(),getDescripcion(),getAsignaciones(),getMaterias(),getInstancias(),getProfesor()
         };
         if(getAsignaciones() == null){
             vs[3] = new Vector<Integer>();
@@ -71,7 +71,7 @@ public class Curso extends Entidad {
     @Override
     public void guardarEnStorage(){
         super.guardarEnStorage();
-        Periodo entidad = Deposito.getPeriodoById(getPeriodo());
+        Profesor entidad = Deposito.getProfesorById(getProfesor());
         if(!entidad.getCursos().contains(getId())){
             entidad.getCursos().add(getId());
         }
@@ -129,12 +129,12 @@ public class Curso extends Entidad {
         this.instancias = instancias;
     }
 
-    public int getPeriodo() {
-        return periodo;
+    public int getProfesor() {
+        return profesor;
     }
 
-    public void setPeriodo(int periodo) {
-        this.periodo = periodo;
+    public void setProfesor(int profesor) {
+        this.profesor = profesor;
     }
     
 }
