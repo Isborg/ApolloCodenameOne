@@ -22,19 +22,19 @@ import com.imaginario.apollo.entidades.InstanciaCurso;
  * @author Ismael
  */
 public class DetalleCurso extends BaseForm {
-
-    public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia) {
+    
+    public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia){
         iniciarForm(instancia.toString(), _parent, profesor);
-
+        
         Container subTitulo = new Container(new BorderLayout());
         loadRecordatorios(subTitulo);
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
     }
-
-    public void loadRecordatorios(final Container cont) {
+    
+    public void loadRecordatorios(final Container cont){
         cont.removeAll();
-
+        
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -53,17 +53,17 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-
+        
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         contenido.addComponent(new Label("Recordatoriooos"));
         cont.addComponent(BorderLayout.CENTER, contenido);
-
+        
         getCurrent().animateLayout(0);
     }
-
-    public void loadEstudiantes(final Container cont) {
+    
+    public void loadEstudiantes(final Container cont){
         cont.removeAll();
-
+        
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -82,17 +82,17 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-
+        
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         contenido.addComponent(new Label("Estudianteees"));
         cont.addComponent(BorderLayout.CENTER, contenido);
-
+        
         getCurrent().animateLayout(0);
     }
-
-    public void loadAsignaciones(final Container cont) {
+    
+    public void loadAsignaciones(final Container cont){
         cont.removeAll();
-
+        
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -111,17 +111,17 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-
+        
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         contenido.addComponent(new Label("Asignacioneees"));
         cont.addComponent(BorderLayout.CENTER, contenido);
-
+        
         getCurrent().animateLayout(0);
     }
-
-    public void loadMateria(final Container cont) {
+    
+    public void loadMateria(final Container cont){
         cont.removeAll();
-
+        
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -140,11 +140,12 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-
+        
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         contenido.addComponent(new Label("Materiaaa"));
         cont.addComponent(BorderLayout.CENTER, contenido);
-
+        
         getCurrent().animateLayout(0);
     }
+    
 }
