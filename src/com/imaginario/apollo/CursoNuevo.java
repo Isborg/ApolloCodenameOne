@@ -32,7 +32,7 @@ import java.util.Date;
  */
 public class CursoNuevo extends BaseForm {
 
-    public CursoNuevo(Periodo _periodo, final Profesor profesor, final Form _parent) {
+    public CursoNuevo(final Periodo _periodo, final Profesor profesor, final Form _parent) {
         final Container container = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final ComboBox cbPlantilla = new ComboBox();
         iniciarForm("Nuevo curso", _parent, profesor);
@@ -61,10 +61,9 @@ public class CursoNuevo extends BaseForm {
                     btnAceptar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
 
-                            //Curso curso = new Curso();
-                            //curso.setNombre(txtNombre.getText());
-                            //curso.setDescripcion(txtDescripcion.getText());
-                            //curso.guardarEnStorage();
+                            Curso curso = new Curso(-1,txtNombre.getText(),txtDescripcion.getText(),profesor.getId());
+                            curso.guardarEnStorage();
+                            cbPlantilla.repaint();
                             dia.dispose();
                         }
                     });
@@ -78,7 +77,6 @@ public class CursoNuevo extends BaseForm {
                     btnContainer.addComponent(btnAceptar);
                     contPlantilla.addComponent(btnContainer);
                     dia.addComponent(contPlantilla);
-
                     dia.setDisposeWhenPointerOutOfBounds(true);
                     dia.show();
 
@@ -86,11 +84,9 @@ public class CursoNuevo extends BaseForm {
                 }
             }
         });
-        for (Periodo p : Deposito.getPeriodosByProfesor(profesor.getId())) {
-            for (Curso c : Deposito.getCursosByPeriodo(p.getId())) {
+                for (Curso c : Deposito.getCursosByProfesor(profesor.getId())) {
                 cbPlantilla.addItem(c);
-            }
-        }
+            }        
         final Button btnPLantillaMngr = new Button("Administrar Plantilla");
         btnPLantillaMngr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -164,7 +160,8 @@ public class CursoNuevo extends BaseForm {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                InstanciaCurso instanciaCurso = new InstanciaCurso(-1, fecha, txtCantSemanas.getText().getBytes()[0], ((Curso) cbPlantilla.getSelectedItem()).getId());
+                InstanciaCurso instanciaCurso = new InstanciaCurso(-1, fecha, txtCantSemanas.getText().getBytes()[0], 
+                                                ((Curso) cbPlantilla.getSelectedItem()).getId(),_periodo.getId());
                 instanciaCurso.guardarEnStorage();
                 new DetalleCurso(getCurrent(), profesor, instanciaCurso);
             }
