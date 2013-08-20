@@ -25,6 +25,7 @@ import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.entidades.Recordatorio;
 import com.imaginario.apollo.utilidades.Deposito;
+import com.imaginario.apollo.utilidades.JsonParse;
 import com.imaginario.apollo.utilidades.MenuHamburguesa;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
+import org.codehaus.jettison.json.JSONException;
 import userclasses.StateMachine;
 
 public class ApolloMain {
@@ -42,7 +44,7 @@ public class ApolloMain {
     public void init(Object context) {
     }
 
-    public void start() {
+    public void start() throws JSONException {
         // Set theme
         try{
             UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
@@ -91,7 +93,7 @@ public class ApolloMain {
         instancia5.guardarEnStorage();
         
         
-        //Profesor profesor = Deposito.getProfesorById(1);
+        new JsonParse(periodo1);
         new Inicio(profesor);
     }
 

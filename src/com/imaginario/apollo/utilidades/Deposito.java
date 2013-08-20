@@ -19,6 +19,7 @@ import com.imaginario.apollo.entidades.Recordatorio;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -38,6 +39,7 @@ public class Deposito {
     
     public static Curso getCursoById(int id){
         Hashtable table = (Hashtable)((Hashtable)Storage.getInstance().readObject("depositoCursos")).get(id);
+     
         return new Curso(table);
     }
     

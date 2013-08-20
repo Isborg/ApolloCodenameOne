@@ -16,8 +16,9 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.imaginario.apollo.CursoNuevo;
 import com.imaginario.apollo.DetalleCurso;
+import com.imaginario.apollo.Historial;
 import com.imaginario.apollo.PeriodoX;
-import com.imaginario.apollo.entidades.Curso;
+import com.imaginario.apollo.ReportarFallas;
 import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
@@ -82,6 +83,12 @@ public class MenuHamburguesa {
         Button btnHistorial = new Button("Historial");
         btnHistorial.setUIID("ButtonHamburguesaInicio");
         btnHistorial.setPreferredH(45);
+        btnHistorial.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                new Historial(Display.getInstance().getCurrent(),profesor);
+            }
+        });
         contenido.addComponent(btnHistorial);
         
         Button btnConfiguracion = new Button("Configuración");
@@ -91,6 +98,12 @@ public class MenuHamburguesa {
         
         Button btnReportar = new Button("Reportar fallas");
         btnReportar.setUIID("ButtonHamburguesaConfiguracion");
+        btnReportar.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+             new ReportarFallas(Display.getInstance().getCurrent(),profesor);
+            }
+        });
         btnReportar.setPreferredH(45);
         contenido.addComponent(btnReportar);
         

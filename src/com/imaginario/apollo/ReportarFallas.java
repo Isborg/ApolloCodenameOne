@@ -20,9 +20,9 @@ import com.imaginario.apollo.entidades.Profesor;
  */
 public class ReportarFallas extends BaseForm {
     
-    public ReportarFallas(Form _parent, final Profesor profesor, final Periodo periodo){
+    public ReportarFallas(Form _parent,Profesor _profeP){
 
-        iniciarForm("Reportar Falla", _parent, profesor);
+        iniciarForm("Reportar Falla", _parent,_profeP);
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         TextArea texto = new TextArea();
         contenido.addComponent(texto);
