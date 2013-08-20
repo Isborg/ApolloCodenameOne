@@ -18,9 +18,11 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.imaginario.apollo.entidades.Curso;
+import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.utilidades.Deposito;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -53,11 +55,8 @@ public class CursoNuevo extends BaseForm {
                     contPlantilla.addComponent(txtNombre);
                     contPlantilla.addComponent(lblDescripcionPlantilla);
                     contPlantilla.addComponent(txtDescripcion);
-
+                    cbPlantilla.repaint();
                     Container btnContainer = new Container(new GridLayout(1, 2));
-
-
-                    
                     Button btnAceptar = new Button("Aceptar");
                     btnAceptar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
@@ -78,7 +77,6 @@ public class CursoNuevo extends BaseForm {
                     btnContainer.addComponent(btnCancelar);
                     btnContainer.addComponent(btnAceptar);
                     contPlantilla.addComponent(btnContainer);
-
                     dia.addComponent(contPlantilla);
 
                     dia.setDisposeWhenPointerOutOfBounds(true);
@@ -155,6 +153,35 @@ public class CursoNuevo extends BaseForm {
         container.addComponent(lblPlantilla);
         container.addComponent(cbPlantilla);
         container.addComponent(btnPLantillaMngr);
+        final Button btnAceptar = new Button("Aceptar");
+        btnAceptar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
+                String strFecha = txtFechaInicio.getText();
+                Date fecha = null;
+                try {
+                    fecha = textFormat.parse(strFecha);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                InstanciaCurso instanciaCurso = new InstanciaCurso(-1, fecha, txtCantSemanas.getText().getBytes()[0], ((Curso) cbPlantilla.getSelectedItem()).getId());
+                instanciaCurso.guardarEnStorage();
+                new DetalleCurso(getCurrent(), profesor, instanciaCurso);
+            }
+        });
+        Button btnCancelar = new Button("Cancelar ");
+        Container btnContainer = new Container(new GridLayout(1, 2));
+        btnContainer.addComponent(btnAceptar);
+        btnContainer.addComponent(btnCancelar);
+
+
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //dia.dispose();
+            }
+        });
+        container.addComponent(btnContainer);
+
         getCurrent().addComponent(BorderLayout.CENTER, container);
         getCurrent().show();
     }

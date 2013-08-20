@@ -31,6 +31,10 @@ public class DetalleCurso extends BaseForm {
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
     }
+
+    public DetalleCurso() {
+    }
+    
     
     public void loadRecordatorios(final Container cont){
         cont.removeAll();

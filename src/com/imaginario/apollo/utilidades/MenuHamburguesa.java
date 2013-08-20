@@ -7,6 +7,7 @@ package com.imaginario.apollo.utilidades;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -14,6 +15,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.imaginario.apollo.CursoNuevo;
+import com.imaginario.apollo.DetalleCurso;
 import com.imaginario.apollo.PeriodoX;
 import com.imaginario.apollo.entidades.Curso;
 import com.imaginario.apollo.entidades.InstanciaCurso;
@@ -62,7 +64,7 @@ public class MenuHamburguesa {
         Container contCursos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         try{
             Periodo primerPeriodo = Deposito.getPeriodoById(profesor.getPeriodos().get(0));
-            loadCursos(contCursos, primerPeriodo);
+            loadCursos(contCursos, primerPeriodo,profesor);
         } catch(Exception e){}
         contenido.addComponent(contCursos);        
         Button btnAgregarCurso = new Button("+");
@@ -104,9 +106,9 @@ public class MenuHamburguesa {
             final Button btnPeriodo = new Button(periodo.toString());
             btnPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
             btnPeriodo.setPreferredH(45);
-            btnPeriodo.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    loadCursos((Container)contPeriodos.getParent().getComponentAt(5), periodo);
+            btnPeriodo.addActionListener(new ActionListener() 
+{                public void actionPerformed(ActionEvent evt) {
+                    loadCursos((Container)contPeriodos.getParent().getComponentAt(5), periodo, profesor);
                     for(int i = 0; i < contPeriodos.getComponentCount(); i++){
                         contPeriodos.getComponentAt(i).setUIID("ButtonHamburguesaPeriodoUnselected");
                     }
@@ -126,15 +128,21 @@ public class MenuHamburguesa {
         }
     }
     
-    private static void loadCursos(Container contCursos, Periodo periodo){
+    private static void loadCursos(final Container contCursos, Periodo periodo, final Profesor profesor){
         contCursos.removeAll();
         try{
             for(int idCurso : periodo.getCursos()){
-                Curso curso = Deposito.getCursoById(idCurso);
+                final Curso curso = Deposito.getCursoById(idCurso);
                 for(int idInstancia : curso.getInstancias()){
-                    InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
+                    final InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
                     Button btnInstancia = new Button(instancia.toString());
                     btnInstancia.setUIID("ButtonHamburguesaCurso");
+                    btnInstancia.addActionListener(new ActionListener() {
+
+                        public void actionPerformed(ActionEvent evt) {
+                            new DetalleCurso(Display.getInstance().getCurrent(),profesor,instancia);
+                        }
+                    });
                     btnInstancia.setPreferredH(45);
                     contCursos.addComponent(btnInstancia);
                 }
