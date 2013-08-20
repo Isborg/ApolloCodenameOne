@@ -47,7 +47,7 @@ public class ApolloMain {
         try{
             UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
         }catch(IOException e){}
-        Storage.getInstance().clearStorage();
+        //Storage.getInstance().clearStorage();
                
         if(Storage.getInstance().readObject("depositoProfesores") == null){
             Storage.getInstance().writeObject("depositoAsignaciones", new Hashtable());
@@ -73,21 +73,21 @@ public class ApolloMain {
         curso1.guardarEnStorage();
         Curso curso2 = new Curso(2,"Cálculo I","Límites, optimización, derivadas, integrales.",1);
         curso2.guardarEnStorage();
-        Curso curso3 = new Curso(3,"Seminario","...",2);
+        Curso curso3 = new Curso(3,"Seminario","...",1);
         curso3.guardarEnStorage();
-        Curso curso4 = new Curso(4,"Física I","Movimiento parabólico.",2);
+        Curso curso4 = new Curso(4,"Física I","Movimiento parabólico.",1);
         curso4.guardarEnStorage();
-        Curso curso5 = new Curso(5,"Programación II","Introducción a objetos.",2);
+        Curso curso5 = new Curso(5,"Programación II","Introducción a objetos.",1);
         curso5.guardarEnStorage();
-        InstanciaCurso instancia1 = new InstanciaCurso(1, new Date(), (byte)12, 1);
+        InstanciaCurso instancia1 = new InstanciaCurso(1, new Date(), (byte)12, 1,periodo1.getId());
         instancia1.guardarEnStorage();
-        InstanciaCurso instancia2 = new InstanciaCurso(2, new Date(), (byte)13, 2);
+        InstanciaCurso instancia2 = new InstanciaCurso(2, new Date(), (byte)13, 2,periodo1.getId());
         instancia2.guardarEnStorage();
-        InstanciaCurso instancia3 = new InstanciaCurso(3, new Date(), (byte)14, 3);
+        InstanciaCurso instancia3 = new InstanciaCurso(3, new Date(), (byte)14, 3,periodo2.getId());
         instancia3.guardarEnStorage();
-        InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4);
+        InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4,periodo1.getId());
         instancia4.guardarEnStorage();
-        InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5);
+        InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5,periodo1.getId());
         instancia5.guardarEnStorage();
         
         
