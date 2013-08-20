@@ -130,29 +130,22 @@ public class MenuHamburguesa {
     
     private static void loadCursos(final Container contCursos, Periodo periodo, final Profesor profesor){
         contCursos.removeAll();
-        try{
-<<<<<<< HEAD
-            for(int idCurso : periodo.getCursos()){
-                final Curso curso = Deposito.getCursoById(idCurso);
-                for(int idInstancia : curso.getInstancias()){
+        try{     
+                for(int idInstancia : periodo.getInstancias()){
                     final InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
-=======
-            for(int idInstancia : periodo.getInstancias()){
-                    InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
                     Button btnInstancia = new Button(instancia.toString());
                     btnInstancia.setUIID("ButtonHamburguesaCurso");
                     btnInstancia.addActionListener(new ActionListener() {
-
                         public void actionPerformed(ActionEvent evt) {
                             new DetalleCurso(Display.getInstance().getCurrent(),profesor,instancia);
                         }
                     });
                     btnInstancia.setPreferredH(45);
                     contCursos.addComponent(btnInstancia);
-            }
-        }
+            
+        }}
         catch(Exception e){}
         contCursos.animateLayout(0);
-    }
     
+    }
 }
