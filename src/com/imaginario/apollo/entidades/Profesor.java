@@ -19,6 +19,7 @@ public class Profesor extends Entidad {
     private String usuario;
     private String contrasenia;
     private Vector<Integer> periodos;
+    private Vector<Integer> cursos;
 
     public Profesor(int _id, String _nombre, String _correo, String _usuario, String _contrasenia){
         setId(_id);
@@ -27,32 +28,37 @@ public class Profesor extends Entidad {
         setUsuario(_usuario);
         setContrasenia(_contrasenia);
         setPeriodos(new Vector<Integer>());
+        setCursos(new Vector<Integer>());
         setNombreDeposito("depositoProfesores");
-        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos","cursos"});
     }
 
     public Profesor(){
         setNombreDeposito("depositoProfesores");
-        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos","cursos"});
     }
     
     public Profesor(Hashtable table){
         setNombreDeposito("depositoProfesores");
-        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos"});
+        setColumnas(new String[]{"id","nombre","correo","usuario","contrasenia","periodos","cursos"});
         setId((Integer)table.get(getColumnas()[0]));
         setNombre((String)table.get(getColumnas()[1]));
         setCorreo((String)table.get(getColumnas()[2]));
         setUsuario((String)table.get(getColumnas()[3]));
         setContrasenia((String)table.get(getColumnas()[4]));
         setPeriodos((Vector<Integer>)table.get(getColumnas()[5]));
+        setCursos((Vector<Integer>)table.get(getColumnas()[6]));
     }
 
     public void setValores(){
         Object[] vs = new Object[]{
-            getId(),getNombre(),getCorreo(),getUsuario(),getContrasenia(),getPeriodos()
+            getId(),getNombre(),getCorreo(),getUsuario(),getContrasenia(),getPeriodos(),getCursos()
         };
         if(getPeriodos() == null){
             vs[5] = new Vector<Integer>();
+        }
+        if(getCursos() == null){
+            vs[6] = new Vector<Integer>();
         }
         setValores(vs);
     }
@@ -112,6 +118,14 @@ public class Profesor extends Entidad {
 
     public void setPeriodos(Vector<Integer> periodos) {
         this.periodos = periodos;
+    }
+
+    public Vector<Integer> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(Vector<Integer> cursos) {
+        this.cursos = cursos;
     }
     
 }

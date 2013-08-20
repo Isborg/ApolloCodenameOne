@@ -121,14 +121,11 @@ public class MenuHamburguesa {
     private static void loadCursos(Container contCursos, Periodo periodo){
         contCursos.removeAll();
         try{
-            for(int idCurso : periodo.getCursos()){
-                Curso curso = Deposito.getCursoById(idCurso);
-                for(int idInstancia : curso.getInstancias()){
+            for(int idInstancia : periodo.getInstancias()){
                     InstanciaCurso instancia = Deposito.getInstanciaById(idInstancia);
                     Button btnInstancia = new Button(instancia.toString());
                     btnInstancia.setUIID("ButtonHamburguesaCurso");
                     contCursos.addComponent(btnInstancia);
-                }
             }
         }
         catch(Exception e){}
