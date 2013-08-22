@@ -23,6 +23,9 @@ import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 
+import org.codehaus.jettison.json.JSONException;
+
+
 /**
  *
  * @author Ismael
@@ -85,8 +88,10 @@ public class MenuHamburguesa {
         btnHistorial.setPreferredH(45);
         btnHistorial.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent evt) {
-                new Historial(Display.getInstance().getCurrent(),profesor);
+            public void actionPerformed(ActionEvent evt) {               
+                
+                    new Historial(Display.getInstance().getCurrent(),profesor);
+                
             }
         });
         contenido.addComponent(btnHistorial);
