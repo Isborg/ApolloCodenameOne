@@ -12,6 +12,7 @@ import com.imaginario.apollo.entidades.Curso;
 import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
@@ -21,6 +22,7 @@ import com.codename1.ui.events.DataChangedListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.imaginario.apollo.entidades.InstanciaCurso;
+import com.imaginario.apollo.entidades.Materia;
 import com.imaginario.apollo.entidades.Recordatorio;
 import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
@@ -294,12 +296,64 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-        
-        Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        contenido.addComponent(new Label("Materiaaa"));
+        Container contenido = new Container(new BorderLayout());
+        loadMateria(contenido, instancia, 1);
         cont.addComponent(BorderLayout.CENTER, contenido);
         
         getCurrent().animateLayout(0);
     }
+    private void loadMateria(final Container cont, final InstanciaCurso instancia,final int semana){
+        cont.removeAll();
+        Container contTitleMateria = new Container(new BorderLayout());
+        Container contenidoMateria = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        
+        
+        ArrayList<Materia> materiasSemanaActual = new ArrayList<Materia>();
+        for (Materia materia : Deposito.getMateriasByCurso(instancia.getCurso())) {
+            if(materia.getNumeroSemana() == semana){
+                materiasSemanaActual.add(materia);
+            }
+        }
+        for (Materia materia : materiasSemanaActual) {
+            //agrega cada materia al contenidoMateria
+            contenidoMateria.animate();
+        }
+        Button btnAgregarMateria = new Button("Add mateira");
+        btnAgregarMateria.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+            final Container contMateriaNueva= new Container(new BorderLayout());
+            TextArea txtMateria= new TextArea();
+            CheckBox check= new CheckBox();
+            
+            contMateriaNueva.addComponent(BorderLayout.EAST,check);
+            contMateriaNueva.addComponent(BorderLayout.CENTER,txtMateria);
+            }
+        });
+        contenidoMateria.addComponent(btnAgregarMateria);
+        
+        
+        Button previousSemanaMateria= new Button("<--");
+         previousSemanaMateria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                loadMateria(cont, instancia,semana-1);    
+            }
+        });
+        
+        contTitleMateria.addComponent(BorderLayout.WEST, previousSemanaMateria);
+        Button nextSemanaMateria= new Button("-->");
+        nextSemanaMateria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                 loadMateria(cont, instancia, semana+1);   
+            }
+        });
+        contTitleMateria.addComponent(BorderLayout.EAST, nextSemanaMateria);
+        cont.addComponent(BorderLayout.CENTER,contenidoMateria);
+        cont.addComponent(BorderLayout.NORTH,contTitleMateria);
+    }
+    public void loadMateriaSiguiente(int idMateria, InstanciaCurso instancia){
+        
+        Deposito.getMateriasByCurso(instancia.getCurso());
     
+    }
 }
