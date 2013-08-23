@@ -23,6 +23,7 @@ import com.imaginario.apollo.entidades.Periodo;
 import com.imaginario.apollo.entidades.Profesor;
 import com.imaginario.apollo.utilidades.Deposito;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -63,16 +64,24 @@ public class CursoNuevo extends BaseForm {
 
                             Curso curso = new Curso(-1,txtNombre.getText(),txtDescripcion.getText(),profesor.getId());
                             curso.guardarEnStorage();
-                            cbPlantilla.repaint();
+                            for (int i =cbPlantilla.getModel().getSize(); i >= 0; i--) {
+                                cbPlantilla.getModel().removeItem(i);
+                            }
+                           
+                            for (Curso c : Deposito.getCursosByProfesor(profesor.getId())) {
+                                cbPlantilla.getModel().addItem(c);
+                            }
                             dia.dispose();
                         }
                     });
-                    Button btnCancelar = new Button("Cancelar ");
+                    Button btnCancelar = new Button("Cancelar");
                     btnCancelar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             dia.dispose();
                         }
                     });
+                   
+                   
                     btnContainer.addComponent(btnCancelar);
                     btnContainer.addComponent(btnAceptar);
                     contPlantilla.addComponent(btnContainer);
@@ -111,7 +120,7 @@ public class CursoNuevo extends BaseForm {
                         dia.dispose();
                     }
                 });
-                Container btnContainer = new Container(new GridLayout(1, 2));
+                Container btnContainer = new Container(new GridLayout(1, 3));
                 btnContainer.addComponent(btnCancelar);
 
                 Button btnAceptar = new Button("Aceptar");
@@ -126,6 +135,22 @@ public class CursoNuevo extends BaseForm {
                     }
                 });
                 btnContainer.addComponent(btnAceptar);
+                 Button btnEliminar= new Button("Eliminar");
+                    btnEliminar.addActionListener(new ActionListener() {
+
+                        public void actionPerformed(ActionEvent evt) {
+                            Deposito.eliminarCurso(((Curso)cbPlantilla.getSelectedItem()).getId());
+                            for (int i =cbPlantilla.getModel().getSize(); i >= 0; i--) {
+                                cbPlantilla.getModel().removeItem(i);
+                            }
+                           
+                            for (Curso c : Deposito.getCursosByProfesor(profesor.getId())) {
+                                cbPlantilla.getModel().addItem(c);
+                            }
+                            dia.dispose();
+                        }
+                    });
+                    btnContainer.addComponent(btnEliminar);
                 dia.addComponent(diaContainer);
                 dia.addComponent(btnContainer);
 
