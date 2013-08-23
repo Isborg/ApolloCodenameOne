@@ -6,6 +6,8 @@ package com.imaginario.apollo.entidades;
 
 import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -72,6 +74,56 @@ public class Estudiante extends Entidad {
             entidad.getEstudiantes().add(getId());
         }
         entidad.guardarEnStorage();
+        
+        // CREAR ASISTENCIAS DEL ESTUDIANTE PARA CADA HORARIO POR CADA SEMANA
+        ArrayList<Horario> horarios = Deposito.getHorariosByInstancia(getInstanciaCurso());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(entidad.getFechaInicio());
+        for(int i = 0; i < entidad.getCantidadSemanas(); i++){
+            for(Horario horario : horarios){
+                if("Domingo".equals(horario.getDia()) || 
+                        "Lunes".equals(horario.getDia()) || 
+                        "Martes".equals(horario.getDia()) || 
+                        "Miércoles".equals(horario.getDia()) || 
+                        "Jueves".equals(horario.getDia()) || 
+                        "Viernes".equals(horario.getDia()) || 
+                        "Sábado".equals(horario.getDia())){
+                    while(!compararDia(horario.getDia(), cal.get(Calendar.DAY_OF_WEEK))){
+                        cal.add(Calendar.DATE, 1);
+                    }
+                }
+                Asistencia nuevaAsistencia = new Asistencia(-1, cal.getTime(), "", getId());
+                nuevaAsistencia.guardarEnStorage();
+            }
+            cal.add(Calendar.DATE, 7);
+        }
+        // CREAR NOTAS DEL ESTUDIANTE PARA CADA ASIGNACION
+        ArrayList<Asignacion> asignaciones = Deposito.getAsignacionesByCurso(entidad.getCurso());
+        for(Asignacion asignacion : asignaciones){
+            Nota nuevaNota = new Nota(-1, (byte)0, asignacion.getId(), getId());
+            nuevaNota.guardarEnStorage();
+        }
+    }
+    
+    private boolean compararDia(String diaTexto, int diaCalendar){
+        switch(diaCalendar){
+            case 1:
+                return (diaTexto.equals("Domingo")) ? true : false;
+            case 2:
+                return (diaTexto.equals("Lunes")) ? true : false;
+            case 3:
+                return (diaTexto.equals("Martes")) ? true : false;
+            case 4:
+                return (diaTexto.equals("Miércoles")) ? true : false;
+            case 5:
+                return (diaTexto.equals("Jueves")) ? true : false;
+            case 6:
+                return (diaTexto.equals("Viernes")) ? true : false;
+            case 7:
+                return (diaTexto.equals("Sábado")) ? true : false;
+            default:
+                return false;
+        }
     }
     
     @Override
