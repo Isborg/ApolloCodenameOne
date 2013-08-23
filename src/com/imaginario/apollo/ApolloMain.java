@@ -88,6 +88,7 @@ public class ApolloMain {
         Horario horario2 = new Horario(2, "Jueves", (byte)15, (byte)0, (byte)17, (byte)0, 1);
         horario2.guardarEnStorage();
         */
+        
         Profesor profesor = Deposito.getProfesorById(1);
         new Inicio(profesor);
     }

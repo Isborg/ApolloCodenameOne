@@ -42,7 +42,7 @@ import java.util.Vector;
  */
 public class DetalleCurso extends BaseForm {
 
-    private int semanaActualMateria;
+    private int semanaActualMateria=1;
 
     public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia) {
         iniciarForm(instancia.toString(), _parent, profesor);
@@ -51,6 +51,8 @@ public class DetalleCurso extends BaseForm {
         loadPantallaRecordatorios(subTitulo, instancia);
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
+    
+    
     }
 
     public void loadPantallaRecordatorios(final Container cont, final InstanciaCurso instancia) {
@@ -735,6 +737,7 @@ public class DetalleCurso extends BaseForm {
                 }
             }
         });
+        
         lblTitulo.setText("Semana "+ semanaActualMateria);
         contTitleMateria.addComponent(BorderLayout.CENTER,lblTitulo);
         contTitleMateria.addComponent(BorderLayout.EAST, nextSemanaMateria);
