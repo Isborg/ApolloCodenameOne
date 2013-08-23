@@ -36,7 +36,7 @@ public class BaseForm {
         getCurrent().setLayout(new BorderLayout());
         
         Container contTitle = new Container(new BorderLayout());
-        contTitle.setUIID("ContainerTituloAzul");
+        contTitle.setUIID("ContainerTituloVerde");
         contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
         Button btnMenu = new Button(" ");
         btnMenu.setUIID("ButtonIconoHamburguesa");
@@ -48,7 +48,7 @@ public class BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnMenu);
         Label lblTitle = new Label(titulo);
-        lblTitle.setUIID("LabelTituloAzul");
+        lblTitle.setUIID("LabelTituloVerde");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
         getCurrent().addComponent(BorderLayout.NORTH, contTitle);
     }

@@ -38,11 +38,17 @@ public class PeriodoX extends BaseForm {
         else{
             iniciarForm("Editar periodo", _parent, profesor);
         }
+        // Cambiar color a la barra de titulo
+        Container titulo = (Container)((Container)getCurrent().getComponentAt(1)).getComponentAt(0);
+        titulo.setUIID("ContainerTituloAzul");
+        titulo.getComponentAt(1).setUIID("LabelTituloAzul");
         
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         contenido.setUIID("ContainerFondoGris");
         final ComboBox cbTipo = new ComboBox(new String[]{"Semestral","Cuatrimestral","Trimestral","Bimestral","Mensual"});
+        cbTipo.setUIID("ComboBoxBlanco");
         final ComboBox cbNumero = new ComboBox(new Integer[]{1,2});
+        cbNumero.setUIID("ComboBoxBlanco");
         cbTipo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 for(int i = cbNumero.getModel().getSize() - 1; i >= 0; i--){
@@ -87,11 +93,13 @@ public class PeriodoX extends BaseForm {
         lblInstitucion.setUIID("LabelFondoGris");
         contenido.addComponent(lblInstitucion);
         final TextField txtInstitucion = new TextField();
+        txtInstitucion.setUIID("TextFieldBlanco");
         contenido.addComponent(txtInstitucion);
         Label lblAnio = new Label("Año");
         lblAnio.setUIID("LabelFondoGris");
         contenido.addComponent(lblAnio);
         final TextField txtAnio = new TextField(Calendar.getInstance().get(Calendar.YEAR) + "");
+        txtAnio.setUIID("TextFieldBlanco");
         contenido.addComponent(txtAnio);
         Container contBotones = new Container(new GridLayout(1, 2));
         contBotones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));

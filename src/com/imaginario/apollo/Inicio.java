@@ -19,7 +19,7 @@ public class Inicio extends BaseForm {
     public Inicio(Profesor profesor) {
         iniciarForm("Inicio", null, profesor);
         Container c=new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                c.addComponent(new Label("AQUI VA UN DESPICHE"));
+                
                 getCurrent().addComponent(BorderLayout.CENTER,c);
         getCurrent().show();
     }

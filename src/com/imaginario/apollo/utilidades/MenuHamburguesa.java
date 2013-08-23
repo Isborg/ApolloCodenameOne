@@ -10,6 +10,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -176,10 +177,14 @@ public class MenuHamburguesa {
                 btnEliminar.setUIID("ButtonHamburguesaEliminarCurso");
                 btnEliminar.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {                        
-                        final Dialog dia = new Dialog("Eliminar curso: " + instancia.toString());
-                        Container diaContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                        final Dialog dia = new Dialog();
+                        dia.getDialogComponent().setUIID("ContainerFondoGris");
+                        dia.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                         Container btnContainer = new Container(new GridLayout(1, 2));
+                        btnContainer.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
+                        btnContainer.setUIID("ContainerBotonesDialogo");
                         Button btnAceptar = new Button("Aceptar");
+                        btnAceptar.setUIID("ButtonVerde");
                         btnAceptar.addActionListener(new ActionListener() {
 
                             public void actionPerformed(ActionEvent evt) {
@@ -189,21 +194,25 @@ public class MenuHamburguesa {
                             }
                         });
                         Button btnCancelar = new Button("Cancelar");
+                        btnCancelar.setUIID("ButtonRojo");
                         btnCancelar.addActionListener(new ActionListener() {
 
                             public void actionPerformed(ActionEvent evt) {
                                 dia.dispose();
                             }
                         });
-                        Label lblConfirmacion = new Label("¿Está seguro que desea eliminar el curso y todos sus contenidos?");
+                        TextArea lblConfirmacion = new TextArea("¿Seguro de que desea eliminar?");
+                        lblConfirmacion.setUIID("TextAreaGrisDialogo");
 
-                        diaContainer.addComponent(lblConfirmacion);
+                        dia.addComponent(lblConfirmacion);
                         btnContainer.addComponent(btnAceptar);
                         btnContainer.addComponent(btnCancelar);
-                        diaContainer.addComponent(btnContainer);
-                        dia.addComponent(diaContainer);
+                        dia.addComponent(btnContainer);
                         dia.setDisposeWhenPointerOutOfBounds(true);
-                        dia.show();
+                        dia.show((int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
                     }
                 });
                 row.addComponent(BorderLayout.EAST, btnEliminar);
