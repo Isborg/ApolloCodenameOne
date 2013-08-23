@@ -22,6 +22,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.imaginario.apollo.entidades.Asignacion;
 import com.imaginario.apollo.entidades.Asistencia;
 import com.imaginario.apollo.entidades.Estudiante;
 import com.imaginario.apollo.entidades.InstanciaCurso;
