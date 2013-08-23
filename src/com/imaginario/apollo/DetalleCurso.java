@@ -22,12 +22,14 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.imaginario.apollo.entidades.Asignacion;
 import com.imaginario.apollo.entidades.Asistencia;
 import com.imaginario.apollo.entidades.Estudiante;
 import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Materia;
 import com.imaginario.apollo.entidades.Recordatorio;
 import com.imaginario.apollo.utilidades.Deposito;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -510,14 +512,182 @@ public class DetalleCurso extends BaseForm {
         cont.addComponent(BorderLayout.NORTH, contTitle);
 
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        contenido.addComponent(new Label("Asignacioneees"));
+        
+        cargarAsignaciones(contenido, instancia);
+        
         cont.addComponent(BorderLayout.CENTER, contenido);
 
         getCurrent().animateLayout(0);
     }
+    
+    public void cargarAsignaciones(final Container cont, final InstanciaCurso instancia){
+        cont.removeAll();
+        
+        ArrayList<Asignacion> asignaciones = Deposito.getAsignacionesByCurso(instancia.getCurso());
+        
+        if(asignaciones.isEmpty()){
+            
+            Label lblVacio = new Label("No hay asignaciones.");
+            cont.addComponent(lblVacio);  
+            
+        }else{
+            
+            for(final Asignacion asignacion:asignaciones){
 
-    public void loadPantallaMateria(final Container cont, final InstanciaCurso instancia) {
-        semanaActualMateria = 1;
+            Button btnNombre = new Button("Nombre: " + asignacion.getNombre() +" - "+ "Porcentaje: " + asignacion.getPorcentaje()); 
+            btnNombre.addActionListener(new ActionListener(){
+                public void actionPerformed (ActionEvent evt){
+                    
+                    final Dialog dlgEditar = new Dialog("Editar " + asignacion.getNombre());
+                    dlgEditar.setDisposeWhenPointerOutOfBounds(true);
+                    dlgEditar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                    
+                    Container botones = new Container(new GridLayout(1,2));
+                    Label lblNombre = new Label("Nombre");
+                    final TextField nombre = new TextField(asignacion.getNombre());                    
+                    Label lblFecha = new Label("Fecha:"); 
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(asignacion.getFechaEntrega());
+                    final TextField fecha = new TextField(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+1+"-"+cal.get(Calendar.DAY_OF_MONTH));        
+                    Label lblPorcentaje = new Label("Porcentaje:");
+                    final TextField porcentaje = new TextField("" + asignacion.getPorcentaje());        
+                    Label lblDescripcion = new Label("Dexcripcion");
+                    final TextArea descripcion = new TextArea(asignacion.getDescripcion());
+                    
+                    Button btnEliminar = new Button("Eliminar");
+                    btnEliminar.addActionListener(new ActionListener(){                
+                        public void actionPerformed(ActionEvent evt){
+                        
+                            final Dialog dlgEliminar = new Dialog("Eliminar");
+                            dlgEliminar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                            Container botones = new Container(new GridLayout(1,2));
+                            Label lblAdvertencia = new Label("¿Esta seguro que desea eliminar?");
+                            Button btnAceptar = new Button("Aceptar");
+                            btnAceptar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    Deposito.eliminarAsignacion(asignacion.getId());
+                                    dlgEliminar.dispose();
+                                    dlgEditar.dispose();
+                                    cargarAsignaciones(cont, instancia);
+                                }                            
+                            });
+                            Button btnCancelar = new Button("Cancelar");
+                            btnCancelar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    dlgEliminar.dispose();
+                                    dlgEditar.dispose();
+                                }                            
+                            });
+                            botones.addComponent(btnAceptar);
+                            botones.addComponent(btnCancelar);
+                            dlgEliminar.addComponent(lblAdvertencia);
+                            dlgEliminar.addComponent(botones);
+
+                            dlgEliminar.show();
+                        }
+                    });
+                    
+                    Button btnAceptar = new Button("Aceptar");
+                    btnAceptar.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent evt){
+                       
+                            asignacion.setNombre(nombre.getText());
+                            SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
+                            String strFecha = fecha.getText();
+                            Date fecha = null;
+                            try { fecha = textFormat.parse(strFecha); }
+                            catch (Exception e) { e.printStackTrace(); }
+                            asignacion.setFechaEntrega(fecha);
+                            asignacion.setPorcentaje(Byte.parseByte(porcentaje.getText()));
+                            asignacion.setDescripcion(descripcion.getText());
+                            asignacion.guardarEnStorage();
+                            dlgEditar.dispose();
+                            cargarAsignaciones(cont, instancia);
+                        }
+                       
+                    });
+                    
+                    dlgEditar.addComponent(lblFecha);
+                    dlgEditar.addComponent(fecha);
+                    dlgEditar.addComponent(lblNombre);
+                    dlgEditar.addComponent(nombre);
+                    dlgEditar.addComponent(lblPorcentaje);
+                    dlgEditar.addComponent(porcentaje);
+                    dlgEditar.addComponent(lblDescripcion);
+                    dlgEditar.addComponent(descripcion);
+                    botones.addComponent(btnAceptar);
+                    botones.addComponent(btnEliminar);
+                    dlgEditar.addComponent(botones);
+                    dlgEditar.show();
+                }
+            });
+            
+            cont.addComponent(btnNombre);
+
+            }
+        
+        }
+        
+        Button btnAgregar = new Button("Agregar");
+        btnAgregar.addActionListener(new ActionListener(){                            
+            public void actionPerformed(ActionEvent evt){
+                                
+                    final Dialog dlgAgregar = new Dialog("Agregar nueva asignacion.");
+                    dlgAgregar.setDisposeWhenPointerOutOfBounds(true);
+                    dlgAgregar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));                    
+                    Container botones = new Container(new GridLayout(1,2));
+                    Label lblNombre = new Label("Nombre");
+                    final TextField nombre = new TextField();                    
+                    Label lblFecha = new Label("Fecha:");            
+                    final TextField fecha = new TextField();        
+                    Label lblPorcentaje = new Label("Porcentaje:");
+                    final TextField porcentaje = new TextField();        
+                    Label lblDescripcion = new Label("Descripción");
+                    final TextArea descripcion = new TextArea();
+                    Button btnAceptar = new Button("Aceptar");                    
+                    btnAceptar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                    SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
+                                    String strFecha = fecha.getText();
+                                    Date fechaFormat = null;
+                                    try { fechaFormat = textFormat.parse(strFecha); }
+                                    catch (Exception e) { e.printStackTrace(); }
+                                    Asignacion asignacionNueva = new Asignacion(-1, nombre.getText(), descripcion.getText(), Byte.parseByte(porcentaje.getText()), fechaFormat, instancia.getCurso());
+                                    asignacionNueva.guardarEnStorage();
+                                    dlgAgregar.dispose();
+                                    cargarAsignaciones(cont, instancia);
+                                }                            
+                            });
+                    Button btnCancelar = new Button("Cancelar");
+                    btnCancelar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    dlgAgregar.dispose();
+                                    
+                                }                            
+                            });                    
+                    botones.addComponent(btnAceptar);
+                    botones.addComponent(btnCancelar);
+                    dlgAgregar.addComponent(lblNombre);
+                    dlgAgregar.addComponent(nombre);
+                    dlgAgregar.addComponent(lblFecha);
+                    dlgAgregar.addComponent(fecha);
+                    dlgAgregar.addComponent(lblPorcentaje);
+                    dlgAgregar.addComponent(porcentaje);
+                    dlgAgregar.addComponent(lblDescripcion);
+                    dlgAgregar.addComponent(descripcion);
+                    dlgAgregar.addComponent(botones);
+                    dlgAgregar.show();
+            }                            
+        });
+        cont.addComponent(btnAgregar);
+        
+        getCurrent().animateLayout(0);
+    }
+    
+    public void loadPantallaMateria(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
