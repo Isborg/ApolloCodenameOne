@@ -31,6 +31,7 @@ import org.codehaus.jettison.json.JSONException;
  * @author Ismael
  */
 public class MenuHamburguesa {
+    private static Periodo periodoSelect;
     
     public static void mostrar(final Form form, final Profesor profesor) {
         final Dialog dlg = new Dialog();
@@ -69,6 +70,7 @@ public class MenuHamburguesa {
         try{
             Periodo primerPeriodo = Deposito.getPeriodoById(profesor.getPeriodos().get(0));
             loadCursos(contCursos, primerPeriodo,profesor);
+          periodoSelect=primerPeriodo;
         } catch(Exception e){}
         contenido.addComponent(contCursos);        
         Button btnAgregarCurso = new Button("+");
@@ -77,7 +79,7 @@ public class MenuHamburguesa {
         btnAgregarCurso.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                   new CursoNuevo(null, profesor, form);
+                   new CursoNuevo(periodoSelect, profesor, form);
             }
         });
         contenido.addComponent(btnAgregarCurso);
@@ -120,6 +122,7 @@ public class MenuHamburguesa {
         for (int idPeriodo : profesor.getPeriodos()) {
             Container row = new Container(new BorderLayout());
             final Periodo periodo = Deposito.getPeriodoById(idPeriodo);
+            
             final Button btnPeriodo = new Button(periodo.toString());
             btnPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
             //btnPeriodo.setPreferredH(45);
@@ -129,7 +132,9 @@ public class MenuHamburguesa {
                     for(int i = 0; i < contPeriodos.getComponentCount(); i++){
                         contPeriodos.getComponentAt(i).setUIID("ButtonHamburguesaPeriodoUnselected");
                     }
+                    periodoSelect= periodo;
                     btnPeriodo.setUIID("ButtonHamburguesaPeriodoSelected");
+                    
                 }
             });
             row.addComponent(BorderLayout.CENTER, btnPeriodo);

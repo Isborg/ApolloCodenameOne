@@ -30,6 +30,7 @@ import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Nota;
 import com.imaginario.apollo.entidades.Recordatorio;
 import com.imaginario.apollo.utilidades.Deposito;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,19 +42,21 @@ import java.util.Vector;
  * @author Ismael
  */
 public class DetalleCurso extends BaseForm {
-    
-    public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia){
+
+    private int semanaActualMateria;
+
+    public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia) {
         iniciarForm(instancia.toString(), _parent, profesor);
-        
+
         Container subTitulo = new Container(new BorderLayout());
         loadPantallaRecordatorios(subTitulo, instancia);
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
-    }    
-    
-    public void loadPantallaRecordatorios(final Container cont, final InstanciaCurso instancia){
+    }
+
+    public void loadPantallaRecordatorios(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
-        
+
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -72,11 +75,11 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-        
+
         Container contenido = new Container(new BorderLayout());
         llenarRecordatorios(contenido, instancia);
         cont.addComponent(BorderLayout.CENTER, contenido);
-        
+
         getCurrent().animateLayout(0);
     }
     
@@ -356,10 +359,10 @@ public class DetalleCurso extends BaseForm {
         dlg.setDisposeWhenPointerOutOfBounds(true);
         dlg.show();
     }
-    
-    public void loadPantallaEstudiantes(final Container cont, final InstanciaCurso instancia){
+
+    public void loadPantallaEstudiantes(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
-        
+
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -378,7 +381,7 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-        
+
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final Container subContenido = new Container(new BorderLayout());
         Container contSubTitle = new Container(new GridLayout(1, 2));
@@ -398,15 +401,15 @@ public class DetalleCurso extends BaseForm {
         contSubTitle.addComponent(tabAsistencia);
         contenido.addComponent(contSubTitle);
         contenido.addComponent(subContenido);
-        
+
         llenarNotas(subContenido, instancia);
-        
+
         cont.addComponent(BorderLayout.CENTER, contenido);
-        
+
         getCurrent().animateLayout(0);
     }
-    
-    public void llenarNotas(final Container cont, final InstanciaCurso instancia){
+
+    public void llenarNotas(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
         ArrayList<Estudiante> estudiantes = Deposito.getEstudiantesByInstancia(instancia.getId());
         
@@ -555,42 +558,42 @@ public class DetalleCurso extends BaseForm {
         
         getCurrent().animateLayout(0);
     }
-    
-    private void guardarLockedColumnsNotas(int idInstancia, Vector<Boolean> cols){
-        if(!Storage.getInstance().exists("lockedColumnsNotas")){
+
+    private void guardarLockedColumnsNotas(int idInstancia, Vector<Boolean> cols) {
+        if (!Storage.getInstance().exists("lockedColumnsNotas")) {
             Storage.getInstance().writeObject("lockedColumnsNotas", new Hashtable());
         }
-        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsNotas");
+        Hashtable table = (Hashtable) Storage.getInstance().readObject("lockedColumnsNotas");
         table.put(idInstancia, cols);
         Storage.getInstance().writeObject("lockedColumnsNotas", table);
     }
 
     private Vector<Boolean> getLockedColumnsNotas(int idInstancia, int tamanio) {
-        if(!Storage.getInstance().exists("lockedColumnsNotas")){
+        if (!Storage.getInstance().exists("lockedColumnsNotas")) {
             Storage.getInstance().writeObject("lockedColumnsNotas", new Hashtable());
         }
-        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsNotas");
-        if(!table.containsKey(idInstancia)){
+        Hashtable table = (Hashtable) Storage.getInstance().readObject("lockedColumnsNotas");
+        if (!table.containsKey(idInstancia)) {
             Vector<Boolean> boolVector = new Vector<Boolean>();
-            for(int i = 0; i < tamanio; i++){
+            for (int i = 0; i < tamanio; i++) {
                 boolVector.add(false);
             }
             table.put(idInstancia, boolVector);
         }
-        return (Vector<Boolean>)table.get(idInstancia);
+        return (Vector<Boolean>) table.get(idInstancia);
     }
-    
-    public void llenarAsistencias(final Container cont, final InstanciaCurso instancia){
+
+    public void llenarAsistencias(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
         ArrayList<Estudiante> estudiantes = Deposito.getEstudiantesByInstancia(instancia.getId());
-        
+
         Container head = new Container(new GridLayout(1, 2));
         head.addComponent(new Label("Estudiantes"));
         Container subHead = new Container(new BoxLayout(BoxLayout.X_AXIS));
         subHead.setScrollableX(true);
-        if(!estudiantes.isEmpty()){
+        if (!estudiantes.isEmpty()) {
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            for(Asistencia a : Deposito.getAsistenciasByEstudiante(estudiantes.get(0).getId())){
+            for (Asistencia a : Deposito.getAsistenciasByEstudiante(estudiantes.get(0).getId())) {
                 Label lblFecha = new Label(sdf.format(a.getFecha()));
                 lblFecha.setPreferredW(65);
                 subHead.addComponent(lblFecha);
@@ -598,10 +601,10 @@ public class DetalleCurso extends BaseForm {
         }
         head.addComponent(subHead);
         cont.addComponent(BorderLayout.NORTH, head);
-        
+
         Container lista = new Container(new GridLayout(1, 2));
         Container colEstudiantes = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        for(final Estudiante e : estudiantes){
+        for (final Estudiante e : estudiantes) {
             Button btnEstudiante = new Button(e.getNombre());
             btnEstudiante.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
@@ -663,13 +666,13 @@ public class DetalleCurso extends BaseForm {
         contCampos.setScrollableX(true);
         lista.addComponent(contCampos);
         final ArrayList<ArrayList<Asistencia>> asistencias = new ArrayList<ArrayList<Asistencia>>();
-        for(Estudiante e : estudiantes){
+        for (Estudiante e : estudiantes) {
             asistencias.add(Deposito.getAsistenciasByEstudiante(e.getId()));
         }
-        if(!estudiantes.isEmpty()){
-            for(int iA = 0; iA < asistencias.get(0).size(); iA++){
+        if (!estudiantes.isEmpty()) {
+            for (int iA = 0; iA < asistencias.get(0).size(); iA++) {
                 Container columna = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-                for(int iE = 0; iE < estudiantes.size(); iE++){
+                for (int iE = 0; iE < estudiantes.size(); iE++) {
                     final Asistencia asis = asistencias.get(iE).get(iA);
                     final Button btnEstado = new Button(" ");
                     btnEstado.setPreferredW(65);
@@ -677,7 +680,7 @@ public class DetalleCurso extends BaseForm {
                     final int iX = iA;
                     btnEstado.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
-                            if(!getLockedColumnsAsistencia(instancia.getId(), asistencias.get(0).size()).get(iX)){
+                            if (!getLockedColumnsAsistencia(instancia.getId(), asistencias.get(0).size()).get(iX)) {
                                 btnEstado.setText(siguienteEstado(btnEstado.getText()));
                                 asis.setEstado(btnEstado.getText());
                                 asis.guardarEnStorage();
@@ -690,7 +693,7 @@ public class DetalleCurso extends BaseForm {
             }
         }
         cont.addComponent(BorderLayout.CENTER, lista);
-        
+
         Container barraInferior = new Container(new GridLayout(1, 2));
         Button btnAgregarEstudiante = new Button("Agregar estudiante");
         btnAgregarEstudiante.addActionListener(new ActionListener() {
@@ -701,8 +704,8 @@ public class DetalleCurso extends BaseForm {
         barraInferior.addComponent(btnAgregarEstudiante);
         Container subBarraInferior = new Container(new BoxLayout(BoxLayout.X_AXIS));
         subBarraInferior.setScrollableX(true);
-        if(!estudiantes.isEmpty()){
-            for(int iA = 0; iA < asistencias.get(0).size(); iA++){
+        if (!estudiantes.isEmpty()) {
+            for (int iA = 0; iA < asistencias.get(0).size(); iA++) {
                 Button btnLockColumn = new Button("Lock");
                 btnLockColumn.setPreferredW(65);
                 final int iX = iA;
@@ -718,12 +721,12 @@ public class DetalleCurso extends BaseForm {
         }
         barraInferior.addComponent(subBarraInferior);
         cont.addComponent(BorderLayout.SOUTH, barraInferior);
-        
+
         getCurrent().animateLayout(0);
     }
-    
-    private void recargarAsistencias(InstanciaCurso instancia){
-        Container cont = (Container)((Container)((Container)((Container)getCurrent().getComponentAt(1)).getComponentAt(1)).getComponentAt(1)).getComponentAt(1);
+
+    private void recargarAsistencias(InstanciaCurso instancia) {
+        Container cont = (Container) ((Container) ((Container) ((Container) getCurrent().getComponentAt(1)).getComponentAt(1)).getComponentAt(1)).getComponentAt(1);
         cont.removeAll();
         llenarAsistencias(cont, instancia);
     }
@@ -777,45 +780,47 @@ public class DetalleCurso extends BaseForm {
         dlg.addComponent(contBotones);
         dlg.show();
     }
-    
-    private void guardarLockedColumnsAsistencia(int idInstancia, Vector<Boolean> cols){
-        if(!Storage.getInstance().exists("lockedColumnsAsistencia")){
+
+    private void guardarLockedColumnsAsistencia(int idInstancia, Vector<Boolean> cols) {
+        if (!Storage.getInstance().exists("lockedColumnsAsistencia")) {
             Storage.getInstance().writeObject("lockedColumnsAsistencia", new Hashtable());
         }
-        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsAsistencia");
+        Hashtable table = (Hashtable) Storage.getInstance().readObject("lockedColumnsAsistencia");
         table.put(idInstancia, cols);
         Storage.getInstance().writeObject("lockedColumnsAsistencia", table);
     }
 
     private Vector<Boolean> getLockedColumnsAsistencia(int idInstancia, int tamanio) {
-        if(!Storage.getInstance().exists("lockedColumnsAsistencia")){
+        if (!Storage.getInstance().exists("lockedColumnsAsistencia")) {
             Storage.getInstance().writeObject("lockedColumnsAsistencia", new Hashtable());
         }
-        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsAsistencia");
-        if(!table.containsKey(idInstancia)){
+        Hashtable table = (Hashtable) Storage.getInstance().readObject("lockedColumnsAsistencia");
+        if (!table.containsKey(idInstancia)) {
             Vector<Boolean> boolVector = new Vector<Boolean>();
-            for(int i = 0; i < tamanio; i++){
+            for (int i = 0; i < tamanio; i++) {
                 boolVector.add(false);
             }
             table.put(idInstancia, boolVector);
         }
-        return (Vector<Boolean>)table.get(idInstancia);
+        return (Vector<Boolean>) table.get(idInstancia);
     }
-    
-    private String siguienteEstado(String estado){
-        String[] estados = {"","Presente","Ausente","Tarde"};
+
+    private String siguienteEstado(String estado) {
+        String[] estados = {"", "Presente", "Ausente", "Tarde"};
         int indice = 0;
-        try{
-            while(!estado.equals(estados[indice]))
+        try {
+            while (!estado.equals(estados[indice])) {
                 indice++;
-        }catch(Exception e){}
+            }
+        } catch (Exception e) {
+        }
         indice = (indice == estados.length - 1) ? 0 : ++indice;
         return estados[indice];
     }
-    
-    public void loadPantallaAsignaciones(final Container cont, final InstanciaCurso instancia){
+
+    public void loadPantallaAsignaciones(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
-        
+
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -834,17 +839,185 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-        
+
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        contenido.addComponent(new Label("Asignacioneees"));
+        
+        cargarAsignaciones(contenido, instancia);
+        
         cont.addComponent(BorderLayout.CENTER, contenido);
+
+        getCurrent().animateLayout(0);
+    }
+    
+    public void cargarAsignaciones(final Container cont, final InstanciaCurso instancia){
+        cont.removeAll();
+        
+        ArrayList<Asignacion> asignaciones = Deposito.getAsignacionesByCurso(instancia.getCurso());
+        
+        if(asignaciones.isEmpty()){
+            
+            Label lblVacio = new Label("No hay asignaciones.");
+            cont.addComponent(lblVacio);  
+            
+        }else{
+            
+            for(final Asignacion asignacion:asignaciones){
+
+            Button btnNombre = new Button("Nombre: " + asignacion.getNombre() +" - "+ "Porcentaje: " + asignacion.getPorcentaje()); 
+            btnNombre.addActionListener(new ActionListener(){
+                public void actionPerformed (ActionEvent evt){
+                    
+                    final Dialog dlgEditar = new Dialog("Editar " + asignacion.getNombre());
+                    dlgEditar.setDisposeWhenPointerOutOfBounds(true);
+                    dlgEditar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                    
+                    Container botones = new Container(new GridLayout(1,2));
+                    Label lblNombre = new Label("Nombre");
+                    final TextField nombre = new TextField(asignacion.getNombre());                    
+                    Label lblFecha = new Label("Fecha:"); 
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(asignacion.getFechaEntrega());
+                    final TextField fecha = new TextField(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+1+"-"+cal.get(Calendar.DAY_OF_MONTH));        
+                    Label lblPorcentaje = new Label("Porcentaje:");
+                    final TextField porcentaje = new TextField("" + asignacion.getPorcentaje());        
+                    Label lblDescripcion = new Label("Dexcripcion");
+                    final TextArea descripcion = new TextArea(asignacion.getDescripcion());
+                    
+                    Button btnEliminar = new Button("Eliminar");
+                    btnEliminar.addActionListener(new ActionListener(){                
+                        public void actionPerformed(ActionEvent evt){
+                        
+                            final Dialog dlgEliminar = new Dialog("Eliminar");
+                            dlgEliminar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                            Container botones = new Container(new GridLayout(1,2));
+                            Label lblAdvertencia = new Label("¿Esta seguro que desea eliminar?");
+                            Button btnAceptar = new Button("Aceptar");
+                            btnAceptar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    Deposito.eliminarAsignacion(asignacion.getId());
+                                    dlgEliminar.dispose();
+                                    dlgEditar.dispose();
+                                    cargarAsignaciones(cont, instancia);
+                                }                            
+                            });
+                            Button btnCancelar = new Button("Cancelar");
+                            btnCancelar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    dlgEliminar.dispose();
+                                    dlgEditar.dispose();
+                                }                            
+                            });
+                            botones.addComponent(btnAceptar);
+                            botones.addComponent(btnCancelar);
+                            dlgEliminar.addComponent(lblAdvertencia);
+                            dlgEliminar.addComponent(botones);
+
+                            dlgEliminar.show();
+                        }
+                    });
+                    
+                    Button btnAceptar = new Button("Aceptar");
+                    btnAceptar.addActionListener(new ActionListener(){
+                        public void actionPerformed(ActionEvent evt){
+                       
+                            asignacion.setNombre(nombre.getText());
+                            SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
+                            String strFecha = fecha.getText();
+                            Date fecha = null;
+                            try { fecha = textFormat.parse(strFecha); }
+                            catch (Exception e) { e.printStackTrace(); }
+                            asignacion.setFechaEntrega(fecha);
+                            asignacion.setPorcentaje(Byte.parseByte(porcentaje.getText()));
+                            asignacion.setDescripcion(descripcion.getText());
+                            asignacion.guardarEnStorage();
+                            dlgEditar.dispose();
+                            cargarAsignaciones(cont, instancia);
+                        }
+                       
+                    });
+                    
+                    dlgEditar.addComponent(lblFecha);
+                    dlgEditar.addComponent(fecha);
+                    dlgEditar.addComponent(lblNombre);
+                    dlgEditar.addComponent(nombre);
+                    dlgEditar.addComponent(lblPorcentaje);
+                    dlgEditar.addComponent(porcentaje);
+                    dlgEditar.addComponent(lblDescripcion);
+                    dlgEditar.addComponent(descripcion);
+                    botones.addComponent(btnAceptar);
+                    botones.addComponent(btnEliminar);
+                    dlgEditar.addComponent(botones);
+                    dlgEditar.show();
+                }
+            });
+            
+            cont.addComponent(btnNombre);
+
+            }
+        
+        }
+        
+        Button btnAgregar = new Button("Agregar");
+        btnAgregar.addActionListener(new ActionListener(){                            
+            public void actionPerformed(ActionEvent evt){
+                                
+                    final Dialog dlgAgregar = new Dialog("Agregar nueva asignacion.");
+                    dlgAgregar.setDisposeWhenPointerOutOfBounds(true);
+                    dlgAgregar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));                    
+                    Container botones = new Container(new GridLayout(1,2));
+                    Label lblNombre = new Label("Nombre");
+                    final TextField nombre = new TextField();                    
+                    Label lblFecha = new Label("Fecha:");            
+                    final TextField fecha = new TextField();        
+                    Label lblPorcentaje = new Label("Porcentaje:");
+                    final TextField porcentaje = new TextField();        
+                    Label lblDescripcion = new Label("Descripción");
+                    final TextArea descripcion = new TextArea();
+                    Button btnAceptar = new Button("Aceptar");                    
+                    btnAceptar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                    SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
+                                    String strFecha = fecha.getText();
+                                    Date fechaFormat = null;
+                                    try { fechaFormat = textFormat.parse(strFecha); }
+                                    catch (Exception e) { e.printStackTrace(); }
+                                    Asignacion asignacionNueva = new Asignacion(-1, nombre.getText(), descripcion.getText(), Byte.parseByte(porcentaje.getText()), fechaFormat, instancia.getCurso());
+                                    asignacionNueva.guardarEnStorage();
+                                    dlgAgregar.dispose();
+                                    cargarAsignaciones(cont, instancia);
+                                }                            
+                            });
+                    Button btnCancelar = new Button("Cancelar");
+                    btnCancelar.addActionListener(new ActionListener(){                            
+                                public void actionPerformed(ActionEvent evt){
+                                
+                                    dlgAgregar.dispose();
+                                    
+                                }                            
+                            });                    
+                    botones.addComponent(btnAceptar);
+                    botones.addComponent(btnCancelar);
+                    dlgAgregar.addComponent(lblNombre);
+                    dlgAgregar.addComponent(nombre);
+                    dlgAgregar.addComponent(lblFecha);
+                    dlgAgregar.addComponent(fecha);
+                    dlgAgregar.addComponent(lblPorcentaje);
+                    dlgAgregar.addComponent(porcentaje);
+                    dlgAgregar.addComponent(lblDescripcion);
+                    dlgAgregar.addComponent(descripcion);
+                    dlgAgregar.addComponent(botones);
+                    dlgAgregar.show();
+            }                            
+        });
+        cont.addComponent(btnAgregar);
         
         getCurrent().animateLayout(0);
     }
     
     public void loadPantallaMateria(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
-        
         Container contTitle = new Container(new BorderLayout());
         Button btnLeft = new Button("<--");
         btnLeft.addActionListener(new ActionListener() {
@@ -863,12 +1036,105 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
-        
-        Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        contenido.addComponent(new Label("Materiaaa"));
+
+        Container contenido = new Container(new BorderLayout());
+
+        Container contTitleMateria = new Container(new BorderLayout());
+        final Container preContenidoMateria = new Container(new BorderLayout());
+        final Label lblTitulo= new Label();
+        Button previousSemanaMateria = new Button("<--");
+        previousSemanaMateria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (semanaActualMateria > 1) {
+                    loadMateria(preContenidoMateria, instancia, semanaActualMateria - 1);
+                    semanaActualMateria--;
+                    lblTitulo.setText("Semana "+ semanaActualMateria);
+                }
+            }
+        });
+
+        contTitleMateria.addComponent(BorderLayout.WEST, previousSemanaMateria);
+        Button nextSemanaMateria = new Button("-->");
+        nextSemanaMateria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (semanaActualMateria < instancia.getCantidadSemanas()) {
+                    loadMateria(preContenidoMateria, instancia, semanaActualMateria + 1);
+                    semanaActualMateria++;
+                    lblTitulo.setText("Semana "+ semanaActualMateria);
+                }
+            }
+        });
+        lblTitulo.setText("Semana "+ semanaActualMateria);
+        contTitleMateria.addComponent(BorderLayout.CENTER,lblTitulo);
+        contTitleMateria.addComponent(BorderLayout.EAST, nextSemanaMateria);
+        contenido.addComponent(BorderLayout.NORTH, contTitleMateria);
+        contenido.addComponent(BorderLayout.CENTER, preContenidoMateria);
         cont.addComponent(BorderLayout.CENTER, contenido);
-        
+
+        loadMateria(preContenidoMateria, instancia, 1);
+
         getCurrent().animateLayout(0);
     }
-    
+
+    private void loadMateria(final Container cont, final InstanciaCurso instancia, final int semana) {
+        cont.removeAll();
+
+        final Container contenidoMateria = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+
+        ArrayList<Materia> materiasSemanaActual = new ArrayList<Materia>();
+        for (Materia materia : Deposito.getMateriasByCurso(instancia.getCurso())) {
+            if (materia.getNumeroSemana() == semana) {
+                materiasSemanaActual.add(materia);
+            }
+        }
+        for (final Materia materia : materiasSemanaActual) {
+            final Container contMateriaNueva = new Container(new BorderLayout());
+            final TextField txtMateria = new TextField(materia.getDescripcion());
+
+            txtMateria.addDataChangeListener(new DataChangedListener() {
+                public void dataChanged(int type, int index) {
+                    materia.setDescripcion(txtMateria.getText());
+                    materia.guardarEnStorage();
+                }
+            });
+            Button eliminar = new Button("x");
+            eliminar.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent evt) {
+             Deposito.eliminarMateria(materia.getId());
+             loadMateria(cont, instancia, semana);
+                }
+            });
+                   
+            contMateriaNueva.addComponent(BorderLayout.WEST, eliminar);
+            CheckBox check = new CheckBox();
+            contMateriaNueva.addComponent(BorderLayout.EAST, check);
+            contMateriaNueva.addComponent(BorderLayout.CENTER, txtMateria);
+            contenidoMateria.addComponent(contMateriaNueva);
+            getCurrent().animateLayout(0);
+        }
+        Button btnAgregarMateria = new Button("Add materia");
+        btnAgregarMateria.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                final Container contMateriaNueva = new Container(new BorderLayout());
+                final TextField txtMateria = new TextField();
+                Materia materiaNueva = new Materia(-1, (byte) semana, txtMateria.getText(), instancia.getCurso());
+                materiaNueva.guardarEnStorage();
+
+                loadMateria(cont, instancia, semana);
+                Button eliminar = new Button("x");
+                CheckBox check = new CheckBox();
+                contMateriaNueva.addComponent(BorderLayout.WEST, eliminar);
+                contMateriaNueva.addComponent(BorderLayout.EAST, check);
+                contMateriaNueva.addComponent(BorderLayout.CENTER, txtMateria);
+                contenidoMateria.addComponent(contMateriaNueva);
+                getCurrent().animateLayout(0);
+            }
+        });
+
+        cont.addComponent(BorderLayout.SOUTH, btnAgregarMateria);
+        cont.addComponent(BorderLayout.CENTER, contenidoMateria);
+
+        getCurrent().animateLayout(0);
+    }
 }
