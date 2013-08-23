@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo.entidades;
 
+import com.codename1.io.Storage;
 import com.imaginario.apollo.utilidades.Deposito;
 import java.util.Date;
 import java.util.Hashtable;
@@ -56,7 +57,10 @@ public class Asistencia extends Entidad {
         if(!entidad.getAsistencias().contains(getId())){
             entidad.getAsistencias().add(getId());
         }
-        entidad.guardarEnStorage();
+        
+        Hashtable entidades = (Hashtable) Storage.getInstance().readObject("depositoEstudiantes");
+        entidades.put(entidad.getId(), entidad.toHashtable());
+        Storage.getInstance().writeObject("depositoEstudiantes", entidades);
     }
     
     @Override

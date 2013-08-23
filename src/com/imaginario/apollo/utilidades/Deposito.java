@@ -105,7 +105,7 @@ public class Deposito {
         return entidades;
     }
     
-    public static ArrayList<Estudiante> getAsignacionesByInstancia(int idInstancia){
+    public static ArrayList<Estudiante> getEstudiantesByInstancia(int idInstancia){
         ArrayList<Estudiante> entidades = new ArrayList<Estudiante>();
         for (int idEstudiante : getInstanciaById(idInstancia).getEstudiantes()) {
             entidades.add(getEstudianteById(idEstudiante));
@@ -179,8 +179,9 @@ public class Deposito {
     
     public static void eliminarAsignacion(Integer id){
         Asignacion asignacion = getAsignacionById(id);
-        for (int nota : asignacion.getNotas()) {
-            eliminarNota(nota);
+        int sizeNotas = asignacion.getNotas().size();
+        for (int i = 0; i < sizeNotas; i++) {
+            eliminarNota(asignacion.getNotas().get(0));
         }
         Hashtable asignaciones = (Hashtable)Storage.getInstance().readObject("depositoAsignaciones");
         asignaciones.remove(id);
@@ -206,14 +207,17 @@ public class Deposito {
     
     public static void eliminarCurso(Integer id){
         Curso curso = getCursoById(id);
-        for (int asignacion : curso.getAsignaciones()) {
-            eliminarAsignacion(asignacion);
+        int sizeAsignaciones = curso.getAsignaciones().size();
+        for (int i = 0; i < sizeAsignaciones; i++) {
+            eliminarAsignacion(curso.getAsignaciones().get(0));
         }
-        for (int materia : curso.getMaterias()) {
-            eliminarMateria(materia);
+        int sizeMaterias = curso.getMaterias().size();
+        for (int i = 0; i < sizeMaterias; i++) {
+            eliminarMateria(curso.getMaterias().get(0));
         }
-        for (int instancia : curso.getInstancias()) {
-            eliminarInstancia(instancia);
+        int sizeInstancias = curso.getInstancias().size();
+        for (int i = 0; i < sizeInstancias; i++) {
+            eliminarInstancia(curso.getInstancias().get(0));
         }
         Hashtable cursos = (Hashtable)Storage.getInstance().readObject("depositoCursos");
         cursos.remove(id);
@@ -227,11 +231,13 @@ public class Deposito {
     
     public static void eliminarEstudiante(Integer id){
         Estudiante estudiante = getEstudianteById(id);
-        for (int nota : estudiante.getNotas()) {
-            eliminarNota(nota);
+        int sizeNotas = estudiante.getNotas().size();
+        for (int i = 0; i < sizeNotas; i++) {
+            eliminarNota(estudiante.getNotas().get(0));
         }
-        for (int asistencia : estudiante.getAsistencias()) {
-            eliminarAsistencia(asistencia);
+        int sizeAsistencias = estudiante.getAsistencias().size();
+        for (int i = 0; i < sizeAsistencias; i++) {
+            eliminarAsistencia(estudiante.getAsistencias().get(0));
         }
         Hashtable estudiantes = (Hashtable)Storage.getInstance().readObject("depositoEstudiantes");
         estudiantes.remove(id);
@@ -257,14 +263,17 @@ public class Deposito {
     
     public static void eliminarInstancia(Integer id){
         InstanciaCurso instancia = getInstanciaById(id);
-        for (int estudiante : instancia.getEstudiantes()) {
-            eliminarEstudiante(estudiante);
+        int sizeEstudiantes = instancia.getEstudiantes().size();
+        for (int i = 0; i < sizeEstudiantes; i++) {
+            eliminarEstudiante(instancia.getEstudiantes().get(0));
         }
-        for (int horario : instancia.getHorarios()) {
-            eliminarHorario(horario);
+        int sizeHorarios = instancia.getHorarios().size();
+        for (int i = 0; i < sizeHorarios; i++) {
+            eliminarHorario(instancia.getHorarios().get(0));
         }
-        for (int recordatorio : instancia.getRecordatorios()) {
-            eliminarRecordatorio(recordatorio);
+        int sizeRecordatorios = instancia.getRecordatorios().size();
+        for (int i = 0; i < sizeRecordatorios; i++) {
+            eliminarRecordatorio(instancia.getRecordatorios().get(0));
         }
         Hashtable instancias = (Hashtable)Storage.getInstance().readObject("depositoInstancias");
         instancias.remove(id);
@@ -312,8 +321,9 @@ public class Deposito {
     
     public static void eliminarPeriodo(Integer id){
         Periodo periodo = getPeriodoById(id);
-        for (int instancia : periodo.getInstancias()) {
-            eliminarInstancia(instancia);
+        int sizeInstancias = periodo.getInstancias().size();
+        for (int i = 0; i < sizeInstancias; i++) {
+            eliminarInstancia(periodo.getInstancias().get(0));
         }
         Hashtable periodos = (Hashtable)Storage.getInstance().readObject("depositoPeriodos");
         periodos.remove(id);
@@ -327,8 +337,9 @@ public class Deposito {
     
     public static void eliminarProfesor(Integer id){
         Profesor profesor = getProfesorById(id);
-        for (int periodo : profesor.getPeriodos()) {
-            eliminarPeriodo(periodo);
+        int sizePeriodos = profesor.getPeriodos().size();
+        for (int i = 0; i < sizePeriodos; i++) {
+            eliminarPeriodo(profesor.getPeriodos().get(0));
         }
         Hashtable profesores = (Hashtable)Storage.getInstance().readObject("depositoProfesores");
         profesores.remove(id);
