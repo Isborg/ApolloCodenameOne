@@ -160,8 +160,9 @@ public class CursoNuevo extends BaseForm {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                InstanciaCurso instanciaCurso = new InstanciaCurso(-1, fecha, txtCantSemanas.getText().getBytes()[0], 
-                                                ((Curso) cbPlantilla.getSelectedItem()).getId(),_periodo.getId());
+                InstanciaCurso instanciaCurso;
+                instanciaCurso = new InstanciaCurso(-1, fecha, Byte.parseByte(txtCantSemanas.getText()),
+                                 ((Curso) cbPlantilla.getSelectedItem()).getId(),_periodo.getId());
                 instanciaCurso.guardarEnStorage();
                 new DetalleCurso(getCurrent(), profesor, instanciaCurso);
             }

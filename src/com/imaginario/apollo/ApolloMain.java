@@ -93,7 +93,7 @@ public class ApolloMain {
         instancia5.guardarEnStorage();
         
         
-        new JsonParse(periodo1);
+        //new JsonParse(periodo1);
         new Inicio(profesor);
     }
 
