@@ -50,7 +50,7 @@ public class ApolloMain {
         try{
             UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
         }catch(IOException e){}
-        //Storage.getInstance().clearStorage();
+        Storage.getInstance().clearStorage();
         if(Storage.getInstance().readObject("depositoProfesores") == null){
             Storage.getInstance().writeObject("depositoAsignaciones", new Hashtable());
             Storage.getInstance().writeObject("depositoAsistencias", new Hashtable());
@@ -64,7 +64,7 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoProfesores", new Hashtable());
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
-        /*
+        
         final Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
         profesor.guardarEnStorage();        
         Periodo periodo1 = new Periodo(1,(short)2013,"Cuatrimestral",(byte)2,"Universidad Latina",1);
@@ -87,9 +87,16 @@ public class ApolloMain {
         horario1.guardarEnStorage();
         Horario horario2 = new Horario(2, "Jueves", (byte)15, (byte)0, (byte)17, (byte)0, 1);
         horario2.guardarEnStorage();
-        */
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 5);
+        Asignacion asignacion1 = new Asignacion(1, "Examen 1", "Es el primer examen.", (byte)20, cal.getTime(), 1);
+        asignacion1.guardarEnStorage();
+        cal.add(Calendar.DATE, 5);
+        Asignacion asignacion2 = new Asignacion(2, "Tarea 2", "Es la segunda tarea.", (byte)5, cal.getTime(), 1);
+        asignacion2.guardarEnStorage();
         
-        Profesor profesor = Deposito.getProfesorById(1);
+        //Profesor profesor = Deposito.getProfesorById(1);
         new Inicio(profesor);
     }
 

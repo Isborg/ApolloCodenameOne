@@ -55,15 +55,18 @@ public class Nota extends Entidad {
         if(!entidad.getNotas().contains(getId())){
             entidad.getNotas().add(getId());
         }
-        entidad.guardarEnStorage();
         Estudiante entidad2 = Deposito.getEstudianteById(getEstudiante());
         if(!entidad2.getNotas().contains(getId())){
             entidad2.getNotas().add(getId());
         }
         
-        Hashtable entidades = (Hashtable) Storage.getInstance().readObject("depositoEstudiantes");
-        entidades.put(entidad2.getId(), entidad2.toHashtable());
-        Storage.getInstance().writeObject("depositoEstudiantes", entidades);
+        Hashtable entidades = (Hashtable) Storage.getInstance().readObject("depositoAsignaciones");
+        entidades.put(entidad.getId(), entidad.toHashtable());
+        Storage.getInstance().writeObject("depositoAsignaciones", entidades);
+        
+        Hashtable entidades2 = (Hashtable) Storage.getInstance().readObject("depositoEstudiantes");
+        entidades2.put(entidad2.getId(), entidad2.toHashtable());
+        Storage.getInstance().writeObject("depositoEstudiantes", entidades2);
     }
     
     @Override
