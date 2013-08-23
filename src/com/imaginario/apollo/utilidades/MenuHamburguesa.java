@@ -203,7 +203,8 @@ public class MenuHamburguesa {
                         diaContainer.addComponent(btnContainer);
                         dia.addComponent(diaContainer);
                         dia.setDisposeWhenPointerOutOfBounds(true);
-                        dia.show();
+                        dia.showStretched(BorderLayout.CENTER, true);
+                        
                     }
                 });
                 row.addComponent(BorderLayout.EAST, btnEliminar);
