@@ -29,6 +29,7 @@ import com.imaginario.apollo.utilidades.MenuHamburguesa;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -47,8 +48,7 @@ public class ApolloMain {
         try{
             UIManager.getInstance().setThemeProps(Resources.open(Display.getInstance().getResourceAsStream(getClass(), "/theme.res")).getTheme("Theme 2"));
         }catch(IOException e){}
-        Storage.getInstance().clearStorage();
-               
+        //Storage.getInstance().clearStorage();
         if(Storage.getInstance().readObject("depositoProfesores") == null){
             Storage.getInstance().writeObject("depositoAsignaciones", new Hashtable());
             Storage.getInstance().writeObject("depositoAsistencias", new Hashtable());
@@ -62,7 +62,7 @@ public class ApolloMain {
             Storage.getInstance().writeObject("depositoProfesores", new Hashtable());
             Storage.getInstance().writeObject("depositoRecordatorios", new Hashtable());
         }
-      
+        /*
         final Profesor profesor = new Profesor(1,"Ismael Baum","ismael.baum@gmail.com","isborg","claveclave");
         profesor.guardarEnStorage();        
         Periodo periodo1 = new Periodo(1,(short)2013,"Cuatrimestral",(byte)2,"Universidad Latina",1);
@@ -73,25 +73,20 @@ public class ApolloMain {
         curso1.guardarEnStorage();
         Curso curso2 = new Curso(2,"Cálculo I","Límites, optimización, derivadas, integrales.",1);
         curso2.guardarEnStorage();
-        Curso curso3 = new Curso(3,"Seminario","...",2);
+        Curso curso3 = new Curso(3,"Seminario","...",1);
         curso3.guardarEnStorage();
-        Curso curso4 = new Curso(4,"Física I","Movimiento parabólico.",2);
+        Curso curso4 = new Curso(4,"Física I","Movimiento parabólico.",1);
         curso4.guardarEnStorage();
-        Curso curso5 = new Curso(5,"Programación II","Introducción a objetos.",2);
+        Curso curso5 = new Curso(5,"Programación II","Introducción a objetos.",1);
         curso5.guardarEnStorage();
-        InstanciaCurso instancia1 = new InstanciaCurso(1, new Date(), (byte)12, 1);
+        InstanciaCurso instancia1 = new InstanciaCurso(1, new Date(), (byte)4, 1, 1);
         instancia1.guardarEnStorage();
-        InstanciaCurso instancia2 = new InstanciaCurso(2, new Date(), (byte)13, 2);
-        instancia2.guardarEnStorage();
-        InstanciaCurso instancia3 = new InstanciaCurso(3, new Date(), (byte)14, 3);
-        instancia3.guardarEnStorage();
-        InstanciaCurso instancia4 = new InstanciaCurso(4, new Date(), (byte)15, 4);
-        instancia4.guardarEnStorage();
-        InstanciaCurso instancia5 = new InstanciaCurso(5, new Date(), (byte)16, 5);
-        instancia5.guardarEnStorage();
-        
-        
-        //Profesor profesor = Deposito.getProfesorById(1);
+        Horario horario1 = new Horario(1, "Martes", (byte)12, (byte)0, (byte)14, (byte)30, 1);
+        horario1.guardarEnStorage();
+        Horario horario2 = new Horario(2, "Jueves", (byte)15, (byte)0, (byte)17, (byte)0, 1);
+        horario2.guardarEnStorage();
+        */
+        Profesor profesor = Deposito.getProfesorById(1);
         new Inicio(profesor);
     }
 
