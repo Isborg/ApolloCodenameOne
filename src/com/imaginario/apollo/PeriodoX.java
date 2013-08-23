@@ -8,6 +8,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -39,6 +40,7 @@ public class PeriodoX extends BaseForm {
         }
         
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        contenido.setUIID("ContainerFondoGris");
         final ComboBox cbTipo = new ComboBox(new String[]{"Semestral","Cuatrimestral","Trimestral","Bimestral","Mensual"});
         final ComboBox cbNumero = new ComboBox(new Integer[]{1,2});
         cbTipo.addActionListener(new ActionListener() {
@@ -78,18 +80,23 @@ public class PeriodoX extends BaseForm {
         cbTipo.setSelectedIndex(0);
         contenido.addComponent(cbTipo);
         Label lblNumero = new Label("Periodo número");
+        lblNumero.setUIID("LabelFondoGris");
         contenido.addComponent(lblNumero);
         contenido.addComponent(cbNumero);
         Label lblInstitucion = new Label("Institución");
+        lblInstitucion.setUIID("LabelFondoGris");
         contenido.addComponent(lblInstitucion);
         final TextField txtInstitucion = new TextField();
         contenido.addComponent(txtInstitucion);
         Label lblAnio = new Label("Año");
+        lblAnio.setUIID("LabelFondoGris");
         contenido.addComponent(lblAnio);
         final TextField txtAnio = new TextField(Calendar.getInstance().get(Calendar.YEAR) + "");
         contenido.addComponent(txtAnio);
         Container contBotones = new Container(new GridLayout(1, 2));
+        contBotones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
         Button btnGuardar = new Button("Guardar");
+        btnGuardar.setUIID("ButtonVerde");
         btnGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Periodo periodoGuardar = new Periodo();
@@ -126,6 +133,7 @@ public class PeriodoX extends BaseForm {
         });
         contBotones.addComponent(btnGuardar);
         Button btnEliminar = new Button("Eliminar");
+        btnEliminar.setUIID("ButtonRojo");
         btnEliminar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
