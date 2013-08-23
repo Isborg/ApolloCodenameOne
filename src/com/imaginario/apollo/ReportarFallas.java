@@ -6,8 +6,11 @@ package com.imaginario.apollo;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextArea;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
@@ -28,6 +31,13 @@ public class ReportarFallas extends BaseForm {
         contenido.addComponent(texto);
         Container botones = new Container(new GridLayout (1,2));
         Button btnAceptar = new Button("Aceptar");
+        btnAceptar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                Dialog dlgMensaje = new Dialog("La falla ha sido reportada");
+                dlgMensaje.setDisposeWhenPointerOutOfBounds(true);
+                dlgMensaje.show();
+            }
+        });
         Button btnCancelar = new Button("Cancelar");
         botones.addComponent(btnAceptar);
         botones.addComponent(btnCancelar);
