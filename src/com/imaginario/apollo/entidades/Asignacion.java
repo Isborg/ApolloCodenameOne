@@ -70,6 +70,17 @@ public class Asignacion extends Entidad {
             entidad.getAsignaciones().add(getId());
         }
         entidad.guardarEnStorage();
+        
+        // CREAR NOTAS DE LA ASIGNACION PARA CADA ESTUDIANTE
+        ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
+        ArrayList<InstanciaCurso> instancias = Deposito.getInstanciasByCurso(entidad.getId());
+        for(InstanciaCurso instancia : instancias){
+            estudiantes.addAll(Deposito.getEstudiantesByInstancia(instancia.getId()));
+        }
+        for(Estudiante estudiante : estudiantes){
+            Nota nuevaNota = new Nota(-1, (byte)0, getId(), estudiante.getId());
+            nuevaNota.guardarEnStorage();
+        }
     }
     
     @Override
