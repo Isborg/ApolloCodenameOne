@@ -4,6 +4,7 @@
  */
 package com.imaginario.apollo;
 
+import com.codename1.io.Storage;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -21,6 +22,8 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
+import com.imaginario.apollo.entidades.Asistencia;
+import com.imaginario.apollo.entidades.Estudiante;
 import com.imaginario.apollo.entidades.InstanciaCurso;
 import com.imaginario.apollo.entidades.Materia;
 import com.imaginario.apollo.entidades.Recordatorio;
@@ -28,6 +31,8 @@ import com.imaginario.apollo.utilidades.Deposito;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  *
@@ -42,11 +47,7 @@ public class DetalleCurso extends BaseForm {
         loadPantallaRecordatorios(subTitulo, instancia);
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
-    }
-
-    public DetalleCurso() {
-    }
-    
+    }    
     
     public void loadPantallaRecordatorios(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
@@ -167,6 +168,7 @@ public class DetalleCurso extends BaseForm {
                 datePicker.addComponent(menosMes);
                 datePicker.addComponent(menosAnio);
                 dlg.addComponent(datePicker);
+                dlg.setDisposeWhenPointerOutOfBounds(true);
                 dlg.show();
             }
         });
@@ -208,7 +210,7 @@ public class DetalleCurso extends BaseForm {
         cont.addComponent(BorderLayout.NORTH, contTitle);
         
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        final Container subContenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        final Container subContenido = new Container(new BorderLayout());
         Container contSubTitle = new Container(new GridLayout(1, 2));
         Button tabNotas = new Button("Notas");
         tabNotas.addActionListener(new ActionListener() {
@@ -236,14 +238,253 @@ public class DetalleCurso extends BaseForm {
     
     public void llenarNotas(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
-        cont.addComponent(new Label("Notas"));
         getCurrent().animateLayout(0);
+    }
+    
+    private void guardarLockedColumnsNotas(int idInstancia, Vector<Boolean> cols){
+        if(!Storage.getInstance().exists("lockedColumnsNotas")){
+            Storage.getInstance().writeObject("lockedColumnsNotas", new Hashtable());
+        }
+        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsNotas");
+        table.put(idInstancia, cols);
+        Storage.getInstance().writeObject("lockedColumnsNotas", table);
+    }
+
+    private Vector<Boolean> getLockedColumnsNotas(int idInstancia, int tamanio) {
+        if(!Storage.getInstance().exists("lockedColumnsNotas")){
+            Storage.getInstance().writeObject("lockedColumnsNotas", new Hashtable());
+        }
+        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsNotas");
+        if(!table.containsKey(idInstancia)){
+            Vector<Boolean> boolVector = new Vector<Boolean>();
+            for(int i = 0; i < tamanio; i++){
+                boolVector.add(false);
+            }
+            table.put(idInstancia, boolVector);
+        }
+        return (Vector<Boolean>)table.get(idInstancia);
     }
     
     public void llenarAsistencias(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
-        cont.addComponent(new Label("Asistencia"));
+        ArrayList<Estudiante> estudiantes = Deposito.getEstudiantesByInstancia(instancia.getId());
+        
+        Container head = new Container(new GridLayout(1, 2));
+        head.addComponent(new Label("Estudiantes"));
+        Container subHead = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        subHead.setScrollableX(true);
+        if(!estudiantes.isEmpty()){
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            for(Asistencia a : Deposito.getAsistenciasByEstudiante(estudiantes.get(0).getId())){
+                Label lblFecha = new Label(sdf.format(a.getFecha()));
+                lblFecha.setPreferredW(65);
+                subHead.addComponent(lblFecha);
+            }
+        }
+        head.addComponent(subHead);
+        cont.addComponent(BorderLayout.NORTH, head);
+        
+        Container lista = new Container(new GridLayout(1, 2));
+        Container colEstudiantes = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        for(final Estudiante e : estudiantes){
+            Button btnEstudiante = new Button(e.getNombre());
+            btnEstudiante.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    final Dialog dlg = new Dialog(e.getNombre() + " [" + e.getCarne() + "]");
+                    dlg.setDisposeWhenPointerOutOfBounds(true);
+                    dlg.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                    Button btnEditar = new Button("Editar");
+                    btnEditar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            dialogoEdicionEstudiante("Editar estudiante", e.getId(), instancia);
+                            dlg.dispose();
+                        }
+                    });
+                    dlg.addComponent(btnEditar);
+                    Button btnEliminar = new Button("Eliminar");
+                    btnEliminar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            final Dialog dlgConfirmar = new Dialog("¿Está seguro?");
+                            dlgConfirmar.setDisposeWhenPointerOutOfBounds(true);
+                            dlgConfirmar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                            dlgConfirmar.addComponent(new Label("Si acepta perderá todos los datos de este estudiante."));
+                            Container contBotones = new Container(new GridLayout(1, 2));
+                            Button btnAceptar = new Button("Aceptar");
+                            btnAceptar.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    Deposito.eliminarEstudiante(e.getId());
+                                    recargarAsistencias(instancia);
+                                    dlgConfirmar.dispose();
+                                    dlg.dispose();
+                                }
+                            });
+                            contBotones.addComponent(btnAceptar);
+                            Button btnCancelar = new Button("Cancelar");
+                            btnCancelar.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    dlgConfirmar.dispose();
+                                }
+                            });
+                            contBotones.addComponent(btnCancelar);
+                            dlgConfirmar.addComponent(contBotones);
+                            dlgConfirmar.show();
+                        }
+                    });
+                    dlg.addComponent(btnEliminar);
+                    Button btnCancelar = new Button("Cancelar");
+                    btnCancelar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            dlg.dispose();
+                        }
+                    });
+                    dlg.show();
+                }
+            });
+            colEstudiantes.addComponent(btnEstudiante);
+        }
+        lista.addComponent(colEstudiantes);
+        Container contCampos = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        contCampos.setScrollableX(true);
+        lista.addComponent(contCampos);
+        final ArrayList<ArrayList<Asistencia>> asistencias = new ArrayList<ArrayList<Asistencia>>();
+        for(Estudiante e : estudiantes){
+            asistencias.add(Deposito.getAsistenciasByEstudiante(e.getId()));
+        }
+        if(!estudiantes.isEmpty()){
+            for(int iA = 0; iA < asistencias.get(0).size(); iA++){
+                Container columna = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                for(int iE = 0; iE < estudiantes.size(); iE++){
+                    final Asistencia asis = asistencias.get(iE).get(iA);
+                    final Button btnEstado = new Button(" ");
+                    btnEstado.setPreferredW(65);
+                    btnEstado.setText(asis.getEstado());
+                    final int iX = iA;
+                    btnEstado.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(!getLockedColumnsAsistencia(instancia.getId(), asistencias.get(0).size()).get(iX)){
+                                btnEstado.setText(siguienteEstado(btnEstado.getText()));
+                                asis.setEstado(btnEstado.getText());
+                                asis.guardarEnStorage();
+                            }
+                        }
+                    });
+                    columna.addComponent(btnEstado);
+                }
+                contCampos.addComponent(columna);
+            }
+        }
+        cont.addComponent(BorderLayout.CENTER, lista);
+        
+        Container barraInferior = new Container(new GridLayout(1, 2));
+        Button btnAgregarEstudiante = new Button("Agregar estudiante");
+        btnAgregarEstudiante.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                dialogoEdicionEstudiante("Nuevo estudiante", -1, instancia);
+            }
+        });
+        barraInferior.addComponent(btnAgregarEstudiante);
+        Container subBarraInferior = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        subBarraInferior.setScrollableX(true);
+        if(!estudiantes.isEmpty()){
+            for(int iA = 0; iA < asistencias.get(0).size(); iA++){
+                Button btnLockColumn = new Button("Lock");
+                btnLockColumn.setPreferredW(65);
+                final int iX = iA;
+                btnLockColumn.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        Vector<Boolean> lockedCols = getLockedColumnsAsistencia(instancia.getId(), asistencias.get(0).size());
+                        lockedCols.set(iX, !lockedCols.get(iX));
+                        guardarLockedColumnsAsistencia(instancia.getId(), lockedCols);
+                    }
+                });
+                subBarraInferior.addComponent(btnLockColumn);
+            }
+        }
+        barraInferior.addComponent(subBarraInferior);
+        cont.addComponent(BorderLayout.SOUTH, barraInferior);
+        
         getCurrent().animateLayout(0);
+    }
+    
+    private void recargarAsistencias(InstanciaCurso instancia){
+        Container cont = (Container)((Container)((Container)((Container)getCurrent().getComponentAt(1)).getComponentAt(1)).getComponentAt(1)).getComponentAt(1);
+        cont.removeAll();
+        llenarAsistencias(cont, instancia);
+    }
+    
+    private void dialogoEdicionEstudiante(String titulo, int idEstudiante, final InstanciaCurso instancia){
+        final Estudiante estudiante = (idEstudiante != -1) ? Deposito.getEstudianteById(idEstudiante) :
+                new Estudiante(idEstudiante, "", "", "", instancia.getId());
+        
+        final Dialog dlg = new Dialog(titulo);
+        dlg.setDisposeWhenPointerOutOfBounds(true);
+        dlg.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+        dlg.addComponent(new Label("Nombre:"));
+        final TextField txtNombre = new TextField(estudiante.getNombre());
+        dlg.addComponent(txtNombre);
+        dlg.addComponent(new Label("Carné:"));
+        final TextField txtCarne = new TextField(estudiante.getCarne());
+        dlg.addComponent(txtCarne);
+        dlg.addComponent(new Label("Correo:"));
+        final TextField txtCorreo = new TextField(estudiante.getCorreo());
+        dlg.addComponent(txtCorreo);
+        Container contBotones = new Container(new GridLayout(1, 2));
+        Button btnGuardar = new Button("Guardar");
+        btnGuardar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                estudiante.setNombre(txtNombre.getText());
+                estudiante.setCarne(txtCarne.getText());
+                estudiante.setCorreo(txtCorreo.getText());
+                estudiante.guardarEnStorage();
+                recargarAsistencias(instancia);
+                dlg.dispose();
+            }
+        });
+        contBotones.addComponent(btnGuardar);
+        Button btnCancelar = new Button("Cancelar");
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                dlg.dispose();
+            }
+        });
+        contBotones.addComponent(btnCancelar);
+        dlg.addComponent(contBotones);
+        dlg.show();
+    }
+    
+    private void guardarLockedColumnsAsistencia(int idInstancia, Vector<Boolean> cols){
+        if(!Storage.getInstance().exists("lockedColumnsAsistencia")){
+            Storage.getInstance().writeObject("lockedColumnsAsistencia", new Hashtable());
+        }
+        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsAsistencia");
+        table.put(idInstancia, cols);
+        Storage.getInstance().writeObject("lockedColumnsAsistencia", table);
+    }
+
+    private Vector<Boolean> getLockedColumnsAsistencia(int idInstancia, int tamanio) {
+        if(!Storage.getInstance().exists("lockedColumnsAsistencia")){
+            Storage.getInstance().writeObject("lockedColumnsAsistencia", new Hashtable());
+        }
+        Hashtable table = (Hashtable)Storage.getInstance().readObject("lockedColumnsAsistencia");
+        if(!table.containsKey(idInstancia)){
+            Vector<Boolean> boolVector = new Vector<Boolean>();
+            for(int i = 0; i < tamanio; i++){
+                boolVector.add(false);
+            }
+            table.put(idInstancia, boolVector);
+        }
+        return (Vector<Boolean>)table.get(idInstancia);
+    }
+    
+    private String siguienteEstado(String estado){
+        String[] estados = {"","Presente","Ausente","Tarde"};
+        int indice = 0;
+        try{
+            while(!estado.equals(estados[indice]))
+                indice++;
+        }catch(Exception e){}
+        indice = (indice == estados.length - 1) ? 0 : ++indice;
+        return estados[indice];
     }
     
     public void loadPantallaAsignaciones(final Container cont, final InstanciaCurso instancia){

@@ -43,7 +43,7 @@ public class MenuHamburguesa {
         
         Button btnInicio = new Button("Inicio");
         btnInicio.setUIID("ButtonHamburguesaInicio");
-        btnInicio.setPreferredH(45);
+        //btnInicio.setPreferredH(45);
         System.out.println(""+btnInicio.getPreferredH());
         System.out.println(""+btnInicio.getPreferredW());
         contenido.addComponent(btnInicio);
@@ -56,7 +56,7 @@ public class MenuHamburguesa {
         contenido.addComponent(contPeriodos);
         
         Button btnAgregarPeriodo = new Button("+");
-        btnAgregarPeriodo.setPreferredH(45);
+        //btnAgregarPeriodo.setPreferredH(45);
         btnAgregarPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
         btnAgregarPeriodo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -74,9 +74,8 @@ public class MenuHamburguesa {
         } catch(Exception e){}
         contenido.addComponent(contCursos);        
         Button btnAgregarCurso = new Button("+");
-        btnAgregarCurso.setPreferredH(45);
+        //btnAgregarCurso.setPreferredH(45);
         btnAgregarCurso.setUIID("ButtonHamburguesaNuevoCurso");
-        btnAgregarCurso.setPreferredH(45);
         btnAgregarCurso.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -100,7 +99,7 @@ public class MenuHamburguesa {
         
         Button btnConfiguracion = new Button("Configuración");
         btnConfiguracion.setUIID("ButtonHamburguesaConfiguracion");
-        btnConfiguracion.setPreferredH(45);
+        //btnConfiguracion.setPreferredH(45);
         contenido.addComponent(btnConfiguracion);
         
         Button btnReportar = new Button("Reportar fallas");
@@ -126,7 +125,7 @@ public class MenuHamburguesa {
             
             final Button btnPeriodo = new Button(periodo.toString());
             btnPeriodo.setUIID("ButtonHamburguesaPeriodoUnselected");
-            btnPeriodo.setPreferredH(45);
+            //btnPeriodo.setPreferredH(45);
             btnPeriodo.addActionListener(new ActionListener() 
 {                public void actionPerformed(ActionEvent evt) {
                     loadCursos((Container)contPeriodos.getParent().getComponentAt(5), periodo, profesor);
@@ -163,7 +162,7 @@ public class MenuHamburguesa {
                             new DetalleCurso(Display.getInstance().getCurrent(),profesor,instancia);
                         }
                     });
-                    btnInstancia.setPreferredH(45);
+                    //btnInstancia.setPreferredH(45);
                     contCursos.addComponent(btnInstancia);
             
         }}
