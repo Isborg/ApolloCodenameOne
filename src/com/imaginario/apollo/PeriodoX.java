@@ -137,12 +137,34 @@ public class PeriodoX extends BaseForm {
         btnEliminar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                Deposito.eliminarPeriodo(periodo.getId());
-                Dialog dlg = new Dialog();
-                dlg.addComponent(new Label("Periodo eliminado exitosamente."));
-                dlg.setTimeout(2000);                
+                final Dialog dlg = new Dialog();
+                Container btnContainer = new Container(new GridLayout(1, 2));
+                Button btnAceptar= new Button("Aceptar");
+                btnAceptar.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent evt) {
+                 Deposito.eliminarPeriodo(periodo.getId());
+                 dlg.dispose();
+                    }
+                });
+                Button btnCancelar= new Button("Cancelar");
+                btnCancelar.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent evt) {
+                 
+                 dlg.dispose();
+                    }
+                });
+                
+                btnContainer.addComponent(btnCancelar);
+                btnContainer.addComponent(btnAceptar);
+                dlg.addComponent(new Label("¿Esta seguro que desea eliminar el periodo?"));
+                dlg.addComponent(btnContainer);
+                
+                           
                 dlg.setDisposeWhenPointerOutOfBounds(true);
-                dlg.show();
+                dlg.showStretched(BorderLayout.CENTER, true);
+                
                 getParent().show();
             }
         });
