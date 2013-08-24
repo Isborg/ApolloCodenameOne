@@ -16,6 +16,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Component;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
@@ -45,7 +46,7 @@ import java.util.Vector;
  */
 public class DetalleCurso extends BaseForm {
 
-    private int semanaActualMateria;
+    private int semanaActualMateria=1;
 
     public DetalleCurso(Form _parent, Profesor profesor, InstanciaCurso instancia) {
         iniciarForm(instancia.toString(), _parent, profesor);
@@ -54,13 +55,19 @@ public class DetalleCurso extends BaseForm {
         loadPantallaRecordatorios(subTitulo, instancia);
         getCurrent().addComponent(BorderLayout.CENTER, subTitulo);
         getCurrent().show();
+    
+    
     }
 
     public void loadPantallaRecordatorios(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
 
         Container contTitle = new Container(new BorderLayout());
-        Button btnLeft = new Button("<--");
+        contTitle.setUIID("ContainerSubTituloGris");
+        contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
+        Button btnLeft = new Button(" ");
+        btnLeft.setUIID("ButtonIconoLeft");
+        btnLeft.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnLeft.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaMateria(cont, instancia);
@@ -68,8 +75,11 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnLeft);
         Label lblTitle = new Label("Recordatorios");
+        lblTitle.setUIID("LabelSubTituloGris");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
-        Button btnRight = new Button("-->");
+        Button btnRight = new Button(" ");
+        btnRight.setUIID("ButtonIconoRight");
+        btnRight.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnRight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaEstudiantes(cont, instancia);
@@ -87,7 +97,9 @@ public class DetalleCurso extends BaseForm {
     
     public void llenarRecordatorios(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
-        Button btnNuevo = new Button("Agregar nuevo recordatorio");
+        Button btnNuevo = new Button(" ");
+        btnNuevo.setUIID("ButtonAgregarInferior");
+        btnNuevo.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
         btnNuevo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dialogoEditarRecordatorio(instancia, null, cont);
@@ -98,7 +110,9 @@ public class DetalleCurso extends BaseForm {
         ArrayList<Recordatorio> recordatorios = Deposito.getRecordatoriosByInstancia(instancia.getId());
         for(final Recordatorio rec : recordatorios){
             Container fila = new Container(new BorderLayout());
+            fila.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
             TextArea txtRec = new TextArea(rec.getTexto());
+            txtRec.setUIID("ButtonRecordatorio");
             txtRec.addFocusListener(new FocusListener() {
                 public void focusGained(Component cmp) {
                     dialogoEditarRecordatorio(instancia, rec, cont);
@@ -106,15 +120,24 @@ public class DetalleCurso extends BaseForm {
                 public void focusLost(Component cmp) {}
             });
             fila.addComponent(BorderLayout.CENTER, txtRec);
-            Button btnEliminar = new Button("X");
+            Button btnEliminar = new Button(" ");
+            btnEliminar.setUIID("ButtonEliminarRecordatorio");
+            btnEliminar.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*40));
             btnEliminar.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    final Dialog dlgConfirmar = new Dialog("Eliminar recordatorio");
+                    final Dialog dlgConfirmar = new Dialog("");
+                    dlgConfirmar.getDialogComponent().setUIID("ContainerFondoGris");
                     dlgConfirmar.setDisposeWhenPointerOutOfBounds(true);
                     dlgConfirmar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-                    dlgConfirmar.addComponent(new Label("¿Seguro de que desea eliminar este recordatorio?"));
+                    TextArea lblEliminar = new TextArea("¿Seguro de que desea eliminar?");
+                    lblEliminar.setEditable(false);
+                    lblEliminar.setUIID("TextAreaGrisDialogo");
+                    dlgConfirmar.addComponent(lblEliminar);
                     Container contBotones = new Container(new GridLayout(1, 2));
+                    contBotones.setUIID("ContainerBotonesDialogo");
+                    contBotones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
                     Button btnAceptar = new Button("Aceptar");
+                    btnAceptar.setUIID("ButtonVerde");
                     btnAceptar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             Deposito.eliminarRecordatorio(rec.getId());
@@ -124,6 +147,7 @@ public class DetalleCurso extends BaseForm {
                     });
                     contBotones.addComponent(btnAceptar);
                     Button btnCancelar = new Button("Cancelar");
+                    btnCancelar.setUIID("ButtonRojo");
                     btnCancelar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
                             dlgConfirmar.dispose();
@@ -131,7 +155,10 @@ public class DetalleCurso extends BaseForm {
                     });
                     contBotones.addComponent(btnCancelar);
                     dlgConfirmar.addComponent(contBotones);
-                    dlgConfirmar.show();
+                    dlgConfirmar.show((int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                        (int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                        (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                        (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
                 }
             });
             fila.addComponent(BorderLayout.WEST, btnEliminar);
@@ -142,18 +169,27 @@ public class DetalleCurso extends BaseForm {
     
     private void dialogoEditarRecordatorio(final InstanciaCurso instancia, final Recordatorio recordatorio, final Container contPadre){
         final Dialog dlg = new Dialog();
+        dlg.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+        dlg.getDialogComponent().setUIID("ContainerFondoGris");
         final TextArea txt = new TextArea();
+        txt.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*80));
+        txt.setUIID("TextAreaAzul");
         dlg.addComponent(txt);
         final Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         if(recordatorio != null){
             cal.setTime(recordatorio.getFecha());
         }
+        Container pickers = new Container(new GridLayout(1, 2));
+        pickers.setUIID("ContainerPickers");
         Container datePicker = new Container(new GridLayout(3, 3));
-        Button masDia = new Button("+");
+        Button masDia = new Button(" ");
+        masDia.setUIID("ButtonIconMas");
         final TextField txtDia = new TextField(cal.get(Calendar.DAY_OF_MONTH)+"");
+        txtDia.setUIID("TextFieldCampoRecordatorio");
         txtDia.setEditable(false);
-        Button menosDia = new Button("-");
+        Button menosDia = new Button(" ");
+        menosDia.setUIID("ButtonIconMenos");
         masDia.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 int tempMonth = cal.get(Calendar.MONTH);
@@ -177,10 +213,13 @@ public class DetalleCurso extends BaseForm {
                 txtDia.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
             }
         });
-        Button masMes = new Button("+");
+        Button masMes = new Button(" ");
+        masMes.setUIID("ButtonIconMas");
         final TextField txtMes = new TextField(cal.get(Calendar.MONTH)+1+"");
+        txtMes.setUIID("TextFieldCampoRecordatorio");
         txtMes.setEditable(false);
-        Button menosMes = new Button("-");
+        Button menosMes = new Button(" ");
+        menosMes.setUIID("ButtonIconMenos");
         masMes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(cal.get(Calendar.MONTH) != 11){
@@ -203,10 +242,13 @@ public class DetalleCurso extends BaseForm {
                 txtMes.setText(cal.get(Calendar.MONTH)+1+"");
             }
         });
-        Button masAnio = new Button("+");
+        Button masAnio = new Button(" ");
+        masAnio.setUIID("ButtonIconMas");
         final TextField txtAnio = new TextField(cal.get(Calendar.YEAR)+"");
+        txtAnio.setUIID("TextFieldCampoRecordatorio");
         txtAnio.setEditable(false);
-        Button menosAnio = new Button("-");
+        Button menosAnio = new Button(" ");
+        menosAnio.setUIID("ButtonIconMenos");
         masAnio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cal.add(Calendar.YEAR, 1);
@@ -228,17 +270,21 @@ public class DetalleCurso extends BaseForm {
         datePicker.addComponent(menosDia);
         datePicker.addComponent(menosMes);
         datePicker.addComponent(menosAnio);
-        dlg.addComponent(datePicker);
+        pickers.addComponent(datePicker);
 
         if(recordatorio == null){
             cal.set(Calendar.HOUR_OF_DAY, 12);
             cal.set(Calendar.MINUTE, 0);
         }
         Container timePicker = new Container(new GridLayout(3, 3));
-        Button masHora = new Button("+");
+        timePicker.setUIID("ContainerTimePicker");
+        Button masHora = new Button(" ");
+        masHora.setUIID("ButtonIconMas");
         final TextField txtHora = new TextField("12");
+        txtHora.setUIID("TextFieldCampoRecordatorio");
         txtHora.setEditable(false);
-        Button menosHora = new Button("-");
+        Button menosHora = new Button(" ");
+        menosHora.setUIID("ButtonIconMenos");
         masHora.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(Integer.parseInt(txtHora.getText()) < 12){
@@ -259,10 +305,13 @@ public class DetalleCurso extends BaseForm {
                 cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(txtHora.getText()));
             }
         });
-        Button masMinuto = new Button("+");
+        Button masMinuto = new Button(" ");
+        masMinuto.setUIID("ButtonIconMas");
         final TextField txtMinuto = new TextField("00");
+        txtMinuto.setUIID("TextFieldCampoRecordatorio");
         txtMinuto.setEditable(false);
-        Button menosMinuto = new Button("-");
+        Button menosMinuto = new Button(" ");
+        menosMinuto.setUIID("ButtonIconMenos");
         masMinuto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(Integer.parseInt(txtMinuto.getText()) < 59){
@@ -284,6 +333,7 @@ public class DetalleCurso extends BaseForm {
             }
         });
         final Button btnAmPm = new Button("PM");
+        btnAmPm.setUIID("ButtonAmPm");
         btnAmPm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if(btnAmPm.getText().equals("AM")){
@@ -295,14 +345,19 @@ public class DetalleCurso extends BaseForm {
         });
         timePicker.addComponent(masHora);
         timePicker.addComponent(masMinuto);
-        timePicker.addComponent(new Label());
+        Label lbl1 = new Label();
+        lbl1.setUIID("LabelFondoGris");
+        timePicker.addComponent(lbl1);
         timePicker.addComponent(txtHora);
         timePicker.addComponent(txtMinuto);
         timePicker.addComponent(btnAmPm);
         timePicker.addComponent(menosHora);
         timePicker.addComponent(menosMinuto);
-        timePicker.addComponent(new Label());
-        dlg.addComponent(timePicker);
+        Label lbl2 = new Label();
+        lbl2.setUIID("LabelFondoGris");
+        timePicker.addComponent(lbl2);
+        pickers.addComponent(timePicker);
+        dlg.addComponent(pickers);
 
         if(recordatorio != null){
             txt.setText(recordatorio.getTexto());
@@ -323,7 +378,10 @@ public class DetalleCurso extends BaseForm {
         }
         
         Container contBotones = new Container(new GridLayout(1, 2));
+        contBotones.setUIID("ContainerBotonesDialogo");
+        contBotones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
         Button btnAceptar = new Button("Aceptar");
+        btnAceptar.setUIID("ButtonVerde");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Calendar fechaRec = Calendar.getInstance();
@@ -350,6 +408,7 @@ public class DetalleCurso extends BaseForm {
         });
         contBotones.addComponent(btnAceptar);
         Button btnCancelar = new Button("Cancelar");
+        btnCancelar.setUIID("ButtonRojo");
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dlg.dispose();
@@ -359,14 +418,21 @@ public class DetalleCurso extends BaseForm {
         dlg.addComponent(contBotones);
 
         dlg.setDisposeWhenPointerOutOfBounds(true);
-        dlg.show();
+        dlg.show((int)(((double)Display.getInstance().getDisplayHeight())/460*100),
+                (int)(((double)Display.getInstance().getDisplayHeight())/460*110),
+                (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
     }
 
     public void loadPantallaEstudiantes(final Container cont, final InstanciaCurso instancia) {
         cont.removeAll();
 
         Container contTitle = new Container(new BorderLayout());
-        Button btnLeft = new Button("<--");
+        contTitle.setUIID("ContainerSubTituloGris");
+        contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
+        Button btnLeft = new Button(" ");
+        btnLeft.setUIID("ButtonIconoLeft");
+        btnLeft.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnLeft.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaRecordatorios(cont, instancia);
@@ -374,8 +440,11 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnLeft);
         Label lblTitle = new Label("Estudiantes");
+        lblTitle.setUIID("LabelSubTituloGris");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
-        Button btnRight = new Button("-->");
+        Button btnRight = new Button(" ");
+        btnRight.setUIID("ButtonIconoRight");
+        btnRight.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnRight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaAsignaciones(cont, instancia);
@@ -387,16 +456,24 @@ public class DetalleCurso extends BaseForm {
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         final Container subContenido = new Container(new BorderLayout());
         Container contSubTitle = new Container(new GridLayout(1, 2));
-        Button tabNotas = new Button("Notas");
+        contSubTitle.setUIID("ContainerTabs");
+        contSubTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
+        final Button tabNotas = new Button("Notas");
+        tabNotas.setUIID("ButtonNaranja");
+        final Button tabAsistencia = new Button("Asistencia");
+        tabAsistencia.setUIID("ButtonAmarillo");
         tabNotas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                tabNotas.setUIID("ButtonNaranja");
+                tabAsistencia.setUIID("ButtonAmarillo");
                 llenarNotas(subContenido, instancia);
             }
         });
         contSubTitle.addComponent(tabNotas);
-        Button tabAsistencia = new Button("Asistencia");
         tabAsistencia.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                tabNotas.setUIID("ButtonAmarillo");
+                tabAsistencia.setUIID("ButtonNaranja");
                 llenarAsistencias(subContenido, instancia);
             }
         });
@@ -416,12 +493,16 @@ public class DetalleCurso extends BaseForm {
         ArrayList<Estudiante> estudiantes = Deposito.getEstudiantesByInstancia(instancia.getId());
         
         Container head = new Container(new GridLayout(1, 2));
-        head.addComponent(new Label("Estudiantes"));
+        head.setUIID("ContainerFondoGris");
+        Label lblTituloEstudiantes = new Label("Estudiantes");
+        lblTituloEstudiantes.setUIID("LabelFondoGris");
+        head.addComponent(lblTituloEstudiantes);
         Container subHead = new Container(new BoxLayout(BoxLayout.X_AXIS));
         subHead.setScrollableX(true);
         if(!estudiantes.isEmpty()){
             for(Asignacion a : Deposito.getAsignacionesByCurso(instancia.getCurso())){
                 Label lblAsignacion = new Label(a.getNombre());
+                lblAsignacion.setUIID("LabelFondoGris");
                 lblAsignacion.setPreferredW(65);
                 subHead.addComponent(lblAsignacion);
             }
@@ -449,12 +530,18 @@ public class DetalleCurso extends BaseForm {
                     Button btnEliminar = new Button("Eliminar");
                     btnEliminar.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
-                            final Dialog dlgConfirmar = new Dialog("¿Está seguro?");
+                            final Dialog dlgConfirmar = new Dialog();
+                            dlgConfirmar.getDialogComponent().setUIID("ContainerFondoGris");
                             dlgConfirmar.setDisposeWhenPointerOutOfBounds(true);
                             dlgConfirmar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-                            dlgConfirmar.addComponent(new Label("Si acepta perderá todos los datos de este estudiante."));
+                            TextArea lblConfirmacion = new TextArea("¿Seguro de que desea eliminar?");
+                            lblConfirmacion.setUIID("TextAreaGrisDialogo");
+                            dlgConfirmar.addComponent(lblConfirmacion);
                             Container contBotones = new Container(new GridLayout(1, 2));
+                            contBotones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
+                            contBotones.setUIID("ContainerBotonesDialogo");
                             Button btnAceptar = new Button("Aceptar");
+                            btnAceptar.setUIID("ButtonVerde");
                             btnAceptar.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent evt) {
                                     Deposito.eliminarEstudiante(e.getId());
@@ -465,6 +552,7 @@ public class DetalleCurso extends BaseForm {
                             });
                             contBotones.addComponent(btnAceptar);
                             Button btnCancelar = new Button("Cancelar");
+                            btnCancelar.setUIID("ButtonRojo");
                             btnCancelar.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent evt) {
                                     dlgConfirmar.dispose();
@@ -472,7 +560,10 @@ public class DetalleCurso extends BaseForm {
                             });
                             contBotones.addComponent(btnCancelar);
                             dlgConfirmar.addComponent(contBotones);
-                            dlgConfirmar.show();
+                            dlgConfirmar.show((int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
                         }
                     });
                     dlg.addComponent(btnEliminar);
@@ -590,13 +681,17 @@ public class DetalleCurso extends BaseForm {
         ArrayList<Estudiante> estudiantes = Deposito.getEstudiantesByInstancia(instancia.getId());
 
         Container head = new Container(new GridLayout(1, 2));
-        head.addComponent(new Label("Estudiantes"));
+        head.setUIID("ContainerFondoGris");
+        Label lblTituloEstudiantes = new Label("Estudiantes");
+        lblTituloEstudiantes.setUIID("LabelFondoGris");
+        head.addComponent(lblTituloEstudiantes);
         Container subHead = new Container(new BoxLayout(BoxLayout.X_AXIS));
         subHead.setScrollableX(true);
         if (!estudiantes.isEmpty()) {
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
             for (Asistencia a : Deposito.getAsistenciasByEstudiante(estudiantes.get(0).getId())) {
                 Label lblFecha = new Label(sdf.format(a.getFecha()));
+                lblFecha.setUIID("LabelFondoGris");
                 lblFecha.setPreferredW(65);
                 subHead.addComponent(lblFecha);
             }
@@ -824,7 +919,11 @@ public class DetalleCurso extends BaseForm {
         cont.removeAll();
 
         Container contTitle = new Container(new BorderLayout());
-        Button btnLeft = new Button("<--");
+        contTitle.setUIID("ContainerSubTituloGris");
+        contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
+        Button btnLeft = new Button(" ");
+        btnLeft.setUIID("ButtonIconoLeft");
+        btnLeft.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnLeft.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaEstudiantes(cont, instancia);
@@ -832,8 +931,11 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnLeft);
         Label lblTitle = new Label("Asignaciones");
+        lblTitle.setUIID("LabelSubTituloGris");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
-        Button btnRight = new Button("-->");
+        Button btnRight = new Button(" ");
+        btnRight.setUIID("ButtonIconoRight");
+        btnRight.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnRight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaMateria(cont, instancia);
@@ -842,7 +944,7 @@ public class DetalleCurso extends BaseForm {
         contTitle.addComponent(BorderLayout.EAST, btnRight);
         cont.addComponent(BorderLayout.NORTH, contTitle);
 
-        Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Container contenido = new Container(new BorderLayout());
         
         cargarAsignaciones(contenido, instancia);
         
@@ -853,50 +955,160 @@ public class DetalleCurso extends BaseForm {
     
     public void cargarAsignaciones(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
+        Container subCont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         
         ArrayList<Asignacion> asignaciones = Deposito.getAsignacionesByCurso(instancia.getCurso());
         
-        if(asignaciones.isEmpty()){
-            
-            Label lblVacio = new Label("No hay asignaciones.");
-            cont.addComponent(lblVacio);  
-            
-        }else{
-            
+        if(!asignaciones.isEmpty()){
             for(final Asignacion asignacion:asignaciones){
 
-            Button btnNombre = new Button("Nombre: " + asignacion.getNombre() +" - "+ "Porcentaje: " + asignacion.getPorcentaje()); 
+            Button btnNombre = new Button("[" + asignacion.getPorcentaje() + "%] " + asignacion.getNombre()); 
+            btnNombre.setUIID("ButtonAsignacion");
+            btnNombre.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
             btnNombre.addActionListener(new ActionListener(){
                 public void actionPerformed (ActionEvent evt){
                     
-                    final Dialog dlgEditar = new Dialog("Editar " + asignacion.getNombre());
+                    final Dialog dlgEditar = new Dialog();
+                    dlgEditar.getDialogComponent().setUIID("ContainerFondoGris");
+                    Label lblTituloDialogo = new Label("Editar asignación");
+                    lblTituloDialogo.setUIID("LabelFondoGrisTitulo");
+                    dlgEditar.addComponent(lblTituloDialogo);
                     dlgEditar.setDisposeWhenPointerOutOfBounds(true);
                     dlgEditar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                     
                     Container botones = new Container(new GridLayout(1,2));
+                    botones.setUIID("ContainerBotonesDialogo");
+                    botones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
                     Label lblNombre = new Label("Nombre");
-                    final TextField nombre = new TextField(asignacion.getNombre());                    
-                    Label lblFecha = new Label("Fecha:"); 
+                    lblNombre.setUIID("LabelFondoGris");
+                    final TextField nombre = new TextField(asignacion.getNombre());
+                    nombre.setUIID("TextFieldBlanco");
+                    Label lblFecha = new Label("Fecha"); 
+                    lblFecha.setUIID("LabelFondoGris");
+                    
+                    final Calendar cal = Calendar.getInstance();
+                    cal.setTime(asignacion.getFechaEntrega());
+                    Container datePicker = new Container(new GridLayout(3, 3));
+                    Button masDia = new Button(" ");
+                    masDia.setUIID("ButtonIconMas");
+                    final TextField txtDia = new TextField(cal.get(Calendar.DAY_OF_MONTH)+"");
+                    txtDia.setUIID("TextFieldBlanco");
+                    txtDia.setEditable(false);
+                    Button menosDia = new Button(" ");
+                    menosDia.setUIID("ButtonIconMenos");
+                    masDia.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            int tempMonth = cal.get(Calendar.MONTH);
+                            cal.add(Calendar.DATE, 1);
+                            if(tempMonth != cal.get(Calendar.MONTH)){
+                                cal.add(Calendar.DATE, -1);
+                                cal.set(Calendar.DAY_OF_MONTH, 1);
+                            }
+                            txtDia.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                        }
+                    });
+                    menosDia.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.DAY_OF_MONTH) != 1){
+                                cal.add(Calendar.DATE, -1);
+                            }
+                            else{
+                                cal.add(Calendar.MONTH, 1);
+                                cal.add(Calendar.DATE, -1);
+                            }
+                            txtDia.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                        }
+                    });
+                    Button masMes = new Button(" ");
+                    masMes.setUIID("ButtonIconMas");
+                    final TextField txtMes = new TextField(cal.get(Calendar.MONTH)+1+"");
+                    txtMes.setUIID("TextFieldBlanco");
+                    txtMes.setEditable(false);
+                    Button menosMes = new Button(" ");
+                    menosMes.setUIID("ButtonIconMenos");
+                    masMes.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.MONTH) != 11){
+                                cal.add(Calendar.MONTH, 1);
+                            }
+                            else{
+                                cal.set(Calendar.MONTH, 0);
+                            }
+                            txtMes.setText(cal.get(Calendar.MONTH)+1+"");
+                        }
+                    });
+                    menosMes.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.MONTH) != 0){
+                                cal.add(Calendar.MONTH, -1);
+                            }
+                            else{
+                                cal.set(Calendar.MONTH, 11);
+                            }
+                            txtMes.setText(cal.get(Calendar.MONTH)+1+"");
+                        }
+                    });
+                    Button masAnio = new Button(" ");
+                    masAnio.setUIID("ButtonIconMas");
+                    final TextField txtAnio = new TextField(cal.get(Calendar.YEAR)+"");
+                    txtAnio.setUIID("TextFieldBlanco");
+                    txtAnio.setEditable(false);
+                    Button menosAnio = new Button(" ");
+                    menosAnio.setUIID("ButtonIconMenos");
+                    masAnio.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            cal.add(Calendar.YEAR, 1);
+                            txtAnio.setText(cal.get(Calendar.YEAR)+"");
+                        }
+                    });
+                    menosAnio.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            cal.add(Calendar.YEAR, -1);
+                            txtAnio.setText(cal.get(Calendar.YEAR)+"");
+                        }
+                    });
+                    datePicker.addComponent(masDia);
+                    datePicker.addComponent(masMes);
+                    datePicker.addComponent(masAnio);
+                    datePicker.addComponent(txtDia);
+                    datePicker.addComponent(txtMes);
+                    datePicker.addComponent(txtAnio);
+                    datePicker.addComponent(menosDia);
+                    datePicker.addComponent(menosMes);
+                    datePicker.addComponent(menosAnio);
+                    /*
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(asignacion.getFechaEntrega());
                     final TextField fecha = new TextField(cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+1+"-"+cal.get(Calendar.DAY_OF_MONTH));        
-                    Label lblPorcentaje = new Label("Porcentaje:");
-                    final TextField porcentaje = new TextField("" + asignacion.getPorcentaje());        
-                    Label lblDescripcion = new Label("Dexcripcion");
+                    fecha.setUIID("TextFieldBlanco");
+                    */
+                    Label lblPorcentaje = new Label("Porcentaje");
+                    lblPorcentaje.setUIID("LabelFondoGris");
+                    final TextField porcentaje = new TextField("" + asignacion.getPorcentaje());
+                    porcentaje.setUIID("TextFieldBlanco");
+                    Label lblDescripcion = new Label("Descripción");
+                    lblDescripcion.setUIID("LabelFondoGris");
                     final TextArea descripcion = new TextArea(asignacion.getDescripcion());
+                    descripcion.setUIID("TextAreaBlanco");
                     
                     Button btnEliminar = new Button("Eliminar");
+                    btnEliminar.setUIID("ButtonRojo");
                     btnEliminar.addActionListener(new ActionListener(){                
                         public void actionPerformed(ActionEvent evt){
                         
-                            final Dialog dlgEliminar = new Dialog("Eliminar");
+                            final Dialog dlgEliminar = new Dialog();
+                            dlgEliminar.getDialogComponent().setUIID("ContainerFondoGris");
+                            dlgEliminar.setDisposeWhenPointerOutOfBounds(true);
                             dlgEliminar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
                             Container botones = new Container(new GridLayout(1,2));
-                            Label lblAdvertencia = new Label("¿Esta seguro que desea eliminar?");
+                            botones.setUIID("ContainerBotonesDialogo");
+                            botones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
+                            TextArea lblAdvertencia = new TextArea("¿Seguro de que desea eliminar?");
+                            lblAdvertencia.setUIID("TextAreaGrisDialogo");
                             Button btnAceptar = new Button("Aceptar");
+                            btnAceptar.setUIID("ButtonVerde");
                             btnAceptar.addActionListener(new ActionListener(){                            
                                 public void actionPerformed(ActionEvent evt){
-                                
                                     Deposito.eliminarAsignacion(asignacion.getId());
                                     dlgEliminar.dispose();
                                     dlgEditar.dispose();
@@ -904,11 +1116,10 @@ public class DetalleCurso extends BaseForm {
                                 }                            
                             });
                             Button btnCancelar = new Button("Cancelar");
+                            btnCancelar.setUIID("ButtonRojo");
                             btnCancelar.addActionListener(new ActionListener(){                            
                                 public void actionPerformed(ActionEvent evt){
-                                
                                     dlgEliminar.dispose();
-                                    dlgEditar.dispose();
                                 }                            
                             });
                             botones.addComponent(btnAceptar);
@@ -916,21 +1127,31 @@ public class DetalleCurso extends BaseForm {
                             dlgEliminar.addComponent(lblAdvertencia);
                             dlgEliminar.addComponent(botones);
 
-                            dlgEliminar.show();
+                            dlgEliminar.show((int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayHeight())/460*190),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                                (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
                         }
                     });
                     
                     Button btnAceptar = new Button("Aceptar");
+                    btnAceptar.setUIID("ButtonVerde");
                     btnAceptar.addActionListener(new ActionListener(){
                         public void actionPerformed(ActionEvent evt){
-                       
+                            Calendar fecha = Calendar.getInstance();
+                            fecha.set(Calendar.YEAR, Integer.parseInt(txtAnio.getText()));
+                            fecha.set(Calendar.MONTH, Integer.parseInt(txtMes.getText()) - 1);
+                            fecha.set(Calendar.DAY_OF_MONTH, Integer.parseInt(txtDia.getText()));
+                            
                             asignacion.setNombre(nombre.getText());
+                            /*
                             SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
                             String strFecha = fecha.getText();
                             Date fecha = null;
                             try { fecha = textFormat.parse(strFecha); }
                             catch (Exception e) { e.printStackTrace(); }
-                            asignacion.setFechaEntrega(fecha);
+                            */
+                            asignacion.setFechaEntrega(fecha.getTime());
                             asignacion.setPorcentaje(Byte.parseByte(porcentaje.getText()));
                             asignacion.setDescripcion(descripcion.getText());
                             asignacion.guardarEnStorage();
@@ -941,7 +1162,7 @@ public class DetalleCurso extends BaseForm {
                     });
                     
                     dlgEditar.addComponent(lblFecha);
-                    dlgEditar.addComponent(fecha);
+                    dlgEditar.addComponent(datePicker);
                     dlgEditar.addComponent(lblNombre);
                     dlgEditar.addComponent(nombre);
                     dlgEditar.addComponent(lblPorcentaje);
@@ -951,52 +1172,171 @@ public class DetalleCurso extends BaseForm {
                     botones.addComponent(btnAceptar);
                     botones.addComponent(btnEliminar);
                     dlgEditar.addComponent(botones);
-                    dlgEditar.show();
+                    dlgEditar.show((int)(((double)Display.getInstance().getDisplayHeight())/460*40),
+                                    (int)(((double)Display.getInstance().getDisplayHeight())/460*40),
+                                    (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                                    (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
                 }
             });
             
-            cont.addComponent(btnNombre);
+            subCont.addComponent(btnNombre);
 
             }
         
         }
         
-        Button btnAgregar = new Button("Agregar");
+        Button btnAgregar = new Button(" ");
+        btnAgregar.setUIID("ButtonAgregarInferior");
+        btnAgregar.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
         btnAgregar.addActionListener(new ActionListener(){                            
             public void actionPerformed(ActionEvent evt){
                                 
-                    final Dialog dlgAgregar = new Dialog("Agregar nueva asignacion.");
+                    final Dialog dlgAgregar = new Dialog();
+                    Label lblTituloDlg = new Label("Crear nueva asignación");
+                    lblTituloDlg.setUIID("LabelFondoGrisTitulo");
+                    dlgAgregar.addComponent(lblTituloDlg);
+                    dlgAgregar.getDialogComponent().setUIID("ContainerFondoGris");
                     dlgAgregar.setDisposeWhenPointerOutOfBounds(true);
                     dlgAgregar.setLayout(new BoxLayout(BoxLayout.Y_AXIS));                    
                     Container botones = new Container(new GridLayout(1,2));
+                    botones.setUIID("ContainerBotonesDialogo");
+                    botones.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*35));
                     Label lblNombre = new Label("Nombre");
-                    final TextField nombre = new TextField();                    
-                    Label lblFecha = new Label("Fecha:");            
-                    final TextField fecha = new TextField();        
-                    Label lblPorcentaje = new Label("Porcentaje:");
-                    final TextField porcentaje = new TextField();        
+                    lblNombre.setUIID("LabelFondoGris");
+                    final TextField nombre = new TextField();       
+                    nombre.setUIID("TextFieldBlanco");
+                    Label lblFecha = new Label("Fecha");            
+                    lblFecha.setUIID("LabelFondoGris");
+                    /*
+                    final TextField fecha = new TextField();  
+                    fecha.setUIID("TextFieldBlanco");
+                    * */
+                    final Calendar cal = Calendar.getInstance();
+                    cal.setTime(new Date());
+                    Container datePicker = new Container(new GridLayout(3, 3));
+                    Button masDia = new Button(" ");
+                    masDia.setUIID("ButtonIconMas");
+                    final TextField txtDia = new TextField(cal.get(Calendar.DAY_OF_MONTH)+"");
+                    txtDia.setUIID("TextFieldBlanco");
+                    txtDia.setEditable(false);
+                    Button menosDia = new Button(" ");
+                    menosDia.setUIID("ButtonIconMenos");
+                    masDia.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            int tempMonth = cal.get(Calendar.MONTH);
+                            cal.add(Calendar.DATE, 1);
+                            if(tempMonth != cal.get(Calendar.MONTH)){
+                                cal.add(Calendar.DATE, -1);
+                                cal.set(Calendar.DAY_OF_MONTH, 1);
+                            }
+                            txtDia.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                        }
+                    });
+                    menosDia.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.DAY_OF_MONTH) != 1){
+                                cal.add(Calendar.DATE, -1);
+                            }
+                            else{
+                                cal.add(Calendar.MONTH, 1);
+                                cal.add(Calendar.DATE, -1);
+                            }
+                            txtDia.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                        }
+                    });
+                    Button masMes = new Button(" ");
+                    masMes.setUIID("ButtonIconMas");
+                    final TextField txtMes = new TextField(cal.get(Calendar.MONTH)+1+"");
+                    txtMes.setUIID("TextFieldBlanco");
+                    txtMes.setEditable(false);
+                    Button menosMes = new Button(" ");
+                    menosMes.setUIID("ButtonIconMenos");
+                    masMes.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.MONTH) != 11){
+                                cal.add(Calendar.MONTH, 1);
+                            }
+                            else{
+                                cal.set(Calendar.MONTH, 0);
+                            }
+                            txtMes.setText(cal.get(Calendar.MONTH)+1+"");
+                        }
+                    });
+                    menosMes.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            if(cal.get(Calendar.MONTH) != 0){
+                                cal.add(Calendar.MONTH, -1);
+                            }
+                            else{
+                                cal.set(Calendar.MONTH, 11);
+                            }
+                            txtMes.setText(cal.get(Calendar.MONTH)+1+"");
+                        }
+                    });
+                    Button masAnio = new Button(" ");
+                    masAnio.setUIID("ButtonIconMas");
+                    final TextField txtAnio = new TextField(cal.get(Calendar.YEAR)+"");
+                    txtAnio.setUIID("TextFieldBlanco");
+                    txtAnio.setEditable(false);
+                    Button menosAnio = new Button(" ");
+                    menosAnio.setUIID("ButtonIconMenos");
+                    masAnio.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            cal.add(Calendar.YEAR, 1);
+                            txtAnio.setText(cal.get(Calendar.YEAR)+"");
+                        }
+                    });
+                    menosAnio.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            cal.add(Calendar.YEAR, -1);
+                            txtAnio.setText(cal.get(Calendar.YEAR)+"");
+                        }
+                    });
+                    datePicker.addComponent(masDia);
+                    datePicker.addComponent(masMes);
+                    datePicker.addComponent(masAnio);
+                    datePicker.addComponent(txtDia);
+                    datePicker.addComponent(txtMes);
+                    datePicker.addComponent(txtAnio);
+                    datePicker.addComponent(menosDia);
+                    datePicker.addComponent(menosMes);
+                    datePicker.addComponent(menosAnio);
+                    
+                    Label lblPorcentaje = new Label("Porcentaje");
+                    lblPorcentaje.setUIID("LabelFondoGris");
+                    final TextField porcentaje = new TextField();   
+                    porcentaje.setUIID("TextFieldBlanco");
                     Label lblDescripcion = new Label("Descripción");
+                    lblDescripcion.setUIID("LabelFondoGris");
                     final TextArea descripcion = new TextArea();
-                    Button btnAceptar = new Button("Aceptar");                    
+                    descripcion.setUIID("TextAreaBlanco");
+                    Button btnAceptar = new Button("Aceptar");  
+                    btnAceptar.setUIID("ButtonVerde");
                     btnAceptar.addActionListener(new ActionListener(){                            
                                 public void actionPerformed(ActionEvent evt){
+                                    /*
                                     SimpleDateFormat textFormat = new SimpleDateFormat("yyyy-MM-DD");
                                     String strFecha = fecha.getText();
                                     Date fechaFormat = null;
                                     try { fechaFormat = textFormat.parse(strFecha); }
                                     catch (Exception e) { e.printStackTrace(); }
-                                    Asignacion asignacionNueva = new Asignacion(-1, nombre.getText(), descripcion.getText(), Byte.parseByte(porcentaje.getText()), fechaFormat, instancia.getCurso());
+                                    * */
+                                    Calendar fecha = Calendar.getInstance();
+                                    fecha.set(Calendar.YEAR, Integer.parseInt(txtAnio.getText()));
+                                    fecha.set(Calendar.MONTH, Integer.parseInt(txtMes.getText()) - 1);
+                                    fecha.set(Calendar.DAY_OF_MONTH, Integer.parseInt(txtDia.getText()));
+
+                                    Asignacion asignacionNueva = new Asignacion(-1, nombre.getText(), descripcion.getText(), Byte.parseByte(porcentaje.getText()), fecha.getTime(), instancia.getCurso());
                                     asignacionNueva.guardarEnStorage();
                                     dlgAgregar.dispose();
                                     cargarAsignaciones(cont, instancia);
                                 }                            
                             });
                     Button btnCancelar = new Button("Cancelar");
+                    btnCancelar.setUIID("ButtonRojo");
                     btnCancelar.addActionListener(new ActionListener(){                            
                                 public void actionPerformed(ActionEvent evt){
-                                
                                     dlgAgregar.dispose();
-                                    
                                 }                            
                             });                    
                     botones.addComponent(btnAceptar);
@@ -1004,24 +1344,32 @@ public class DetalleCurso extends BaseForm {
                     dlgAgregar.addComponent(lblNombre);
                     dlgAgregar.addComponent(nombre);
                     dlgAgregar.addComponent(lblFecha);
-                    dlgAgregar.addComponent(fecha);
+                    dlgAgregar.addComponent(datePicker);
                     dlgAgregar.addComponent(lblPorcentaje);
                     dlgAgregar.addComponent(porcentaje);
                     dlgAgregar.addComponent(lblDescripcion);
                     dlgAgregar.addComponent(descripcion);
                     dlgAgregar.addComponent(botones);
-                    dlgAgregar.show();
+                    dlgAgregar.show((int)(((double)Display.getInstance().getDisplayHeight())/460*40),
+                                    (int)(((double)Display.getInstance().getDisplayHeight())/460*40),
+                                    (int)(((double)Display.getInstance().getDisplayWidth())/460*20),
+                                    (int)(((double)Display.getInstance().getDisplayWidth())/460*20));
             }                            
         });
-        cont.addComponent(btnAgregar);
+        cont.addComponent(BorderLayout.SOUTH, btnAgregar);
         
+        cont.addComponent(BorderLayout.CENTER, subCont);
         getCurrent().animateLayout(0);
     }
     
     public void loadPantallaMateria(final Container cont, final InstanciaCurso instancia){
         cont.removeAll();
         Container contTitle = new Container(new BorderLayout());
-        Button btnLeft = new Button("<--");
+        contTitle.setUIID("ContainerSubTituloGris");
+        contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
+        Button btnLeft = new Button(" ");
+        btnLeft.setUIID("ButtonIconoLeft");
+        btnLeft.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnLeft.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaAsignaciones(cont, instancia);
@@ -1029,8 +1377,11 @@ public class DetalleCurso extends BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnLeft);
         Label lblTitle = new Label("Materia");
+        lblTitle.setUIID("LabelSubTituloGris");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
-        Button btnRight = new Button("-->");
+        Button btnRight = new Button(" ");
+        btnRight.setUIID("ButtonIconoRight");
+        btnRight.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnRight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 loadPantallaRecordatorios(cont, instancia);
@@ -1040,11 +1391,17 @@ public class DetalleCurso extends BaseForm {
         cont.addComponent(BorderLayout.NORTH, contTitle);
 
         Container contenido = new Container(new BorderLayout());
+        contenido.setUIID("ContainerFondoGris");
 
         Container contTitleMateria = new Container(new BorderLayout());
+        contTitleMateria.setUIID("ContainerTituloVerde");
+        contTitleMateria.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
         final Container preContenidoMateria = new Container(new BorderLayout());
         final Label lblTitulo= new Label();
-        Button previousSemanaMateria = new Button("<--");
+        lblTitulo.setUIID("LabelTituloVerde");
+        Button previousSemanaMateria = new Button(" ");
+        previousSemanaMateria.setUIID("ButtonIconoVerdeLeft");
+        previousSemanaMateria.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         previousSemanaMateria.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (semanaActualMateria > 1) {
@@ -1056,7 +1413,9 @@ public class DetalleCurso extends BaseForm {
         });
 
         contTitleMateria.addComponent(BorderLayout.WEST, previousSemanaMateria);
-        Button nextSemanaMateria = new Button("-->");
+        Button nextSemanaMateria = new Button(" ");
+        nextSemanaMateria.setUIID("ButtonIconoVerdeRight");
+        nextSemanaMateria.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         nextSemanaMateria.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (semanaActualMateria < instancia.getCantidadSemanas()) {
@@ -1066,10 +1425,11 @@ public class DetalleCurso extends BaseForm {
                 }
             }
         });
+        
         lblTitulo.setText("Semana "+ semanaActualMateria);
         contTitleMateria.addComponent(BorderLayout.CENTER,lblTitulo);
         contTitleMateria.addComponent(BorderLayout.EAST, nextSemanaMateria);
-        contenido.addComponent(BorderLayout.NORTH, contTitleMateria);
+        contenido.addComponent(BorderLayout.SOUTH, contTitleMateria);
         contenido.addComponent(BorderLayout.CENTER, preContenidoMateria);
         cont.addComponent(BorderLayout.CENTER, contenido);
 
@@ -1082,6 +1442,7 @@ public class DetalleCurso extends BaseForm {
         cont.removeAll();
 
         final Container contenidoMateria = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        contenidoMateria.setUIID("ContainerFondoGris");
 
         ArrayList<Materia> materiasSemanaActual = new ArrayList<Materia>();
         for (Materia materia : Deposito.getMateriasByCurso(instancia.getCurso())) {
@@ -1091,7 +1452,10 @@ public class DetalleCurso extends BaseForm {
         }
         for (final Materia materia : materiasSemanaActual) {
             final Container contMateriaNueva = new Container(new BorderLayout());
+            contMateriaNueva.setUIID("ContainerRojo");
+            contMateriaNueva.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
             final TextField txtMateria = new TextField(materia.getDescripcion());
+            txtMateria.setUIID("TextFieldMateria");
 
             txtMateria.addDataChangeListener(new DataChangedListener() {
                 public void dataChanged(int type, int index) {
@@ -1099,33 +1463,44 @@ public class DetalleCurso extends BaseForm {
                     materia.guardarEnStorage();
                 }
             });
-            Button eliminar = new Button("x");
+            Button eliminar = new Button(" ");
+            eliminar.setUIID("ButtonEliminarMateria");
+            eliminar.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*40));
             eliminar.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent evt) {
-             Deposito.eliminarMateria(materia.getId());
-             loadMateria(cont, instancia, semana);
+                     Deposito.eliminarMateria(materia.getId());
+                     loadMateria(cont, instancia, semana);
                 }
             });
                    
             contMateriaNueva.addComponent(BorderLayout.WEST, eliminar);
             CheckBox check = new CheckBox();
+            check.setUIID("CheckBoxMateria");
             contMateriaNueva.addComponent(BorderLayout.EAST, check);
             contMateriaNueva.addComponent(BorderLayout.CENTER, txtMateria);
             contenidoMateria.addComponent(contMateriaNueva);
             getCurrent().animateLayout(0);
         }
-        Button btnAgregarMateria = new Button("Add materia");
+        Button btnAgregarMateria = new Button(" ");
+        btnAgregarMateria.setUIID("ButtonAgregarInferior");
+        btnAgregarMateria.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
         btnAgregarMateria.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 final Container contMateriaNueva = new Container(new BorderLayout());
+                contMateriaNueva.setUIID("ContainerRojo");
+                contMateriaNueva.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
                 final TextField txtMateria = new TextField();
+                txtMateria.setUIID("TextFieldMateria");
                 Materia materiaNueva = new Materia(-1, (byte) semana, txtMateria.getText(), instancia.getCurso());
                 materiaNueva.guardarEnStorage();
 
                 loadMateria(cont, instancia, semana);
-                Button eliminar = new Button("x");
+                Button eliminar = new Button(" ");
+                eliminar.setUIID("ButtonEliminarMateria");
+                eliminar.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*40));
                 CheckBox check = new CheckBox();
+                check.setUIID("CheckBoxMateria");
                 contMateriaNueva.addComponent(BorderLayout.WEST, eliminar);
                 contMateriaNueva.addComponent(BorderLayout.EAST, check);
                 contMateriaNueva.addComponent(BorderLayout.CENTER, txtMateria);

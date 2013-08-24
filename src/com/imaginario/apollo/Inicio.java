@@ -4,10 +4,11 @@
  */
 package com.imaginario.apollo;
 
-import com.codename1.ui.Form;
-import com.imaginario.apollo.entidades.Periodo;
+import com.codename1.ui.Container;
+import com.codename1.ui.Label;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.imaginario.apollo.entidades.Profesor;
-import java.io.IOException;
 
 /**
  *
@@ -17,6 +18,9 @@ public class Inicio extends BaseForm {
     
     public Inicio(Profesor profesor) {
         iniciarForm("Inicio", null, profesor);
+        Container c=new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                
+                getCurrent().addComponent(BorderLayout.CENTER,c);
         getCurrent().show();
     }
     

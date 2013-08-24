@@ -7,6 +7,7 @@ package com.imaginario.apollo;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -35,7 +36,11 @@ public class BaseForm {
         getCurrent().setLayout(new BorderLayout());
         
         Container contTitle = new Container(new BorderLayout());
-        Button btnMenu = new Button("Menú");
+        contTitle.setUIID("ContainerTituloVerde");
+        contTitle.setPreferredH((int)(((double)Display.getInstance().getDisplayHeight())/460*40));
+        Button btnMenu = new Button(" ");
+        btnMenu.setUIID("ButtonIconoHamburguesa");
+        btnMenu.setPreferredW((int)(((double)Display.getInstance().getDisplayWidth())/320*36));
         btnMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 MenuHamburguesa.mostrar(getCurrent(), profesor);
@@ -43,6 +48,7 @@ public class BaseForm {
         });
         contTitle.addComponent(BorderLayout.WEST, btnMenu);
         Label lblTitle = new Label(titulo);
+        lblTitle.setUIID("LabelTituloVerde");
         contTitle.addComponent(BorderLayout.CENTER, lblTitle);
         getCurrent().addComponent(BorderLayout.NORTH, contTitle);
     }
