@@ -27,18 +27,25 @@ public class ReportarFallas extends BaseForm {
 
         iniciarForm("Reportar Falla", _parent,_profeP);
         Container contenido = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        TextArea texto = new TextArea();
+        final TextArea texto = new TextArea();
         contenido.addComponent(texto);
         Container botones = new Container(new GridLayout (1,2));
         Button btnAceptar = new Button("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                
                 Dialog dlgMensaje = new Dialog("La falla ha sido reportada");
                 dlgMensaje.setDisposeWhenPointerOutOfBounds(true);
                 dlgMensaje.show();
+                
             }
         });
         Button btnCancelar = new Button("Cancelar");
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                
+            }
+        });
         botones.addComponent(btnAceptar);
         botones.addComponent(btnCancelar);
         contenido.addComponent(botones);
